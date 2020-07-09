@@ -2,7 +2,7 @@
 
 Lekcije će Vas naučiti sve što je vezano za napredne teme u okviru CS-a, od operativnih sistema do mašinskog učenja, ali postoji jedna ključna tema koja često nije pokrivena, i prepuštena studentima da je sami shvate: znanje njihovih alata.
 
-Naučičemo Vas kako da savladate komandnu liniju, koristite moćne text editore, fenski komponente sistema za kontrolu verzije, i još mnogo toga!
+Naučićemo Vas kako da savladate komandnu liniju, koristite moćne text editore, fensi komponente sistema za kontrolu verzije, i još mnogo toga!
 
 Studenti provode stotine sati koristeći ove alate tokom svog školovanja (i hiljade sati u toku njihove karijere), tako da ima smisla da steknete što bolje znanje. Savladavanje ovih alata Vam neće samo omogućiti da trošite manje vremena na podešavanje alata u skladu sa Vašim potrebama, već će i pružiti mogućnost da riješite probleme koji su ranije izgledali nemoguće kompleksni.
 
@@ -26,7 +26,7 @@ Video snimci ovih lekcija su dostupni [na Youtube.](https://www.youtube.com/play
 
 # O lekcijama
 
-Predavači: Ove lekcije predaju: [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/) i [Jose](https://josejg.com/). **Pitanja**: Pošaljite na e-mail na adresu: missing-semester@mit.edu
+Predavači: Ove lekcije predaju: [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/) i [Jose](https://josejg.com/). **Pitanja**: Pošaljite e-mail na adresu: missing-semester@mit.edu
 
 # Izvan MIT-a
 
