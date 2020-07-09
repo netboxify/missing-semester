@@ -91,3 +91,36 @@ missing:~$ pwd
 missing:~$ ../../bin/echo hello
 hello
 ```
+
+Primjećujete da nas naš shell prompt izvještava šta je naš trenutni direktorijum bio. Možete podesiti vaš prompt da vam pokazuje razne vrste korisnih informacija, koje ćemo preći u kasnijim lekcijama.
+
+Uopšteno, kada pokrenemo program, on će raditi u trenutnom direktorijumu, osim ako mu ne kažemo drugačije. Na primer, obično će tamo pretražiti datoteke i kreirati nove datoteke ukoliko je to potrebno.
+
+Da bi vidjeli postojeće fajlove u zadatom direktorijumu, koristimo komandu `ls` :
+
+```console
+missing:~$ ls
+missing:~$ cd ..
+missing:/home$ ls
+missing
+missing:/home$ cd ..
+missing:/$ ls
+bin
+boot
+dev
+etc
+home
+...
+```
+
+Osim ako je direktorijum pružen kao prvi argument, `ls` će ispisati sadržaj trenutnog direktorijuma. Većina komandi prihvata flags i opcije (flags sa vrijednostima) koje počinju sa `-` da bi modifikovali njihovo ponašanje. Obično, pokretanje programa sa `h` ili `--help` flag-om(`/?` na Windowsu) će ispisati neki pomoćni tekst koji će vam reći koji flags i opcije su dostupne. Na primer `ls --help` će nam reći:
+
+
+```console
+-l                         use a long listing format
+```
+
+```console
+missing:~$ ls -l /home
+drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
+```
