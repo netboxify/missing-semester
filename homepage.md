@@ -1,4 +1,4 @@
-# Propušteni semestar Vašeg CS obrazovanja
+# Nedostajući semestar Vašeg CS obrazovanja
 
 Lekcije će Vas naučiti sve što je vezano za napredne teme u okviru CS-a, od operativnih sistema do mašinskog učenja, ali postoji jedna ključna tema koja često nije pokrivena, i prepuštena studentima da je sami shvate: znanje njihovih alata.
 
