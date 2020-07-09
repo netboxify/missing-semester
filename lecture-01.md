@@ -67,3 +67,27 @@ missing:~$ which echo
 missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
+Kada pokrenemo `echo` komandu, shell vidi da bi trebao da izvrši program `echo`, i onda pretražuje kroz `:`-odvojenu listu direktorijuma u `$PATH`-u za fajl sa tim imenom. Kada ga pronađe, pokreće ga (uz pretpostavku da je fajl izvršnog tipa, više o tome kasnije). Možemo pronaći koji fajl se izvršava za zadato ime programa koristeći `which` program. Takođe možemo kompletno izbjeći `$PATH` zadavanjem putanje fajlu koji želimo da izvršimo.
+
+## Kretanje kroz shell
+
+Putanja u shell-u je ograničena lista direktorijuma; odvojena `/` na Linux i macOS i `\` na Windows-u. Na Linux i macOS, putanja `/` je 'root' sistema datoteka, ispod koje se nalaze svi drugi direktorijumi i fajlovi, dok na Windows/u postoji postoji jedan root za svaku disk particiju (npr., `C:\\`). Polazimo od pretpostavke da koristite Linux fajl sistem u ovim lekcijama. Putanja koja počinje  sa `/` je apsolutna putanja. Svaka druga putanja je relativna putanja. Relativne putanje su relativne u odnosu na trenutni radni direktorijum, koji možemo vidjeti koristeći `pwd` komandu, i promijeniti je sa `cd` komandom. U putanji, `.` se odnosi na trenutni direktorijum, a `..` na parent direktorjum.
+
+```console
+missing:~$ pwd
+/home/missing
+missing:~$ cd /home
+missing:/home$ pwd
+/home
+missing:/home$ cd ..
+missing:/$ pwd
+/
+missing:/$ cd ./home
+missing:/home$ pwd
+/home
+missing:/home$ cd missing
+missing:~$ pwd
+/home/missing
+missing:~$ ../../bin/echo hello
+hello
+```
