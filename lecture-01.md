@@ -124,3 +124,74 @@ Osim ako je direktorijum pružen kao prvi argument, `ls` će ispisati sadržaj t
 missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
+
+Ovo nam daje dosta novih informacija o svakom fajlu ili trenutnom direktorijumu. Prvo, `d` na početku linije nam govori da je `missing` direktorijum. Zatim slijedi grupa od tri karaktera (`rwd`). Ovo ukazuje na to koje dozvole vlasnk fajla (`missing`), vlasnička grupa (`users`) i svako drugi ima u pomenutom item-u. `-` Ukazuje da trenutni nalogodavac nema dato odobrenje. Jedino je vlasnik ovlašćen da mijenja (`w`) direktorijum `missing` (npr. dodaje i brise fajlove). Da bi pristupio direktorijumu, user mora imati "search" (koji je oznacen kao "execute": `x`) dozvolu na tom direktorijumu (i njegovom parent-u). Da bi izlistao njegov sadržaj, korisnik mora imati read (`r`) dozvolu na tom direktorijumu. Za fajlove, dozvole su onakve kako i pretpostavljate. Primjećujete da gotovo svi fajlovi u `/bin` imaju `x` dozvolu za poslednju od grupa "svi ostali", tako da svako može izvršiti ove programe.
+
+Još jedan pogodni program, koji bi u ovom trenutku bilo dobro da znate jeste `mv` (da promenite naziv fajla ili da ga premjestite), `cp` (da kopirate fajl), i `mkdir`(da napravite novi direktorijum).
+
+Ukoliko budete imali potrebu za više informacija koje su vezane za argumente programa, inpute, outpute, ili kako program generalno funkcioniše, pokušajte sa `man` programom. On uzima kao argument ime programa, i prikazuje vam uputstvo za navedeni program. Pritisnite `q` da bi izašli.
+
+```console
+missing:~$ man ls
+```
+
+## Povezivanje programa
+
+U shell-u programi imaju dva glavna toka koji su povezani sa njima: ulazni i izlazni tok. Kada program pokuša da čita input, čita se iz ulaznog toka, a kada nešto štampa, štampa u svom izlaznom toku. Obično se i input i output programa nalaze u vašem terminalu. Odnosno, vaša tastatura je vaš input, a vaš monitor je vaš output. Ipak, i te tokove možemo povezati. 
+
+Najjednostavnija forma preusmjeravanja je `< file` i `> file`. Ovo vam pruža mogućnost da povežete input i output toka programa u fajlu: 
+
+```console
+missing:~$ echo hello > hello.txt
+missing:~$ cat hello.txt
+hello
+missing:~$ cat < hello.txt
+hello
+missing:~$ cat < hello.txt > hello2.txt
+missing:~$ cat hello2.txt
+hello
+```
+
+Takođe možete da koristite `>>` da dodate fajlu. Ovakva vrsta redirekcije inputa/outputa je najkorisnije u upotrebi `pipes`-a. Operator `|` vam dopušta `chain` programa na način što je output jednog u stvari input od drugog. 
+
+```console
+missing:~$ ls -l / | tail -n1
+drwxr-xr-x 1 root  root  4096 Jun 20  2019 var
+missing:~$ curl --head --silent google.com | grep --ignore-case content-length | cut --delimiter=' ' -f2
+219
+```
+
+Ućićemo u mnogo više detalja o tome kako da se najbolje iskoristi pipes u lekciji o obradi podataka.
+
+## Svestran i moćan alat
+
+Na većini UNIX-like sistema, jedan korisnik je poseban: `root` korisnik. Možda ste ga vidjeli u gore navednim datotekama. Root korisnik je izvan (gotovo) svih ograničenja, i u mogućnosti je da kreira, pregleda, ažurira i briše bilo koji fajl u sistemu. Obično se nećete prijavljivati u vašem sistemu kao root korisnik, jer se lako desi da slučajno pokvarite nešto u sistemu. Umjesto toga, koristićete `sudo` komandu. Kao što sami naziv govori, dopušta vam da uradite (do) nešto kao "su" (skraćenica za "super user", ili "root"). Kada primite grešku o zabrani dozvole, to je obično zbog toga što nešto morate da odradite kao "root". Ipak, dva puta provjerite da li je baš ovo način na koji želite da odradite nešto.
+
+Da bi bili root, postoji jedna stvar koju bi trebalo da uradite, a to je pišete u `sysfs` fajl sistem postavljen kao `/sys.sysfs` otkrivajući broj kerner parametara kao fajlova, tako da lako možete da rekonfigurišete kernel u hodu bez specijalnih alata. **Imajte u vidu da sysyfs ne postoji na Windows-u ili macOS-u.**
+
+Na primer, osvijetljenje vašeg laptop ekrana se otkriva kroz fajl koji se zove `brightness` 
+
+`/sys/class/backlight`
+
+Upisivajući vrijednost u tom fajlu, možemo promijeniti osvijetljenje ekrana. Vaš prvi instikt bi vam mogao reći da uradite nešto ovako: 
+
+```console
+$ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
+/sys/class/backlight/thinkpad_screen/brightness
+$ cd /sys/class/backlight/thinkpad_screen
+$ sudo echo 3 > brightness
+An error occurred while redirecting file 'brightness'
+open: Permission denied
+```
+
+Ova greška vas može iznenaditi. Nakon svega, pokrenuli smo komandu sa `sudo`! Ovo je jedna vrlo važna stvar koju treba znati o shell-u. Operatori kao što su `|`, `>`, i `<` su obrađeni od strane shell-a, a ne od strane individualnih programa. Echo i prijatelji ne znaju ništa o `|`. Oni samo čitaju iz njihovih inputa i ispisuju u njihove outpute, koji god to bili. U slučaju iznad, shell (koji je potvrđen samo kao vaš korisnik), pokušava da otvori brightness fajl da bi pisao u njemu, prije nego što je podešen kao sudo echo output, ali je odvraćen od toga jer se shell ne pokreće kao root. Koristeći ovo saznanje, možemo pronaći način da ovo odradimo: 
+
+```console
+$ echo 3 | sudo tee brightness
+```
+
+Kako je `tee` program koji ćemo koristiti za otvaranje `/sys` fajlova za pisanje, i pokreće se kao root, sve dozvole su odobrene. Možete kontrolisati razne korisne stvari kroz `sys`, kao što su stanja različitih sistema LED-a (vaša putanja može biti različita):
+
+```console
+$ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
+```
