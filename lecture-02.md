@@ -66,4 +66,30 @@ true ; echo "This will always run"
 false ; echo "This will always run"
 # This will always run
 ```
+Još jedan poznati obrazac je kada želite da dobijete output komande kao varijablu. Ovo može biti odrađeno zamjenom komandi. Kada god postvate `$( CMD )` izvršiće `CMD`, uzeti output komande i zamijeniti je na mjestu. Na primer, ukoliko uradite `for file in $(ls)`, shell će prvo pozvati `ls` i onda izvršiti iteraciju kroz te vrijednosti. Sličan način, koji je manje poznat jeste proces zamjene, `<( CMD )` će izvršiti `CMD` i postaviti output u trenutni fajl u zamijeniti `<()` sa nazivom toga fajla. Ovo je korisno kada komande očekuju vrijednosti da im budu proslijeđene od strane fajla umjesto od strane `STDIN`. Na primer, `diff <(ls foo) <(ls bar)` će pokazati razlike između fajlova u direktorijumu foo i bar.
 
+Kako je ovdje prikazano jako puno informacija, hajde da vidimo primjer koji prikazuje primjenu ovih stvari. Izvršiće iteraciju kroz argumente koje smo obezbijedili, 
+`grep` za string `foobar`, i dodaće ih fajlu kao komentar ukoliko nije pronađen.
+
+```console
+#!/bin/bash
+
+echo "Starting program at $(date)" # Date will be substituted
+
+echo "Running program $0 with $# arguments with pid $$"
+
+for file in "$@"; do
+    grep foobar "$file" > /dev/null 2> /dev/null
+    # When pattern is not found, grep has exit status 1
+    # We redirect STDOUT and STDERR to a null register since we do not care about them
+    if [[ $? -ne 0 ]]; then
+        echo "File $file does not have any foobar, adding one"
+        echo "# foobar" >> "$file"
+    fi
+done
+```
+U poređenju smo testirali da li `$?` nije bilo jednako 0. Bash sprovodi mnoga poređenja ovakve vrste - možete pronaći detaljnu listu u man stranici za [test](https://www.man7.org/linux/man-pages/man1/test.1.html). Kada se izršava poređenje u bash-u, pokušajte da više koristite duple zagrade `[[ ]]` u odnosu na obične zagrade `[ ]`. Šanse da napravite greške su niže, iako nisu prenosive na `sh`. Detaljnije objašnjenje može biti pronađeno [ovdje](mywiki.wooledge.org/BashFAQ/031).
+
+Kada pokrećemo skriptu, često ćete željete da pružite argumente koji su slični. Bash ima način da se ovo olakša, širenjem izraza
+
+When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell globbing.
