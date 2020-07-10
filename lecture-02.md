@@ -90,6 +90,63 @@ done
 ```
 U poređenju smo testirali da li `$?` nije bilo jednako 0. Bash sprovodi mnoga poređenja ovakve vrste - možete pronaći detaljnu listu u man stranici za [test](https://www.man7.org/linux/man-pages/man1/test.1.html). Kada se izršava poređenje u bash-u, pokušajte da više koristite duple zagrade `[[ ]]` u odnosu na obične zagrade `[ ]`. Šanse da napravite greške su niže, iako nisu prenosive na `sh`. Detaljnije objašnjenje može biti pronađeno [ovdje](mywiki.wooledge.org/BashFAQ/031).
 
-Kada pokrećemo skriptu, često ćete željete da pružite argumente koji su slični. Bash ima način da se ovo olakša, širenjem izraza
+Kada pokrećemo skriptu, često ćete željete da pružite argumente koji su slični. Bash ima način da se ovo olakša, širenjem izraza provođenjem expanzije fajlnejma. Ove tehnike se česte nazivaju shell _globbing_.
 
-When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell globbing.
+- Wildcards - Kada god želite da izvedete neku vrstu wildcard podudaranja, možete koristiti `?` i `*` da bi se podudarili sa jednim ili više karaktera. Na primer, dati fajlovi `foo`, `foo1`, `foo2`, `foo10` i `bar`, i komanda `rm foo?` će izbrisati `foo1` i `foo2`, dok će `rm foo*` izbrisati sve osim `bar`.
+
+-Vitičaste zagrade {} - Kada god imate zajednički substring u seriji komandi, možete koristiti vitičaste zagrade za bash da bi proširili ovo automatski. Ovo je veoma korisno kada pomjerate ili konvertujete fajlove.
+
+```console
+convert image.{png,jpg}
+# Will expand to
+convert image.png image.jpg
+
+cp /path/to/project/{foo,bar,baz}.sh /newpath
+# Will expand to
+cp /path/to/project/foo.sh /path/to/project/bar.sh /path/to/project/baz.sh /newpath
+
+# Globbing techniques can also be combined
+mv *{.py,.sh} folder
+# Will move all *.py and *.sh files
+
+
+mkdir foo bar
+# This creates files foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h
+touch {foo,bar}/{a..h}
+touch foo/x bar/y
+# Show differences between files in foo and bar
+diff <(ls foo) <(ls bar)
+# Outputs
+# < x
+# ---
+# > y
+```
+
+Pisanje bash bash skripti može biti izazovno i neintiutivno. Postoje alati kao što je [spellcheck](https://github.com/koalaman/shellcheck) koji će vam pomoći da pronađete greške u vašim sh/bash skriptama.
+
+Imajte na umu da skripte ne moraju biti napisane u bash-u da bi bile pozvane iz terminala. Na primer, ovo je jednostavna Python skripta koja ispisuje argumente u obrnutom redosledu:
+```console
+#!/usr/local/bin/python
+import sys
+for arg in reversed(sys.argv[1:]):
+    print(arg)
+```
+Kernel zna da izvrši ovu skriptu sa python interpreterom umjesto sa shell komandom zato što smo uključili [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix) linije na samom vrhu skripte. Dobra praksa je da pišete shebang liniju koristeći env komandu koja će se izvršiti bez obzira koja je komanda linija u sistemu, povećavajući prenosivost vaših skripti. Da bi riješio lokaciju, env će koristiti `PATH` evironment variable koji smo predstavili u prvoj lekciji. Za ovaj primjer shebang linija će izgledati ovako: `#!/usr/bin/env python.`
+
+Neke razlike između shell funcija i scripti koje bi trebali da imate u vidu su:
+
+- Funkcije moraju biti u istom jeziku kao i shell, dok skripte mogu biti napisane u bilo kojem jeziku. Ovo je razlog zašto je uključivanje shebang za skripte veoma važno.
+- Funkcije se učitavaju jednom kada se pročita njihova definicija. Skripte se učitavaju svaki put kada se izvršavaju. Ovo čini funkcije malo bržim za učitavanje, ali kada ih promijenite moraćete da ponovo učitate njihove definicije.
+- Funkcije se izvršavaju u trenutnom shell okruženju, dok se skripte izvršavaju u njihovom posebnom procesu. Dodatno, funkcije mogu promijeniti varijable okruženja, npr. promijeniti vaš trenutni direktorijum, dok skripte ne mogu. Skripte će biti zaobiđene od vrijednosti environment varijabli koje su bile eksportovane koristeći [export](https://www.man7.org/linux/man-pages/man1/export.1p.html).
+- Kao i sa bilo kojim drugim programskim jezikom, funkcije su moćan konstrukt za postizanje modularnosti, ponovne upotrebe koda, i jasnoće shell kod-a. Obično će shell skripte uključiti njihovu sopstvenu definiciju funkcije.
+
+## Shell Tools
+
+### Pronalaženje načina za korišćenje komandi
+
+U ovom trenutku, vjerovatno se pitate kako da pronađete za komande u sekcijama kao što su: `ls -l, mv -i i mkdir -p`. Još šire, imajući u vidu komandu, kako saznajete šta ona radi i koje su njene opcije? Uvijek možete da koristite google, ali pošto je UNIX stariji od StackOverflow-a, postoje već ugrađeni načini da bi došli do ovih informacija.
+
+Kao što smo vidjeli u shell lekciji, prvi pristup bi bio da pozovete komadnu sa `-h` ili `--help` flagovima. Detaljniji pristup jeste da koristite man komandu. Skraćenica za uputstvo, [man](https://www.man7.org/linux/man-pages/man1/man.1.html) pruža mogućnost stranice sa uputstvom (zvanom manpage) za komandu koju ste izabrali. Na primer, `man rm` će ispisati ponašanje rm komande zajedno sa flagovima koje prima, uključujući `-i` flag koji smo prikazali ranije. U stvarim, sve linkove koje sam postavljao do sada za svaku komandu su onlajn verzije Linux manpages za komande. Čak i strane komande koje instalirate će imati manpage ukoliko ga je programer napisao i uključio u proces instalacije. Za interaktivne alate kao što su oni koji su bazirani na ncurses, može se pristupiti pomoći za programe koristeći `:help` komandi ili kucajući `?`.
+
+Nekada manpages mogu pružiti previše detaljan opis komandi, i mogu da otežaju odluku koji flag/sintaksu će biti korišćen za standardnu upotrebu. [TLDR](https://tldr.sh/) strance su sjajno rešenje koje se fokusira na dati primjer tako da možete mnogo brže i lakše da izaberete opciju koju ćete koristiti. Lično, češće koristim stranice za [tar](https://tldr.ostera.io/tar) i [ffmpeg](https://tldr.ostera.io/ffmpeg) u odnosu na manpages.
+
