@@ -195,3 +195,30 @@ Kako je `tee` program koji ćemo koristiti za otvaranje `/sys` fajlova za pisanj
 ```console
 $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
+
+## Sledeći koraci
+
+U ovom trenutku, poznato vam je kao da radite sa shell-om da bi obavili osnovne zadatke. Trebalo bi da ste u mogućnosti da se krećete kroz fajlove za koje ste zainteresovani, i koristite osnovne funkscionalnosti većine programa. U sledećoj lekciji, govorićemo o tome kako da izvršite i automatizujete zadatke koji su komplikovaniji koristeći shell i mnoge druge pogodne command-line programe.
+
+## Vježbe
+
+1. Kreirajte novi direktorijum i nazovite ga `missing` u okviru `/temp`.
+2. Pogledajte o `touch` programu. `man` program je vaš prijatelj. 
+3. Koristite `touch` da bi kreirali novi fajl pod nazivom `semestar` u `missing`.
+4. Napišite sledeće u tom fajlu, jednu po jednu liniju: 
+
+`#!/bin/sh`
+`curl --head --silent https://missing.csail.mit.edu`
+
+Prva linija može biti malo nezgodna. Pomoće vam da znate da `#` pokreće komentar u Bash-u, a `!` ima specijalno značenje čak i sa duplim navodnicima `(")`. Bash tretira polunavodnike drugačije: oni će odraditi trik u ovom slučaj. Pogledajte Bash [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) stranicu za uputstvo za više informacija. 
+
+5. Pokušajte da izvršite fajl, npr. napišite putanju skripti (`./semestar`) u vaš shell i pritisnite enter. Shvatite zašto ne radi konsultujući output komande `ls` (nagovještaj: pogledajte dio sa dozvolama u fajlu).
+6. Izvršite komandu eksplicitno startujući `sh` interpreter, i pružanjem fajla `semestar` kao prvog argumenta, npr. `sh semestar`. Zašto ovo radi za razliku od načina  `./semestar`?
+7. Pogledajte `chmod` program (koristite `man chmod`).
+8. Koristite `chmod` da bi omogućili da izvršavanje komande `./semestar` radije nego da kucate `sh semestar`. Kako shell zna da bi fajl trebao da bude interpretiran koristeći `sh`? Pogledajte stranicu [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) za više informacija.
+9. Koristite `|` i `>` da bi napisali "poslednji podešen" datum output od strane `semestra` u fajl sa nazivom `last-modified.txt` u vašem home direktorijumu.
+10. Napišite komandu koja čita nivo napajanja baterije laptopa ili temperaturu procesora vaše mašine iz `/sys`. Napomena: Ukoliko ste korisnik macOS-, vaš OS nema sysf, tako da možete preskočiti ovu vježbu.
+
+
+
+How does your shell know that the file is supposed to be interpreted using sh? See this page on the shebang line for more information.
