@@ -8,3 +8,62 @@ U ovoj lekciji, predstavicemo neke osnove koje se tiču korišćenja bash-a kao 
 
 ## Shell scripting
 
+Do sada smo vidjeli kako da izvršimo komande u sell-u i kako da ih spojimo. Ipak, u mnogim slučajevima željećete da izvršite seriju komandi i iskoristite kontrolu niza izraza kao što su uslovni iskazi ili petlje.
+
+Shell skripte su sledeće korak u kompleksnosti. Većina shell-ova imaju svoje skripting jezike sa varijablama, kontrolom toka i ličnom sintaksom. Ono što čini shell skripting različitim od ostalih skripting programskih jezika jeste da je optimizovan za izvršavanje zadataka koji se tiču shell-a. Takođe, kreiranje komandnih pajplajna, čuvanje rezultata u fajlovima, i čitanja kroz standardni input su primitive u shell skriptingu, koje je lakše koristiti u odnosu na skripting jezike koji su generalne prirode. Za ovu sekciju mi ćemo se fokusirati na bash skripting, budući da je on najčešći.
+
+Da bi dodali varijble u bash-u, koristite sintaksu `foo=bar` i pristupite vrijednosti varijable sa `$foo`. Imajte u vidu da `foo = bar` neće raditi, s obzirom na to da je interpretirano kao pozivanje foo programa sa argumentima `=` i `bar`. Generalno u shell skriptingu razmak će izvršiti dijeljenje argumenata. Ovo ponašanje može biti zbunjujuće iz prve, pa uvijek imajte to u vidu.
+
+Stringovi u bash-u mogu biti definisani sa `'` i `"` navodnicima, ali oni nisu jednaki. Stringovi označeni sa `'` su literalni stringovi i neće zamijeniti vrijednost varijable, dok `"` navodnici hoće.
+
+```console
+foo=bar
+echo "$foo"
+# prints bar
+echo '$foo'
+# prints $foo
+```
+Kao i sa većinom programskih jezika, bash podržava kontrolu toka sa tehnikama koje uključuju `if`, `case`, `while` and `for`. Slično, `bash` ima funkscije koje primaju argumente i dozvoljava vršenje operacija sa njima. Evo primjera funkcija koja kreira direktorijum i vrši cd u njega.
+
+```console
+mcd () {
+    mkdir -p "$1"
+    cd "$1"
+}
+```
+
+Ovdje je `$1` prvi argument skripti/funkciji. Za razliku od drugih skripting jezika, bash koristi širok spektar specijalnih varijabli koje ukazuju na argumente, error kodove, i druge relevantne varijable. Ispod je lista nekih od njih. Obimnija lista se može naći [ovdje](https://www.tldp.org/LDP/abs/html/special-chars.html)
+
+- `$0` = Naziv skritpte
+- `$1` do `$9` - Argumenti skripte. `$1` je prvi argument i tako da dalje.
+- `$@` - Svi argumenti
+- `$#` - Broj argumenata
+- `$?` - Vraća kod od prethodne komande
+- `$$` - Indetifikacioni broj procesa (IBP) za trenutnu skriptu
+- `!!` - Čitava poslednja komanda, uključujući argumente. Često se koristi da bi se izvršila komanda koja je prethodno podbacila zbog dozvola koje nedostaju; Možete brzo re-izvršiti komandu sa sudo koristeći `sudo !!`
+- `$_` - Poslednji argument od poslednje komande. Ako ste u interaktivnom shell-u, možete takođe brzo dobiti ovu vrijednost kucanjem `Esc` i zatim `.`
+
+Komande će često vratiti output koristeći `STDOUT`, greške kroz `STDERR`, i Return Code da bi izvijestile o greškama na način koji je više skript-friendly. Kod koji se vraća ili exit status je način na koji skript/komande moraju da komuniciraju o tome kako je izvršavanje proteklo. Vrijednost 0 obično znači da je sve proteklo dobro; Bilo šta što je drugačije od 0 znači da je nastupila greška.
+
+Exit kodovi se mogu koristiti da bi se uslovno izvršavala komanda koristeći `&&` (i operator) i `||` (ili operator). Komande takođe mogu biti razdvojene u okviru iste linije koristće tačku zarez `;`. `Ispravni program` će uvijek imati 0 kao return kod, a komanda koja `nije uspjela` će uvijek imati 1 kao return kod. Hajde da vidimo neke primjere.
+
+```console
+false || echo "Oops, fail"
+# Oops, fail
+
+true || echo "Will not be printed"
+#
+
+true && echo "Things went well"
+# Things went well
+
+false && echo "Will not be printed"
+#
+
+true ; echo "This will always run"
+# This will always run
+
+false ; echo "This will always run"
+# This will always run
+```
+
