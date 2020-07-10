@@ -6,17 +6,17 @@ alt="Lecture 1: Course Overview + The Shell (2020)" width="240" height="180" bor
 
 # Motivacija
 
-Kao inženjeri računarskih nauka, znamo da su računari odlična pomoć u zadacima koji se ponavljaju. Ipak, veoma često, zaboravljamo da se to jednako odnosi na našu upotrebu računara koliko i na radnje koje želimo da naši računari obave. Na raspolaganju nam je širok spektar alata koji nam pružaju mogućnost da budemo produktivniji i riješimo složenije probleme tokom rada na bilo kom problemu koji se tiče računara. Ipak, mnogi od nas koriste samo mali dio tih alata, znamo samo kako da se izborimo sa manjim problemima, i da kopi-pestujemo komandne sa interneta kada 'zaglavimo'.
+Kao inženjeri računarskih nauka, znamo da su računari odlična pomoć u zadacima koji se ponavljaju. Ipak, veoma često, zaboravljamo da se to jednako odnosi na našu upotrebu računara koliko i na radnje koje želimo da naši računari obave. Na raspolaganju nam je širok spektar alata koji nam pružaju mogućnost da budemo produktivniji i riješimo složenije probleme tokom rada na bilo kom problemu koji se tiče računara. Ipak, mnogi od nas koriste samo mali dio tih alata, znamo samo kako da se izborimo sa manjim problemima, i da ubacimo copy-paste komande sa interneta kada 'zaglavimo'.
 
-Cilj ove lekcije jeste da navedeni problem riješi.
+Cilj ovih predavanja jeste da navedeni problem riješi.
 
-Želimo da Vas naučimo kako da najbolje iskoristite alate koje znate, upoznamo Vas sa novim alatima, i nadamo se da postaknemo uzbuđenje kod Vas za samostalno istraživanje (a možda i izradu više alata). To je ono za šta vjerujemo da je nedostajući semestar u većini nastavnih planova CS-a.
+Želimo da Vas naučimo kako da najbolje iskoristite alate koje znate, upoznamo Vas sa novim alatima, i nadamo se da postaknemo uzbuđenje kod vas za samostalno istraživanje (a možda i izradu više alata). To je ono za šta vjerujemo da je nedostajući semestar u većini nastavnih planova CS-a.
 
-# Struktura časa
+# Struktura predavanja
 
-Lekcije se sastoje od 11 lekcija koje traju 1 sat, a svaka se tiče [određene teme](https://missing.csail.mit.edu/2020/). Lekcije su u velikoj mjeri nezavisne, a kako se semestar odvija, pretpostavićemo da ste upoznati sa sadržajem iz ranijih predavanja. Imamo zabilješke online, ali će biti dosta sadržaja koji će biti pokriven u lekcijama (npr. u formi demo-a) koji možda neće biti u zabilješkama. Lekcije ćemo snimati, i postaviti ih online. 
+Predavanje se sastoji od 11 lekcija koje traju 1 sat, a svaka se tiče [određene teme](https://missing.csail.mit.edu/2020/). Lekcije su u velikoj mjeri nezavisne, a kako se semestar odvija, pretpostavićemo da ste upoznati sa sadržajem iz ranijih predavanja. Imamo zabilješke online, ali će biti dosta sadržaja koji će biti pokriven u lekcijama (npr. u formi demo-a) koji možda neće biti u zabilješkama. Lekcije ćemo snimati, i postaviti ih online. 
 
-Pokušaćemo da pokrijemo dosta toga tokom kursa koji se sadrži od samo 11 lekcija koje traju 1 sat, tako da će lekcije biti prilično 'guste'. Da bi Vam pružili malo vremena da se upoznate sa sadržajem u Vašem sopstvenom ritmu, svaka lekcija sadrži set vježbi koje Vas vode kroz ključne tačke u lekciji. Nakon svake lekcije, ugostićemo Vas u kancelariji, gdje ćemo odgovoriti na sva potencijalna pitanja. Ako prisustvuje lekciji online, možete nam poslati pitanje na missing-semester@mit.edu
+Pokušaćemo da pokrijemo dosta toga tokom predavanja koje se sadrži od samo 11 lekcija koje traju 1 sat, tako da će lekcije biti prilično 'guste'. Da bi Vam pružili malo vremena da se upoznate sa sadržajem u Vašem sopstvenom ritmu, svaka lekcija sadrži set vježbi koje Vas vode kroz ključne tačke u lekciji. Nakon svake lekcije, ugostićemo Vas u kancelariji, gdje ćemo odgovoriti na sva potencijalna pitanja. Ako prisustvujete lekciji online, možete nam poslati pitanje na missing-semester@mit.edu
 
 Uzimajući u obzir vrijeme kojim smo ograničeni, nećemo biti u mogućnosti da pređemo sve alate na istom nivou detalja kao što bio slučaj sa punim časovima. Gdje god je to moguće, pokušaćemo da Vas usmjerimo ka resursima sa dodatnim informacijama vezanim za alat ili temu, ali ukoliko Vam nešto posebno zapadne za oko, ne oklijevajte da nas kontaktirate i pitate za smjernice.
 
@@ -29,8 +29,6 @@ Računari danas imaju širok spektar interfejsa za zadavanje komandi, fensi graf
 Gotovo sve platforme kojima imate pristup imaju shell u jednoj formi ili drugoj, a mnogi od njih imaju više shell-ova između kojih možete da birate. Dok postoje razlike u detaljima, oni su suštinski isti: dopuštaju vam da pokrenete programe, date inpute, i inspektuje njihov rezultat u polu-struktuiranom načinu.
 
 U ovoj lekciji, fokusiraćemo se na Bourne Again SHell, ili skraćeno 'bash'. Ovo je jedan on najčešće korišćenih shell-ova, i njegova sintaksa je slična onome što ćete vidjete u mnogim drugom shell-ovima. Da bi otvorili shell prompt (gdje možete da kucate komande), prvo vam je potreban terminal. Vaš uredjaj je vjerovatno došao sa jednim pre-instaliranim, ili možete relativno lako da instalirate jedan.
-
-In this lecture, we will focus on the Bourne Again SHell, or “bash” for short. This is one of the most widely used shells, and its syntax is similar to what you will see in many other shells. To open a shell prompt (where you can type commands), you first need a terminal. Your device probably shipped with one installed, or you can install one fairly easily
 
 ## Korišćenje shell-a
 
@@ -71,7 +69,7 @@ Kada pokrenemo `echo` komandu, shell vidi da bi trebao da izvrši program `echo`
 
 ## Kretanje kroz shell
 
-Putanja u shell-u je ograničena lista direktorijuma; odvojena `/` na Linux i macOS i `\` na Windows-u. Na Linux i macOS, putanja `/` je 'root' sistema datoteka, ispod koje se nalaze svi drugi direktorijumi i fajlovi, dok na Windows/u postoji postoji jedan root za svaku disk particiju (npr., `C:\\`). Polazimo od pretpostavke da koristite Linux fajl sistem u ovim lekcijama. Putanja koja počinje  sa `/` je apsolutna putanja. Svaka druga putanja je relativna putanja. Relativne putanje su relativne u odnosu na trenutni radni direktorijum, koji možemo vidjeti koristeći `pwd` komandu, i promijeniti je sa `cd` komandom. U putanji, `.` se odnosi na trenutni direktorijum, a `..` na parent direktorjum.
+Putanja u shell-u je ograničena lista direktorijuma; odvojena `/` na Linux i macOS i `\` na Windows-u. Na Linux i macOS, putanja `/` je 'root' sistema datoteka, ispod koje se nalaze svi drugi direktorijumi i fajlovi, dok na Windows/u postoji jedan root za svaku disk particiju (npr., `C:\\`). Polazimo od pretpostavke da koristite Linux fajl sistem u ovim lekcijama. Putanja koja počinje  sa `/` je apsolutna putanja. Svaka druga putanja je relativna putanja. Relativne putanje su relativne u odnosu na trenutni radni direktorijum, koji možemo vidjeti koristeći `pwd` komandu, i promijeniti je sa `cd` komandom. U putanji, `.` se odnosi na trenutni direktorijum, a `..` na parent direktorjum.
 
 ```console
 missing:~$ pwd
@@ -113,7 +111,7 @@ home
 ...
 ```
 
-Osim ako je direktorijum pružen kao prvi argument, `ls` će ispisati sadržaj trenutnog direktorijuma. Većina komandi prihvata flags i opcije (flags sa vrijednostima) koje počinju sa `-` da bi modifikovali njihovo ponašanje. Obično, pokretanje programa sa `h` ili `--help` flag-om(`/?` na Windowsu) će ispisati neki pomoćni tekst koji će vam reći koji flags i opcije su dostupne. Na primer `ls --help` će nam reći:
+Osim ako je direktorijum zadat kao prvi argument, `ls` će ispisati sadržaj trenutnog direktorijuma. Većina komandi prihvata flags i opcije (flags sa vrijednostima) koje počinju sa `-` da bi modifikovali njihovo ponašanje. Obično, pokretanje programa sa `h` ili `--help` flag-om(`/?` na Windowsu) će ispisati neki pomoćni tekst koji će vam reći koji flags i opcije su dostupne. Na primer `ls --help` će nam reći:
 
 
 ```console
