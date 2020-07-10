@@ -165,7 +165,7 @@ Ućićemo u mnogo više detalja o tome kako da se najbolje iskoristi pipes u lek
 
 Na većini UNIX-like sistema, jedan korisnik je poseban: `root` korisnik. Možda ste ga vidjeli u gore navednim datotekama. Root korisnik je izvan (gotovo) svih ograničenja, i u mogućnosti je da kreira, pregleda, ažurira i briše bilo koji fajl u sistemu. Obično se nećete prijavljivati u vašem sistemu kao root korisnik, jer se lako desi da slučajno pokvarite nešto u sistemu. Umjesto toga, koristićete `sudo` komandu. Kao što sami naziv govori, dopušta vam da uradite (do) nešto kao "su" (skraćenica za "super user", ili "root"). Kada primite grešku o zabrani dozvole, to je obično zbog toga što nešto morate da odradite kao "root". Ipak, dva puta provjerite da li je baš ovo način na koji želite da odradite nešto.
 
-Da bi bili root, postoji jedna stvar koju bi trebalo da uradite, a to je pišete u `sysfs` fajl sistem postavljen kao `/sys.sysfs` otkrivajući broj kerner parametara kao fajlova, tako da lako možete da rekonfigurišete kernel u hodu bez specijalnih alata. **Imajte u vidu da sysyfs ne postoji na Windows-u ili macOS-u.**
+Da bi bili root, postoji jedna stvar koju bi trebalo da uradite, a to je da pišete u `sysfs` fajl sistem postavljen kao `/sys.sysfs` otkrivajući broj kernel parametara kao fajlova, tako da lako možete da rekonfigurišete kernel u hodu bez specijalnih alata. **Imajte u vidu da sysfs ne postoji na Windows-u ili macOS-u.**
 
 Na primer, osvijetljenje vašeg laptop ekrana se otkriva kroz fajl koji se zove `brightness` 
 
@@ -208,7 +208,7 @@ U ovom trenutku, poznato vam je kao da radite sa shell-om da bi obavili osnovne 
 `#!/bin/sh`
 `curl --head --silent https://missing.csail.mit.edu`
 
-Prva linija može biti malo nezgodna. Pomoće vam da znate da `#` pokreće komentar u Bash-u, a `!` ima specijalno značenje čak i sa duplim navodnicima `(")`. Bash tretira polunavodnike drugačije: oni će odraditi trik u ovom slučaj. Pogledajte Bash [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) stranicu za uputstvo za više informacija. 
+Prva linija može biti malo nezgodna. Pomoćiće vam da znate da `#` pokreće komentar u Bash-u, a `!` ima specijalno značenje čak i sa duplim navodnicima `(")`. Bash tretira polunavodnike drugačije: oni će odraditi trik u ovom slučaj. Pogledajte Bash [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) stranicu za uputstvo za više informacija. 
 
 5. Pokušajte da izvršite fajl, npr. napišite putanju skripti (`./semestar`) u vaš shell i pritisnite enter. Shvatite zašto ne radi konsultujući output komande `ls` (nagovještaj: pogledajte dio sa dozvolama u fajlu).
 6. Izvršite komandu eksplicitno startujući `sh` interpreter, i pružanjem fajla `semestar` kao prvog argumenta, npr. `sh semestar`. Zašto ovo radi za razliku od načina  `./semestar`?
@@ -218,5 +218,3 @@ Prva linija može biti malo nezgodna. Pomoće vam da znate da `#` pokreće komen
 10. Napišite komandu koja čita nivo napajanja baterije laptopa ili temperaturu procesora vaše mašine iz `/sys`. Napomena: Ukoliko ste korisnik macOS-, vaš OS nema sysf, tako da možete preskočiti ovu vježbu.
 
 
-
-How does your shell know that the file is supposed to be interpreted using sh? See this page on the shebang line for more information.
