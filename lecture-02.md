@@ -150,3 +150,31 @@ Kao što smo vidjeli u shell lekciji, prvi pristup bi bio da pozovete komadnu sa
 
 Nekada manpages mogu pružiti previše detaljan opis komandi, i mogu da otežaju odluku koji flag/sintaksu će biti korišćen za standardnu upotrebu. [TLDR](https://tldr.sh/) strance su sjajno rešenje koje se fokusira na dati primjer tako da možete mnogo brže i lakše da izaberete opciju koju ćete koristiti. Lično, češće koristim stranice za [tar](https://tldr.ostera.io/tar) i [ffmpeg](https://tldr.ostera.io/ffmpeg) u odnosu na manpages.
 
+## Traženje fajlova
+
+Jedan od najčešćih zadataka koji se ponavljaju jeste traženje fajlova ili direktorijuma. Svi UNIX-like sistemi dolaze sa find, odličnim shell alatom kojim se pretražuju fajlovi. Find će rekurzivno tražiti fajlove koji ispunjavaju zadati kriterijum. Neki primjeri: 
+
+One of the most common repetitive tasks that every programmer faces is finding files or directories. All UNIX-like systems come packaged with find, a great shell tool to find files. find will recursively search for files matching some criteria. Some examples: 
+
+```console
+# Find all directories named src
+find . -name src -type d
+# Find all python files that have a folder named test in their path
+find . -path '*/test/*.py' -type f
+# Find all files modified in the last day
+find . -mtime -1
+# Find all zip files with size in range 500k to 10M
+find . -size +500k -size -10M -name '*.tar.gz'
+```
+Osim listinga fajlova, pretraga takođe može izvršiti akcije za fajlove koji se poklapaju sa vašim upitom. Ovo svojstvo može biti nevjerovatno korisno da bi se pojednostavilo ono što može biti jako monoton zadatak.
+
+```console
+# Delete all files with .tmp extension
+find . -name '*.tmp' -exec rm {} \;
+# Find all PNG files and convert them to JPG
+find . -name '*.png' -exec convert {} {}.jpg \
+```
+Uprkos sveprisutnosti pretrage, njegova sintaksa ponekad može biti nezgodna za zapamtiti. Na primer, da bi se pojednostavila pretraga fajlova koji se poklapaju sa nekim obrascem, morate da izvršite `find -name '*PATTERN*' (ili -iname` ukoliko želite da obrazac za poklapanje ne bude osjetljiv na velika slova). Možete početi da pravite aliase za ove scenarije, ali dio shell filozofije je dobro pretražiti alternative. Zapamtite, jedano od najboljih svojstava shella jeste da vi samo pozivate programe, tako da možete da pronađete (ili čak i sami da napišete) zamjenu za neke. Na primer, [fd](https://github.com/sharkdp/fd) je jednostavan, brz, i user-friendly alternativa za find. Nudi neke dobre defaultne kao što je kolorizovani output, defaultno regex poklapanje, i Unicode podršku. Takođe ima, prema mom mišljenju, intuitivniju sintaksu. Na primer, sintaksu da se pronađe pattern `PATTERN` je `fd PATTERN`.
+
+Većina će se složiti da su `find` i `fd` dobri, ali se možda neki od vas pitaju o efektivnosti traženja fajlova svaki put umjesto kompajliranja neke vrste index-a ili baze podataka za brzu pretragu. [Locate](https://www.man7.org/linux/man-pages/man1/locate.1.html) služi tome. `Locate` koristi bazu podataka koja se ažurira koristeći [updatedb](https://www.man7.org/linux/man-pages/man1/updatedb.1.html). U većini sistema, `updatedb` je ažiriran na dnevnom nivou preko [cron](https://www.man7.org/linux/man-pages/man8/cron.8.html). Stoga je jedan kompromis između ovo dvoje brzina protiv svježine. Pored toga `find` i slični alati mogu takođe pronaći fajlove koristeći atribute, kao što je veličina fajla, vrijeme modifikacije, dozvole fajla, dok `locate` koristi samo naziv fajla. Još dublje poređenje može biti pronađeno [ovdje](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
+
