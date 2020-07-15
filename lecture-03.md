@@ -234,3 +234,59 @@ Evo par primjera koji će vam pokazati moć editora. Ne možemo vas naučiti sve
 
 ### Macros
 
+- `q{character}` za početak snimanja macroa u registru `{character}`
+- `q` za prekid snimanja
+- `@{character}` replays macro
+- Macro izvršenje se zaustavlja zbog greške
+- `{number}@{character}` izvršava macro {number} puta
+- Macroi mogu biti rekurzivni 
+  - Prvo očistite macro sa `q{character}q`
+  - Snimite macro, sa `@{character}` da bi pozvali macro rekurzivno
+  - Primjer: Konvertujte xml u json ([file](https://missing.csail.mit.edu/2020/files/example-data.xml))
+    - Niz objekata sa ključem “name” / “email”
+    - Koristite Python program?
+    - Koristite sed/regexes
+      - `g/people/d`
+      - `%s/<person>/{/g`
+      - `%s/<name>\(.*\)<\/name>/"name": "\1",/g`
+      - ...
+    - Vim komande / macros
+      - `Gdd`, `ggdd` briše prvu i poslednju liniju
+      - Macro da formatira pojedinačan element (register `e`)
+        - Ide na liniju sa `<name>`
+        - `qe^r"f>s": "<ESC>f<C"<ESC>q`
+      - Macro da formatira osobu 
+        - Ide na liniju `<person>`
+        - `qpS{<ESC>j@eA,<ESC>j@ejS},<ESC>q`
+      - Macro da formatira osobu i da ide na sledeću osobu 
+        - Ide na linuju `<person>`
+        - `qq@pjq`
+      - Izvršava macro do kraja fajla
+        - `999@q`
+      - Ručno uklanja poslednje `,` i dodaje `[` i `]`
+      
+## Resursi
+
+- `vimtutor` je tutorijal koji dolazi instaliran sa Vimom - ukoliko je Vim instaliran, trebalo bi da ste mogućnosti da pokrenete `vimtutor` iz shell-a.
+- [Vim Adventures](https://vim-adventures.com/) je igra kojom se uči Vim
+- [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
+- [Vim Advent Calendar](https://vimways.org/2019/) ima razne Vim savjete
+- [Vim Golf](www.vimgolf.com) je [code golf](https://en.wikipedia.org/wiki/Code_golf) ali gdje je programski jezik Vim UI
+- [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
+- [Vim Screencasts](http://vimcasts.org/)
+- [Practical Vim](https://pragprog.com/titles/dnvim2/) (book)
+
+## Vježbe
+
+1. Završite `vimtutor`. Napomena: Najbolje izgleda na [80x40](https://en.wikipedia.org/wiki/VT100) (80 kolona sa 24 reda) prozora terminala.
+2. Preuzmite naš [basic vimrc](https://missing.csail.mit.edu/2020/files/vimrc) i sačuvajte ga u `~/.vimrc`. Pročitajte dobro dokumentovane datoteke (koristeći Vim!) i pogledajte kako Vim izgleda i kako se ponaša malo drugačije sa novom konfiguracijom.
+3. Instalirajte i podesite plugin: [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim).
+  1. Kreirajte plugin direktorijum sa `mkdir -p ~/.vim/pack/vendor/start`
+  2. Preuzmite plugin: `cd ~/.vim/pack/vendor/start; git clone https://github.com/ctrlpvim/ctrlp.vim`
+  3. Pročitajte [dokumentaciju](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md) za plugin. Pokušajte da koristite CtrlP da locirate datoteku krećući se kroz direktorijum projekta, otvarajući Vim, i korišćenjem Vim komandne linije za početak `:CtrlP`.
+  4. Izmijenite CtrlP dodavanjem [konfiguracije](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md#basic-options) u vaš `~/.vimrc` da otvorite CtrlP pritiskajući Ctrl-P.
+4. Da bi izvježbali Vim, ponovo odradite [Demo](https://missing.csail.mit.edu/2020/editors/#demo) iz ove lekcije na vašoj mašini.
+5. Koristite Vim za svako vaše editovanje teksta u sledećem mjesecu. Kada god nešto izgleda neefikasno, ili pomislite "mora da postoji bolji način", Guglajte, vjerovatno i postoji. Ako zaglavite, dođite dok traju office hours ili nam pošaljite mejl.
+6. Podesite vaše druge alata da koriste Vim vezivanje (Vidi instrukcije iznad).
+7. Dalje prilagodite vaš `~/.vimrc` i instalirajte još plugina.
+8. (Napredno) Konvertujte XML u JSON [Primjer fajla](https://missing.csail.mit.edu/2020/files/example-data.xml) koristeći Vim macroe. Pokušajte sami da ovo odradite, ali možete pogledati [macros](https://missing.csail.mit.edu/2020/editors/#macros) sekciju iznad ukoliko zaglavite.
