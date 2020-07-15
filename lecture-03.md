@@ -56,4 +56,76 @@ Koristićete `<ESC>` dosta u toku korišćenja Vim-a, razmislite da zamijenite C
  
  Iz Normalnog režima, pritisnite `i` za insert režim. Sada, Vim se ponaša kao bilo koji drugi text editor, dok ne pritisnete `<ESC>` da se vratite u normalni režim. Ovo, zajedno sa osnovama koje su gore objašnjene, je sve što vam je potrebno da bi počeli da koristite Vim kao tekstualni editor(iako nije izuzetno efikasno, ukoliko koristite svo vaše vrijeme editovanjem iz Insert režima).
  
+### Baferi, tabovi, i windows
+
+Vim održava set otvorenih datoteka, koji se nazivaju "baferi". Vim sesija ima broj tabova, svaki od njih ima broj windows-a. Svaki windows pokazuje jedan bafer. Za razliku od drugih programa koji su vam poznati, kao što su web pretraživači, ne postoji 1-1 korespondiranje između bafera i windows-a; Windows su samo pregledi. Dati bafer može biti otvoren u __više__ windows-a, čak i u okviru istog tab-a. Ovo može biti zgodno, na primer, da bi se prikazale dvije različite strane datoteke u isto vrijeme. 
+
+Uobičajeno, Vim se otvara sa jednim tabom, koji sadrži jedan windows.
+
+### Komandna linija 
+
+Komandnoj liniji se može pristupiti kucanjem `:` u Normal režimu. Vaš kursor će preći na komandnu liniju na dnu vašeg ekrana nakon pritiskanja `:`. Ovaj mod ima mnogo funkcionalnosti, uključujući otvaranje, čuvanje, i zatvaranje datoteka, i [zatvaranje Vima](https://twitter.com/iamdevloper/status/435555976687923200).
+
+
+- `:q` izađi (zatvori window)
+- `:w` sačuvaj (“ispiši”)
+- `:wq` sačuvaj i izađi
+- `:e` {naziv datoteke} otvori datoteku za editovanje
+- `:ls` prikaži otvorene bafere
+- `:help` {topic} otvori pomoć
+- `:help :w` otvori pomoć za `:w` komandu
+- `:help w` otvori pomoć za `w` pokret
+
+## Vim interfejs je programski jezik
+
+Najvažnija ideja u Vim-u jeste da je Vimov intefejs u stvari programski jezik. Pritisci na tastere su komande, i ove komande __sastavljaju__. Ovo omogućava efikasno kretanje i editovanje, posebno kada komande postanu memorije mišića. 
+
+### Kretanje 
+
+Trebalo bi da većinu vašeg vremena provodite u Normal režimu, koristeći komande kretanja da bi se kretali kroz bafer. Kretanje kroz Vim se takođe naziva "imenica", zato što se ono odnosi na dijelove teksta. 
+
+- Osnovno kretanje: `hjkl` (lijevo, dolje, gore, desno)
+- Riječi: `w` (sledeća riječ), `b` (početak riječi), `e` (kraj riječi)
+- Redovi: `0` (Početak reda), `^` (prvi non-blank karakter), `$` (kraj reda)
+- Ekran: `H` (vrh ekrana), `M` (sredina ekrana), `L` (dno ekrana)
+- Skrol: `Ctrl-u` (gore), `Ctrl-d` (dolje)
+- File: `gg` (početak fajla), `G` (kraj fajla)
+- Broj reda: `:{number}<CR>` or `{number}G` (line {number})
+- Misc: `%` (odgovarajući item)
+- Pronađi: `f{character}`, `t{character}`, `F{character}`, `T{character}`
+       - find/to naprijed/nazad {character} na trenutnoj liniji.
+       -  `,` / `;` za navigaciju sa podudaranjem
+- Pretraga: `/{regex}, n / N` za navigaciju sa podudaranjem
  
+ ### Selekcija 
+ 
+ Visual režimi: 
+  
+- Visual
+- Visual Line
+- Visual Block
+
+Mogu se koristiti ključevi za kretanje da bi se izvršila selekcija
+
+### Editovanje 
+
+Za sve što ste navikli da koristite miš, sada ćete raditi sa tastaturom koristeći komande za kretanje i editovanje. Ovdje Vim interfejs počinje da izgleda kao programski jezik. Vim komande za editovanje se nazivaju "glagoli", jer glagoli djeluju na imenice. 
+
+- `i` enter Insert mode
+  - ali za manipulaciju/brisanje teksta, želite da koristite nešto više od backspace-a.
+- `o` / `O` ubaci liniju ispod/iznad 
+- d{motion} izbriši{pokret}
+  - npr. `dw` je izbriši riječ, `d$` je izbriši do kraja linije, `d0` je izbriši do početka linije
+- `c{motion}` promijeni{pokret}
+  - npr. `cw` je promjena riječi
+  - kao `d{motion}` praćen sa `i`
+- `x` izbriši karakter (jednako sa `dl`)
+- `s` zamijeni karakter (jednako sa `xi`)
+- Visual režim + manipulacija
+  - izaberi tekst, `d` za brisanje ili `c` za promjenu. 
+- `u` za undo, `<C-r>` za redo 
+- `y` za kopiranje/"yank"(neke druge komande kao `d` takođe kopiraju)
+- `p` za paste
+- Još mnogo stvari za naučiti npr. `~` mijenja case karaktera
+
+### Brojanje
