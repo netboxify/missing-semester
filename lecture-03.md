@@ -281,10 +281,10 @@ Evo par primjera koji će vam pokazati moć editora. Ne možemo vas naučiti sve
 1. Završite `vimtutor`. Napomena: Najbolje izgleda na [80x40](https://en.wikipedia.org/wiki/VT100) (80 kolona sa 24 reda) prozora terminala.
 2. Preuzmite naš [basic vimrc](https://missing.csail.mit.edu/2020/files/vimrc) i sačuvajte ga u `~/.vimrc`. Pročitajte dobro dokumentovane datoteke (koristeći Vim!) i pogledajte kako Vim izgleda i kako se ponaša malo drugačije sa novom konfiguracijom.
 3. Instalirajte i podesite plugin: [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim).
-  1. Kreirajte plugin direktorijum sa `mkdir -p ~/.vim/pack/vendor/start`
-  2. Preuzmite plugin: `cd ~/.vim/pack/vendor/start; git clone https://github.com/ctrlpvim/ctrlp.vim`
-  3. Pročitajte [dokumentaciju](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md) za plugin. Pokušajte da koristite CtrlP da locirate datoteku krećući se kroz direktorijum projekta, otvarajući Vim, i korišćenjem Vim komandne linije za početak `:CtrlP`.
-  4. Izmijenite CtrlP dodavanjem [konfiguracije](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md#basic-options) u vaš `~/.vimrc` da otvorite CtrlP pritiskajući Ctrl-P.
+  ⋅⋅1. Kreirajte plugin direktorijum sa `mkdir -p ~/.vim/pack/vendor/start`
+  ⋅⋅2. Preuzmite plugin: `cd ~/.vim/pack/vendor/start; git clone https://github.com/ctrlpvim/ctrlp.vim`
+  ⋅⋅3. Pročitajte [dokumentaciju](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md) za plugin. Pokušajte da koristite CtrlP da locirate datoteku krećući se kroz direktorijum projekta, otvarajući Vim, i korišćenjem Vim komandne linije za početak `:CtrlP`.
+  ⋅⋅4. Izmijenite CtrlP dodavanjem [konfiguracije](https://github.com/ctrlpvim/ctrlp.vim/blob/master/readme.md#basic-options) u vaš `~/.vimrc` da otvorite CtrlP pritiskajući Ctrl-P.
 4. Da bi izvježbali Vim, ponovo odradite [Demo](https://missing.csail.mit.edu/2020/editors/#demo) iz ove lekcije na vašoj mašini.
 5. Koristite Vim za svako vaše editovanje teksta u sledećem mjesecu. Kada god nešto izgleda neefikasno, ili pomislite "mora da postoji bolji način", Guglajte, vjerovatno i postoji. Ako zaglavite, dođite dok traju office hours ili nam pošaljite mejl.
 6. Podesite vaše druge alata da koriste Vim vezivanje (Vidi instrukcije iznad).
