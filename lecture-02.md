@@ -4,13 +4,13 @@
 " target="_blank"><img src="" 
 alt="Lecture 1: Course Overview + The Shell (2020)" width="240" height="180" border="10" /></a>
 
-U ovoj lekciji, predstavicemo neke osnove koje se tiču korišćenja bash-a kao scripting jezika zajedno sa više shell alata koji pokrivaju nekoliko najčešćih zadataka koje ćete konstantno izvoditi kroz komandnu liniju.
+U ovoj lekciji, predstavićemo neke osnove koje se tiču korišćenja bash-a kao scripting jezika zajedno sa više shell alata koji pokrivaju nekoliko najčešćih zadataka koje ćete konstantno izvoditi kroz komandnu liniju.
 
 ## Shell scripting
 
-Do sada smo vidjeli kako da izvršimo komande u sell-u i kako da ih spojimo. Ipak, u mnogim slučajevima željećete da izvršite seriju komandi i iskoristite kontrolu niza izraza kao što su uslovni iskazi ili petlje.
+Do sada smo vidjeli kako da izvršimo komande u shell-u i kako da ih spojimo. Ipak, u mnogim slučajevima željećete da izvršite seriju komandi i iskoristite kontrolu niza izraza kao što su uslovni iskazi ili petlje.
 
-Shell skripte su sledeće korak u kompleksnosti. Većina shell-ova imaju svoje skripting jezike sa varijablama, kontrolom toka i ličnom sintaksom. Ono što čini shell skripting različitim od ostalih skripting programskih jezika jeste da je optimizovan za izvršavanje zadataka koji se tiču shell-a. Takođe, kreiranje komandnih pajplajna, čuvanje rezultata u fajlovima, i čitanja kroz standardni input su primitive u shell skriptingu, koje je lakše koristiti u odnosu na skripting jezike koji su generalne prirode. Za ovu sekciju mi ćemo se fokusirati na bash skripting, budući da je on najčešći.
+Shell skripte su sledeći korak u kompleksnosti. Većina shell-ova imaju svoje skripting jezike sa varijablama, kontrolom toka i ličnom sintaksom. Ono što čini shell skripting različitim od ostalih skripting programskih jezika jeste da je optimizovan za izvršavanje zadataka koji se tiču shell-a. Takođe, kreiranje komandnih pajplajna, čuvanje rezultata u fajlovima, i čitanja kroz standardni input su primitive u shell skriptingu, koje je lakše koristiti u odnosu na skripting jezike koji su generalne prirode. Za ovu sekciju mi ćemo se fokusirati na bash skripting, budući da je on najčešći.
 
 Da bi dodali varijble u bash-u, koristite sintaksu `foo=bar` i pristupite vrijednosti varijable sa `$foo`. Imajte u vidu da `foo = bar` neće raditi, s obzirom na to da je interpretirano kao pozivanje foo programa sa argumentima `=` i `bar`. Generalno u shell skriptingu razmak će izvršiti dijeljenje argumenata. Ovo ponašanje može biti zbunjujuće iz prve, pa uvijek imajte to u vidu.
 
@@ -23,7 +23,7 @@ echo "$foo"
 echo '$foo'
 # prints $foo
 ```
-Kao i sa većinom programskih jezika, bash podržava kontrolu toka sa tehnikama koje uključuju `if`, `case`, `while` and `for`. Slično, `bash` ima funkscije koje primaju argumente i dozvoljava vršenje operacija sa njima. Evo primjera funkcija koja kreira direktorijum i vrši cd u njega.
+Kao i sa većinom programskih jezika, bash podržava kontrolu toka sa tehnikama koje uključuju `if`, `case`, `while` i `for`. Slično, `bash` ima funkcije koje primaju argumente i dozvoljava vršenje operacija sa njima. Evo primjera funkcija koja kreira direktorijum i vrši cd u njega.
 
 ```console
 mcd () {
@@ -35,7 +35,7 @@ mcd () {
 Ovdje je `$1` prvi argument skripti/funkciji. Za razliku od drugih skripting jezika, bash koristi širok spektar specijalnih varijabli koje ukazuju na argumente, error kodove, i druge relevantne varijable. Ispod je lista nekih od njih. Obimnija lista se može naći [ovdje](https://www.tldp.org/LDP/abs/html/special-chars.html)
 
 - `$0` = Naziv skritpte
-- `$1` do `$9` - Argumenti skripte. `$1` je prvi argument i tako da dalje.
+- `$1` do `$9` - Argumenti skripte. `$1` je prvi argument i tako dalje.
 - `$@` - Svi argumenti
 - `$#` - Broj argumenata
 - `$?` - Vraća kod od prethodne komande
@@ -66,7 +66,7 @@ true ; echo "This will always run"
 false ; echo "This will always run"
 # This will always run
 ```
-Još jedan poznati obrazac je kada želite da dobijete output komande kao varijablu. Ovo može biti odrađeno zamjenom komandi. Kada god postvate `$( CMD )` izvršiće `CMD`, uzeti output komande i zamijeniti je na mjestu. Na primer, ukoliko uradite `for file in $(ls)`, shell će prvo pozvati `ls` i onda izvršiti iteraciju kroz te vrijednosti. Sličan način, koji je manje poznat jeste proces zamjene, `<( CMD )` će izvršiti `CMD` i postaviti output u trenutni fajl u zamijeniti `<()` sa nazivom toga fajla. Ovo je korisno kada komande očekuju vrijednosti da im budu proslijeđene od strane fajla umjesto od strane `STDIN`. Na primer, `diff <(ls foo) <(ls bar)` će pokazati razlike između fajlova u direktorijumu foo i bar.
+Još jedan poznati obrazac je kada želite da dobijete output komande kao varijablu. Ovo može biti odrađeno zamjenom komandi. Kada god postavite `$( CMD )` izvršiće `CMD`, uzeti output komande i zamijeniti je na mjestu. Na primer, ukoliko uradite `for file in $(ls)`, shell će prvo pozvati `ls` i onda izvršiti iteraciju kroz te vrijednosti. Sličan način, koji je manje poznat jeste proces zamjene, `<( CMD )` će izvršiti `CMD` i postaviti output u trenutni fajl u zamijeniti `<()` sa nazivom toga fajla. Ovo je korisno kada komande očekuju vrijednosti da im budu proslijeđene od strane fajla umjesto od strane `STDIN`. Na primer, `diff <(ls foo) <(ls bar)` će pokazati razlike između fajlova u direktorijumu foo i bar.
 
 Kako je ovdje prikazano jako puno informacija, hajde da vidimo primjer koji prikazuje primjenu ovih stvari. Izvršiće iteraciju kroz argumente koje smo obezbijedili, 
 `grep` za string `foobar`, i dodaće ih fajlu kao komentar ukoliko nije pronađen.
@@ -88,9 +88,9 @@ for file in "$@"; do
     fi
 done
 ```
-U poređenju smo testirali da li `$?` nije bilo jednako 0. Bash sprovodi mnoga poređenja ovakve vrste - možete pronaći detaljnu listu u man stranici za [test](https://www.man7.org/linux/man-pages/man1/test.1.html). Kada se izršava poređenje u bash-u, pokušajte da više koristite duple zagrade `[[ ]]` u odnosu na obične zagrade `[ ]`. Šanse da napravite greške su niže, iako nisu prenosive na `sh`. Detaljnije objašnjenje može biti pronađeno [ovdje](mywiki.wooledge.org/BashFAQ/031).
+U poređenju smo testirali da li `$?` nije bilo jednako 0. Bash sprovodi mnoga poređenja ovakve vrste - možete pronaći detaljnu listu u man stranici za [test](https://www.man7.org/linux/man-pages/man1/test.1.html). Kada se izršava poređenje u bash-u, pokušajte da više koristite duple zagrade `[[ ]]` u odnosu na obične zagrade `[ ]`. Šanse da napravite greške su slabije, iako nisu prenosive na `sh`. Detaljnije objašnjenje može biti pronađeno [ovdje](mywiki.wooledge.org/BashFAQ/031).
 
-Kada pokrećemo skriptu, često ćete željete da pružite argumente koji su slični. Bash ima način da se ovo olakša, širenjem izraza provođenjem expanzije fajlnejma. Ove tehnike se česte nazivaju shell _globbing_.
+Kada pokrećemo skriptu, često ćete željete da pružite argumente koji su slični. Bash ima način da se ovo olakša, širenjem izraza provođenjem expanzije imena fajla. Ove tehnike se česte nazivaju shell _globbing_.
 
 - Wildcards - Kada god želite da izvedete neku vrstu wildcard podudaranja, možete koristiti `?` i `*` da bi se podudarili sa jednim ili više karaktera. Na primer, dati fajlovi `foo`, `foo1`, `foo2`, `foo10` i `bar`, i komanda `rm foo?` će izbrisati `foo1` i `foo2`, dok će `rm foo*` izbrisati sve osim `bar`.
 
@@ -122,7 +122,7 @@ diff <(ls foo) <(ls bar)
 # > y
 ```
 
-Pisanje bash bash skripti može biti izazovno i neintiutivno. Postoje alati kao što je [spellcheck](https://github.com/koalaman/shellcheck) koji će vam pomoći da pronađete greške u vašim sh/bash skriptama.
+Pisanje bash bash skripti može biti izazovno i neintuitivno. Postoje alati kao što je [spellcheck](https://github.com/koalaman/shellcheck) koji će vam pomoći da pronađete greške u vašim sh/bash skriptama.
 
 Imajte na umu da skripte ne moraju biti napisane u bash-u da bi bile pozvane iz terminala. Na primer, ovo je jednostavna Python skripta koja ispisuje argumente u obrnutom redosledu:
 ```console
@@ -146,15 +146,13 @@ Neke razlike između shell funcija i scripti koje bi trebali da imate u vidu su:
 
 U ovom trenutku, vjerovatno se pitate kako da pronađete za komande u sekcijama kao što su: `ls -l, mv -i i mkdir -p`. Još šire, imajući u vidu komandu, kako saznajete šta ona radi i koje su njene opcije? Uvijek možete da koristite google, ali pošto je UNIX stariji od StackOverflow-a, postoje već ugrađeni načini da bi došli do ovih informacija.
 
-Kao što smo vidjeli u shell lekciji, prvi pristup bi bio da pozovete komadnu sa `-h` ili `--help` flagovima. Detaljniji pristup jeste da koristite man komandu. Skraćenica za uputstvo, [man](https://www.man7.org/linux/man-pages/man1/man.1.html) pruža mogućnost stranice sa uputstvom (zvanom manpage) za komandu koju ste izabrali. Na primer, `man rm` će ispisati ponašanje rm komande zajedno sa flagovima koje prima, uključujući `-i` flag koji smo prikazali ranije. U stvarim, sve linkove koje sam postavljao do sada za svaku komandu su onlajn verzije Linux manpages za komande. Čak i strane komande koje instalirate će imati manpage ukoliko ga je programer napisao i uključio u proces instalacije. Za interaktivne alate kao što su oni koji su bazirani na ncurses, može se pristupiti pomoći za programe koristeći `:help` komandi ili kucajući `?`.
+Kao što smo vidjeli u shell lekciji, prvi pristup bi bio da pozovete komadnu sa `-h` ili `--help` flagovima. Detaljniji pristup jeste da koristite man komandu. Skraćenica za uputstvo, [man](https://www.man7.org/linux/man-pages/man1/man.1.html) pruža mogućnost stranice sa uputstvom (zvanom manpage) za komandu koju ste izabrali. Na primer, `man rm` će ispisati ponašanje rm komande zajedno sa flagovima koje prima, uključujući `-i` flag koji smo prikazali ranije. U stvari, sve linkove koje sam postavljao do sada za svaku komandu su onlajn verzije Linux manpages za komande. Čak i strane komande koje instalirate će imati manpage ukoliko ga je programer napisao i uključio u proces instalacije. Za interaktivne alate kao što su oni koji su bazirani na ncurses, može se pristupiti pomoći za programe koristeći `:help` komandi ili kucajući `?`.
 
 Nekada manpages mogu pružiti previše detaljan opis komandi, i mogu da otežaju odluku koji flag/sintaksu će biti korišćen za standardnu upotrebu. [TLDR](https://tldr.sh/) strance su sjajno rešenje koje se fokusira na dati primjer tako da možete mnogo brže i lakše da izaberete opciju koju ćete koristiti. Lično, češće koristim stranice za [tar](https://tldr.ostera.io/tar) i [ffmpeg](https://tldr.ostera.io/ffmpeg) u odnosu na manpages.
 
 ## Traženje fajlova
 
 Jedan od najčešćih zadataka koji se ponavljaju jeste traženje fajlova ili direktorijuma. Svi UNIX-like sistemi dolaze sa find, odličnim shell alatom kojim se pretražuju fajlovi. Find će rekurzivno tražiti fajlove koji ispunjavaju zadati kriterijum. Neki primjeri: 
-
-One of the most common repetitive tasks that every programmer faces is finding files or directories. All UNIX-like systems come packaged with find, a great shell tool to find files. find will recursively search for files matching some criteria. Some examples: 
 
 ```console
 # Find all directories named src
@@ -174,9 +172,9 @@ find . -name '*.tmp' -exec rm {} \;
 # Find all PNG files and convert them to JPG
 find . -name '*.png' -exec convert {} {}.jpg \
 ```
-Uprkos sveprisutnosti pretrage, njegova sintaksa ponekad može biti nezgodna za zapamtiti. Na primer, da bi se pojednostavila pretraga fajlova koji se poklapaju sa nekim obrascem, morate da izvršite `find -name '*PATTERN*' (ili -iname` ukoliko želite da obrazac za poklapanje ne bude osjetljiv na velika slova). Možete početi da pravite aliase za ove scenarije, ali dio shell filozofije je dobro pretražiti alternative. Zapamtite, jedano od najboljih svojstava shella jeste da vi samo pozivate programe, tako da možete da pronađete (ili čak i sami da napišete) zamjenu za neke. Na primer, [fd](https://github.com/sharkdp/fd) je jednostavan, brz, i user-friendly alternativa za find. Nudi neke dobre defaultne kao što je kolorizovani output, defaultno regex poklapanje, i Unicode podršku. Takođe ima, prema mom mišljenju, intuitivniju sintaksu. Na primer, sintaksu da se pronađe pattern `PATTERN` je `fd PATTERN`.
+Uprkos sveprisutnosti pretrage, njegova sintaksa ponekad može biti nezgodna za pamćenje. Na primer, da bi se pojednostavila pretraga fajlova koji se poklapaju sa nekim obrascem, morate da izvršite `find -name '*PATTERN*' (ili -iname` ukoliko želite da obrazac za poklapanje ne bude osjetljiv na velika slova). Možete početi da pravite aliase za ove scenarije, ali dio shell filozofije je dobro pretražiti alternative. Zapamtite, jedano od najboljih svojstava shella jeste da vi samo pozivate programe, tako da možete da pronađete (ili čak i sami da napišete) zamjenu za neke. Na primer, [fd](https://github.com/sharkdp/fd) je jednostavan, brz, i user-friendly alternativa za find. Nudi neke dobre defaultne vrijednosti kao što je kolorizovani output, defaultno regex poklapanje, i Unicode podršku. Takođe ima, prema mom mišljenju, intuitivniju sintaksu. Na primer, sintaksu da se pronađe pattern `PATTERN` je `fd PATTERN`.
 
-Većina će se složiti da su `find` i `fd` dobri, ali se možda neki od vas pitaju o efektivnosti traženja fajlova svaki put umjesto kompajliranja neke vrste index-a ili baze podataka za brzu pretragu. [Locate](https://www.man7.org/linux/man-pages/man1/locate.1.html) služi tome. `Locate` koristi bazu podataka koja se ažurira koristeći [updatedb](https://www.man7.org/linux/man-pages/man1/updatedb.1.html). U većini sistema, `updatedb` je ažiriran na dnevnom nivou preko [cron](https://www.man7.org/linux/man-pages/man8/cron.8.html). Stoga je jedan kompromis između ovo dvoje brzina protiv svježine. Pored toga `find` i slični alati mogu takođe pronaći fajlove koristeći atribute, kao što je veličina fajla, vrijeme modifikacije, dozvole fajla, dok `locate` koristi samo naziv fajla. Još dublje poređenje može biti pronađeno [ovdje](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
+Većina će se složiti da su `find` i `fd` dobri, ali se možda neki od vas pitaju o efektivnosti traženja fajlova svaki put umjesto kompajliranja neke vrste index-a ili baze podataka za brzu pretragu. [Locate](https://www.man7.org/linux/man-pages/man1/locate.1.html) služi tome. `Locate` koristi bazu podataka koja se ažurira koristeći [updatedb](https://www.man7.org/linux/man-pages/man1/updatedb.1.html). U većini sistema, `updatedb` je ažuriran na dnevnom nivou preko [cron](https://www.man7.org/linux/man-pages/man8/cron.8.html). Stoga je jedan kompromis između ovo dvoje brzina protiv svježine. Pored toga `find` i slični alati mogu takođe pronaći fajlove koristeći atribute, kao što je veličina fajla, vrijeme modifikacije, dozvole fajla, dok `locate` koristi samo naziv fajla. Još dublje poređenje može biti pronađeno [ovdje](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
 
 ## Traženje koda
 
@@ -203,13 +201,13 @@ Imajte u vidu da je sa `find`/`fd`, važno da znate da se ovakvi problemi mogu b
 
 Do sada smo vidjeli kako da pronađete datoteke i kod, ali kako budete provodili više vremena u shell-u, možda ćete željeti da pronađete specifične komande koje ste pozvali u jednom trenutku. Prva stvar koju treba da znate jeste da će vam kucanje strelice na gore vratiti poslednju komandu koju ste pozvali, ukoliko nastavite da je pritiskate polako će proći kroz vašu shell istorju. 
 
-`history` komanda će vas pružiti mogućnost da programski pristupite istorji vašeg shell-a. Ispisaće vašu shell istorju na standardnom output-u. Ukoliko želite da pretražujete kroz nju, možete proslijediti output `grep-u` i pretražiti obrasce. `history | grep find` će ispisati komande koje sadrže substring "find".
+`history` komanda će vam pružiti mogućnost da programski pristupite istorji vašeg shell-a. Ispisaće vašu shell istorju na standardnom output-u. Ukoliko želite da pretražujete kroz nju, možete proslijediti output `grep-u` i pretražiti obrasce. `history | grep find` će ispisati komande koje sadrže substring "find".
 
 U većini shell-ova možete koristiti `Ctrl + R` da bi izvršili pretragu unazad kroz vašu istoriju. Nakon kucanja `Ctrl + R`, možete unijeti substring za koji želite da se podudara sa komandama u vašoj istoriji. Ukolko nastavite da pritiskate kretaćete se kroz podudaranja u vašoj istoriji. Ovo takođe može biti omogućeno sa UP/DOWN strelicama u [zsh](https://github.com/zsh-users/zsh-history-substring-search). Dobar dodatak u kombinaciji sa `Ctrl + R` dolazi sa korišćenjem [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) vezivanjem. `fzf` je fuzzy pretraživač opšte namjene koji se može koristiti sa mnogim komandama. Ovdje se koristi za fuzzily podudaranje kroz vašu istoriju i prikazivanje rezultata na pogodan i vizuelno prijatan način.
 
 Još jedan dobar trik koji se tiče istorije jesu autosugestije zasnovane na istoriji. Prvo su predstavljene od strane [fish](https://fishshell.com/) shell-a, ova funkcija dinamički dovršava vašu trenutnu shell komandu sa poslednjom komandom koju ste unijeli a koje imaju zajednički prefix. To se može omogućiti u [zsh](https://github.com/zsh-users/zsh-autosuggestions) i to je sjajan trik za vaš shell.
 
-I na kraju, ono što treba imati u vidu, ako započnete vašu komandu sa leading space-om ona neće biti dodata u vašu istoriju. Ovo je pogodno kada pišete komande sa pasvordom ili drugim osjetljivim informacijama. Ukoliko napravite grešku, pa ne dodate leading space, uvijek možete ručno ukloniti unos editovanjem `.bash_history` ili `.zhistory`.
+I na kraju, ono što treba imati u vidu, ako započnete vašu komandu sa leading space-om ona neće biti dodata u vašu istoriju. Ovo je pogodno kada pišete komande sa passwordom ili drugim osjetljivim informacijama. Ukoliko napravite grešku, pa ne dodate leading space, uvijek možete ručno ukloniti unos editovanjem `.bash_history` ili `.zhistory`.
 
 ## Navigacija kroz direktorijume 
 
@@ -224,7 +222,7 @@ Postoje složeniji alati da biste brzo dobili pregled strukture direktorijuma: [
 1. Pročitajte [man ls](https://www.man7.org/linux/man-pages/man1/ls.1.html) i napišite `ls` komandu koja će ispisate fajlove na sledeće način 
 
 - Uključuje sve fajlove, kao i skrivene fajlove
-- Veličine su navedene u formatu čitljivom ljudima (npr. 454M instead of 454279954)
+- Veličine su navedene u formatu čitljivom ljudima (npr. 454M umjesto 454279954)
 - Fajlovi su posloženi do najnovijeg 
 - Output je kolorizovan
 
