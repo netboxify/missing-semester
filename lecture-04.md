@@ -1,4 +1,4 @@
-# Data Wrangling
+# Upravljanje podacima
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=sz_dsktIjt4
 " target="_blank"><img src="" 
