@@ -129,3 +129,108 @@ Za sve što ste navikli da koristite miš, sada ćete raditi sa tastaturom koris
 - Još mnogo stvari za naučiti npr. `~` mijenja case karaktera
 
 ### Brojanje
+
+Možete kombinovati imenice i glagole sa brojanjem, koje će izvršiti zadatku akciju više puta. 
+
+- `3w` pomijera tri riječi naprijed
+- `5j` pomijera pet linija dolje 
+- `7dw` briše sedam riječi 
+
+### Modifikatori
+
+Možete koristiti modifikatore da promijenite značenje riječi. Neki modifikatori su `i`, koji znači "unutrašnji", ili `a`, koji znači "okolo".
+
+- `ci(` mijenja sadržaj unutar para zagrada
+- `ci[` mijenja sadržaj unutar uglastih zagrada 
+- `da'`briše string sa jednostranim navodnicima, uključujući okružujuće jednostrane navodnike
+
+## Demo 
+
+Evo pokvarene [fizzbuzz](https://en.wikipedia.org/wiki/Fizz_buzz) implementacije
+
+```python
+def fizz_buzz(limit):
+    for i in range(limit):
+        if i % 3 == 0:
+            print('fizz')
+        if i % 5 == 0:
+            print('fizz')
+        if i % 3 and i % 5:
+            print(i)
+
+def main():
+    fizz_buzz(10)
+```
+
+Popravićemo sledeće probleme:
+
+- Main nikada nije pozvan
+- Počinje sa 0 umjesto sa 1
+- Ispisuje "fizz" i "buzz" na posebnim linijama za brojeve dijeljive sa 15
+- Ispisuje "fizz" za brojeve dijelive sa 5 
+- Koristi hard-kodiran argument 10 umjesto da primi argument komandne linije
+
+Pogledajte video lekciju za demonstraciju. Uporedite kako se promjene vrše pomoću Vima sa načinom na koji možete izvršiti iste izmjene pomoću drugog programa. Vidite kako je u Vimu potrebno vrlo malo pritisaka tipki, što vam pruža mogućnost da uređujete brzinom kojom mislite. 
+
+## Prilagođavanje Vima
+
+Vim se prilagođava putem konfiguracijske datoteke u običnom tekstu u `~/.vimrc` (Sadži Vimscript komande). Vjerovatno da postoji dosta osnovnih podešavanje koje želite da uključite. 
+
+Mi pružamo dobro dokumentovanu osnovnu konfiguraciju koju možete koristiti kao polaznu tačku. Preporučujemo je zato što podešava neko od Vimovih pokvarenih osnovnih ponašanja. **Preuzmite naš config [ovdje](https://missing.csail.mit.edu/2020/files/vimrc) i sačuvajte ga u `~/.vimrc`.**
+
+Vim je veoma prilagodljiv, i vrijedi uložiti vrijeme u istraživanje opcija prilagođavanja. Možete vidjeti dotfiles drugih ljudi na GitHubu za inspiraciju, na primer, Vim configs vaših instruktora ([Anish](https://github.com/anishathalye/dotfiles/blob/master/vimrc), [Jon](https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim)(koristi [neovim](https://neovim.io/)), [Jose](https://github.com/JJGO/dotfiles/blob/master/vim/.vimrc)).Takođe, postoji dosta dobrih blog postova na ovu temu. Pokušajte da ne radite samo copy-paste punih konfiguracija drugih ljudi, pročitajte ih, shvatite ih, i uzmite ono što vam je potrebno. 
+
+## Ekstenzije Vima
+
+Postoji puno plugina za ekstenziju Vima. Suprotno zastarelom savjetu koji možete naći na internetu, __nije__ vam potreban plugin menadzer za Vim (još od Vim 8.0). Umjesto toga, možete koristiti ugrađeni sistem upravljanja paketima. Jednostavno kreirajte direktorijum `~/.vim/pack/vendor/start/`, stavite plugine tu (npr. pomoću `git clone`). 
+
+Evo nekih naših omiljenih plugina:
+
+- [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): fuzzy file finder
+- [ack.vim](https://github.com/mileszs/ack.vim): code search  
+- [nerdtree](https://github.com/preservim/nerdtree): file explorer 
+- [vim-easymotion](https://github.com/easymotion/vim-easymotion): magic motions
+
+Pokušavamo da izbjegnemo da vam damo veoma veliku listu plugina ovdje. Možete provjeriti dotfiles instruktora ([Anish](https://github.com/anishathalye/dotfiles). [Jon](https://github.com/jonhoo/configs), [Jose](https://github.com/JJGO/dotfiles)) da vidite koje druge plugine koriste. Pogledajte [Vim Awesome](https://vimawesome.com/) za više sjajnih Vim plugina. Takođe, postoji dosta blog postova na ovu temu, samo pretražite "Najbolji Vim plugini".
+
+## Vim-mod u drugim programima
+
+Mnogi alati podržavaju Vim emulaciju. Kvalitet varira od dobrog do odličnog; zavisno od alata, možda neće podržati fensi Vim funkcije, ali većina pokriva osnove veoma dobro. 
+
+### Shell
+
+Ukoliko ste Bash user, koristite `set -o vi`. Ukoliko koristite Zsh, `bindkey -v`. Za Fish, `fish_vi_key_bindings`. Dodatno, bez obzira koji shell koristite, možete `export EDITOR=vim`. Ovo je okruženje varijabli koje se koristi da bi se odlučilo koji editor se otvara kada program hoće da pokrene editor. Na primer, `git` će koristiti ovaj editor za commit poruku. 
+
+### Readline 
+
+Mnogi programi koriste [GNU Readline]() biblioteku za interfejs komandne linije. Readline podržava (osnovnu) Vim emulacije takođe, koja može biti omogućena dodavanjem sledeće linije u `~/.inputrc` fajl: 
+
+```console
+set editing-mode vi
+```
+
+Sa ovim podešavanjem, na primer, Python REPL će podržati Vim vezivanje.
+
+### Others
+
+Postoji čak i Vim keybinding ekstenzija za web [browsere](https://vim.fandom.com/wiki/Vim_key_bindings_for_web_browsers) - neki od popularnih su [Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en) za Google Chrome i [Tridactyl](https://github.com/tridactyl/tridactyl) za Firefox. Možete čak dobiti Vim vezivanje u [Jupyter notebooks](https://github.com/lambdalisue/jupyter-vim-binding).
+
+## Napredni Vim 
+
+Evo par primjera koji će vam pokazati moć editora. Ne možemo vas naučiti sve ove stvari, ali ćete ih naučiti vremenom. Imajte na umu: kada god koristite editor i pomislite "mora da postoji bolji način da se ovo uradi", vjerovatno i postoji: pogledajte online. 
+
+### Pretraži i zamijeni
+
+`:s` (zamjena) komanda ([dokmentacija](https://vim.fandom.com/wiki/Search_and_replace))
+- `%s/foo/bar/g` 
+  - Mijenja foo sa bar globalno u fajlu
+- `%s/\[.*\](\(.*\))/\1/g`
+  - Mijenja naziv Markdown linka sa čistim URL-om
+  
+### Više prozora
+
+- `:sp / :vsp` da podijeli prozore
+- Može imati više views-a na isti buffer.
+
+### Macros
+
