@@ -178,3 +178,86 @@ Uprkos sveprisutnosti pretrage, njegova sintaksa ponekad može biti nezgodna za 
 
 Većina će se složiti da su `find` i `fd` dobri, ali se možda neki od vas pitaju o efektivnosti traženja fajlova svaki put umjesto kompajliranja neke vrste index-a ili baze podataka za brzu pretragu. [Locate](https://www.man7.org/linux/man-pages/man1/locate.1.html) služi tome. `Locate` koristi bazu podataka koja se ažurira koristeći [updatedb](https://www.man7.org/linux/man-pages/man1/updatedb.1.html). U većini sistema, `updatedb` je ažiriran na dnevnom nivou preko [cron](https://www.man7.org/linux/man-pages/man8/cron.8.html). Stoga je jedan kompromis između ovo dvoje brzina protiv svježine. Pored toga `find` i slični alati mogu takođe pronaći fajlove koristeći atribute, kao što je veličina fajla, vrijeme modifikacije, dozvole fajla, dok `locate` koristi samo naziv fajla. Još dublje poređenje može biti pronađeno [ovdje](https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other).
 
+## Traženje koda
+
+Pronalaženje datoteka po imenu je korisno, ali prilično često želite da pretražite na osnovu sadržaja datoteke. Uobičajeni scenario je da se traže sve datoteke koje sadrže neki obrazac zajedno sa onim datotekama gdje se navedeni obrazac pojavljuje. Da bi se ovo postiglo, većina UNIX-like sistema pružaju [grep](https://www.man7.org/linux/man-pages/man1/grep.1.html), generički alat za usklađivanje obrazaca iz ulaznog teksta. `grep` izuzetno vrijedan shell alat koji ćemo detaljnije obraditi u lekciji o upravljanju podacima. 
+
+Za sada, znajte da `grep` ima mnogo flag-ova koji ga čine veoma svestranim alatom. Neke koje često koristim su `-C` za dobijanje **C**ontexta oko rezultata koji se podudaraju i `-v` za in**v**erting za preokret rezultata, odnosno ispisivanje svih linija koje se ne podudaraju sa obrascem. Na primer, `grep -C 5` će ispisati pet linija prije i nakon rezultata. Kada je u pitanju brza pretraga kroz više fajlova, željećete da koristite `-R` jer će ono rekurzivno proći kroz direktorijume, i tražiti fajlove koji se podudaraju sa zadatim stringom. 
+
+Ali `grep -R` se može poboljšati na više načina, kao što je ignorisanje `.git` foldera, korišćenje multi CPU podrške. Razvijene su mnoge `grep` alternative, uključujući [ack](https://beyondgrep.com/), [ag](https://github.com/ggreer/the_silver_searcher) i [rg](https://github.com/BurntSushi/ripgrep). Svi od njih su odlični i pružaju otprilike iste funkcionalnosti. Za sada koristiću ripgrep (`rg`), uzimajući u obzir koliko je brz i intuitivan. Neki primjeri: 
+
+```python
+# Find all python files where I used the requests library
+rg -t py 'import requests'
+# Find all files (including hidden files) without a shebang line
+rg -u --files-without-match "^#!"
+# Find all matches of foo and print the following 5 lines
+rg foo -A 5
+# Print statistics of matches (# of matched lines and files )
+rg --stats PATTERN
+```
+
+Imajte u vidu da je sa `find`/`fd`, važno da znate da se ovakvi problemi mogu brzo riješiti korišćenjem jednim od ovih alata, dok korišćenje specifičnog alata i nije toliko bitno. 
+
+## Traženje shell komandi 
+
+Do sada smo vidjeli kako da pronađete datoteke i kod, ali kako budete provodili više vremena u shell-u, možda ćete željeti da pronađete specifične komande koje ste pozvali u jednom trenutku. Prva stvar koju treba da znate jeste da će vam kucanje strelice na gore vratiti poslednju komandu koju ste pozvali, ukoliko nastavite da je pritiskate polako će proći kroz vašu shell istorju. 
+
+`history` komanda će vas pružiti mogućnost da programski pristupite istorji vašeg shell-a. Ispisaće vašu shell istorju na standardnom output-u. Ukoliko želite da pretražujete kroz nju, možete proslijediti output `grep-u` i pretražiti obrasce. `history | grep find` će ispisati komande koje sadrže substring "find".
+
+U većini shell-ova možete koristiti `Ctrl + R` da bi izvršili pretragu unazad kroz vašu istoriju. Nakon kucanja `Ctrl + R`, možete unijeti substring za koji želite da se podudara sa komandama u vašoj istoriji. Ukolko nastavite da pritiskate kretaćete se kroz podudaranja u vašoj istoriji. Ovo takođe može biti omogućeno sa UP/DOWN strelicama u [zsh](https://github.com/zsh-users/zsh-history-substring-search). Dobar dodatak u kombinaciji sa `Ctrl + R` dolazi sa korišćenjem [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) vezivanjem. `fzf` je fuzzy pretraživač opšte namjene koji se može koristiti sa mnogim komandama. Ovdje se koristi za fuzzily podudaranje kroz vašu istoriju i prikazivanje rezultata na pogodan i vizuelno prijatan način.
+
+Još jedan dobar trik koji se tiče istorije jesu autosugestije zasnovane na istoriji. Prvo su predstavljene od strane [fish](https://fishshell.com/) shell-a, ova funkcija dinamički dovršava vašu trenutnu shell komandu sa poslednjom komandom koju ste unijeli a koje imaju zajednički prefix. To se može omogućiti u [zsh](https://github.com/zsh-users/zsh-autosuggestions) i to je sjajan trik za vaš shell.
+
+I na kraju, ono što treba imati u vidu, ako započnete vašu komandu sa leading space-om ona neće biti dodata u vašu istoriju. Ovo je pogodno kada pišete komande sa pasvordom ili drugim osjetljivim informacijama. Ukoliko napravite grešku, pa ne dodate leading space, uvijek možete ručno ukloniti unos editovanjem `.bash_history` ili `.zhistory`.
+
+## Navigacija kroz direktorijume 
+
+Do sada smo pretpostavljali da se nalazite tačno tamo gdje treba da budete da bi izvršili ove akcije. Ali, šta mislite o brzom kretanju kroz direktorijume? Postoji mnogo jednostavnih načina da se ovo uradi kao što je pisanje shell alijasa ili kreiranje sym-linkova sa [ln -s](https://www.man7.org/linux/man-pages/man1/ln.1.html), ali je istina da su programeri smislili izuzetno pametno i sofisticirano rešenje do sada. 
+
+Kao i kod teme ove lekcije, često želite da optimizujete uobičajenu upotrebu. Pronalaženje učestalih i novijih fajlova i direktorijuma se može odraditi kroz alate kao što su [fasd](https://github.com/clvv/fasd) i [autojump](https://github.com/wting/autojump). Fasd rangira fajlove i direktorijume kroz [frecency](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm) koji podrazumijeva i učestalost i rijetkost. Uobičajeno, `fasd` dodaje `z` komandu koju možete koristiti da brzo izvršite `cd` koristeći substring __frecent__ direktorijuma. Na primer, ukoliko često idete do `/home/user/files/cool_project` možete jednostavno koristiti `z cool` da tome pristupite. Koristeći autojump, ista promjena direktorijuma može biti odrađena koristeći `j cool`.
+
+Postoje složeniji alati da biste brzo dobili pregled strukture direktorijuma: [tree](https://linux.die.net/man/1/tree), [broot](https://github.com/Canop/broot) ili čak punopravni menadzeri datoteka kao što su [nnn](https://github.com/jarun/nnn) i [ranger](https://github.com/ranger/ranger).
+
+## Vježbe
+
+1. Pročitajte [man ls](https://www.man7.org/linux/man-pages/man1/ls.1.html) i napišite `ls` komandu koja će ispisate fajlove na sledeće način 
+
+- Uključuje sve fajlove, kao i skrivene fajlove
+- Veličine su navedene u formatu čitljivom ljudima (npr. 454M instead of 454279954)
+- Fajlovi su posloženi do najnovijeg 
+- Output je kolorizovan
+
+Jednostavan output bi izgledao ovako
+
+```console
+ -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
+ drwxr-xr-x   5 user group  160 Jan 14 09:53 .
+ -rw-r--r--   1 user group  514 Jan 14 06:42 bar
+ -rw-r--r--   1 user group 106M Jan 13 12:12 foo
+ drwx------+ 47 user group 1.5K Jan 12 18:08 ..
+```
+2. Napišite bash funkcije `marco` i `polo` koje izvršavaju sledeće. Kada god izvršite funkciju `marco`, trenutni radni direktorijum bi trebao da bude sačuvan na neki način, onda kada izvršite funkciju `polo`, bez obzira u kom se direktorijumu nalazite , `polo` bi trebao da uradi `cd` nazad u direktorijum gdje ste izvršili funkciju `marco`. Da bi lakše uklonili bugove možete napisati kod u fajlu `marco.sh` i ponovo učitali definicije u vaš shell izvršavanjem `source marco.sh`. 
+
+3. Recimo da imate komandu koja rijetko ne uspijeva. Da biste otklonili grešku morate da snimite njen output ali može proći dosta vremena da biste ostvarili neuspjeh. Napišite bash skriptu koja pokreće sledeću skriptu dok se ne desi greška i zabilježi standardni output i ispiše greške iz datoteka i fajlova. Bonus poeni ukoliko dobijete podatak koliko je puta skripta pokrenuta prije nego se desila greška. 
+
+```console
+ #!/usr/bin/env bash
+
+ n=$(( RANDOM % 100 ))
+
+ if [[ n -eq 42 ]]; then
+    echo "Something went wrong"
+    >&2 echo "The error was using magic numbers"
+    exit 1
+ fi
+
+ echo "Everything went according to plan"
+```
+
+4. Kao što smo rekli u ovoj lekciji `find`'s `-exec` može biti veoma moćno za izvođenje operacija sa datotekama koje tražimo. Ipak, šta ukoliko želimo da uradimo nešto sa **svim** fajlovima, kao npr. da kreiramo zip fajlove? Kao što ste vidjeli do sada komande će primiti inpute iz argumenata i STDIN. Kada pajpujete komande, povezujete STDOUT I STDIN, ali neke komande kao `tar` uzimaju inpute iz argumenata. Za prevazilaženje ovog prekida postoji [xargs](https://www.man7.org/linux/man-pages/man1/xargs.1.html) komanda koja će izvršiti komandu korišćenjem STDIN-a kao argumenta. Na primer `ls | xargs rm` će izbrisati sve fajlove iz trenutnog direktorijuma. 
+
+Vaš zadatak je da napišete komandu koja će rekurzivno pronaći sve HTML fajlove u folderu i zip-ovati ih. Imajte u vidu da bi vaša komanda trebala da radi čak ako fajlovi imaju razmake (nagovještaj: provjerite `d` flag za `xargs` )
+
+5. (Napredno) Napišite komandu ili skriptu koja će rekurzivno pronaći poslednje podešene fajlove u direktorijumu. Dodatno, možete li razvrstati sve fajlove od najstarijeg do najnovijeg?
+
