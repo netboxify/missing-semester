@@ -87,3 +87,179 @@ U redu, takođe imamo sufix kojeg bi da se riješimo. Kako bi mogli to da uradim
 ```console
 | sed -E 's/.*Disconnected from (invalid |authenticating )?user .* [^ ]+ port [0-9]+( \[preauth\])?$//'
 ```
+Hajde da pogledamo šta se dešava sa [regex debugger](https://regex101.com/r/qqbZqh/2). U redu, početak je isti kao i ranije. Onda, vrišimo podudaranje sa bilo kojom varijantom "korisnika" (postoje dva prefixa u logs). Onda vršimo podudaranje bilo kojeg stringa gdje je korisničko ime. Onda vršimo podudaranje bilo koje pojedinačne riječi `([^ ]+`; i dijelova karaktera koji nisu prazni). Zatim riječ "port" koja je praćena dijelovima cifara. Zatim mogući suffix `[preauth]`, i zatim kraj reda.
+
+Primjećujete da koristeći ovu vrstu tehnike, korisničko ime "Disconnected from" nas više ne zbunjuje. Da li možete da vidite zašto?
+
+Postoji jedan problem sa ovim, a to je da čitav log postaje prazan. Mi želimo da __zadržimo__ korisničko ime nakon svega. Za ovo, možemo koristiti "hvatanje grupa". Bilo koji tekst koji se poklapa sa regex-om okruženim zagradom se čuva u grupi koja je označena brojem. Ove su dostupne u zamjeni (a u nekim engin-ima, čak i sam obrazac) kao `\1`, `\2`, `\3`, itd. Tako da: 
+
+```console
+| sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
+```
+
+Kao što vjerovatno možete da zamislite, možete dobiti __veoma__ složeni regularni izraz. Na primer, evo jednog članka o tome kako bi mogli da izvršite podudaranje sa [e-mail adresom](https://www.regular-expressions.info/email.html). Nije [lako](https://emailregex.com/). I postoji [dosta rasprave](https://stackoverflow.com/questions/201323/how-to-validate-an-email-address-using-a-regular-expression/1917982). I ljudi su [pisali testove](https://fightingforalostcause.net/content/misc/2006/compare-email-regex.php). I [matrice testova](https://mathiasbynens.be/demo/url-regex). Možete čak i napisati regex da bi provjerili da li je zadati broj [prost broj](https://www.noulakaz.net/2007/03/18/a-regular-expression-to-check-for-prime-numbers/).
+
+Regularni izrazi su notorno teški za pročitati, ali ih je jako pogodno znati.
+
+## Nazad na upravljanje podacima
+
+U redu, sada imamo
+
+```console
+ssh myserver journalctl
+ | grep sshd
+ | grep "Disconnected from"
+ | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
+```
+
+`sed` može uraditi razne interesantne stvari, kao ubacivanje teksta (sa `i` komandom), eksplicitno pisanje linija (sa `p` komandom), selektovanje linija po indeksu, i dosta drugih stvari. Provjerite `men sed`!
+
+Da se vratimo na stvar. Ono što imamo sada je lista svih korisničkih imena koji su pokušali da se uloguju. Ali ovo i nije baš korisno. Hajde da pogledamo neke česte primjere: 
+
+```console
+ssh myserver journalctl
+ | grep sshd
+ | grep "Disconnected from"
+ | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
+ | sort | uniq -c
+```
+
+`sort` će sortirati njegov input.  `uniq -c` će oboriti uzastopne linije koje su iste u jednu liniju, koji ima prefix u vidu broja slučajeva. Vjerovatno da to želimo da sortiramo i zadržimo najčešća korisnička imena:
+
+```console
+ssh myserver journalctl
+ | grep sshd
+ | grep "Disconnected from"
+ | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
+ | sort | uniq -c
+ | sort -nk1,1 | tail -n10
+```
+
+`sort -n` će sortirati numeričkim (umjesto leksikografskim) redom. `-k1,1` znači "sortiraj sa samo prvom kolonom koja je odvojena bijelim prostorom". `,n` dio kaže "Sortiraj do `n` polja, gdje je default kraj linije." U ovom __specifičnom__ primjeru, sortiranje od strane čitave linije neće značiti, ali mi smo ovdje da bi naučili. 
+
+Ukoliko bi željeli one koje su najređe, možemo koristiti `head` umjesto `tail`.
+Takođe postoji `sort -r`, koji sortira u obrnutom redosledu. 
+
+U redu, to je bilo prilično dobro, ali šta ukoliko bi željeli da izvedemo samo korisnička imena sa listom koja je odvojena zarezom umjesto novim redom, možda za config datoteku? 
+
+```console
+ssh myserver journalctl
+ | grep sshd
+ | grep "Disconnected from"
+ | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
+ | sort | uniq -c
+ | sort -nk1,1 | tail -n10
+ | awk '{print $2}' | paste -sd,
+```
+
+Počnimo sa `paste`: Dopušta vam da kombinujete linije (`-s`) sa datim razdjelnikom sa jednim karakterom (`-d`; `,` u ovom slučaju). Ali šta je posao ovog `awk`-a?
+
+## awk - drugi editor
+
+`awk` je programski jezik koji je veoma dobar za obradu toka teksta. Postoji __dosta toga__ što bi se moglo reći za `awk` ukoliko bi željeli da ga valjano naučite, ali kao sa dosta drugih stvari ovdje, mi ćemo preći samo osnove. 
+
+Prvo, šta `{print $2}` radi? Pa, `awk` program uzima formu opcionog obrasca plus blok koji govori šta da se uradi ukoliko se obrazac poklopi sa datim redom. Uobičajen obrazac (koji smo koristili gore) se podudara sa svim redovima. Unutar bloka, `$0` je podešen za čitav sadržaj reda, i `$1` kroz `$n` su podešene za `n` polje tog reda, koji je odvojen `awk` separatorom polja (obično bijeli prostor, mijenja se sa `-F`). U ovom slučaju, mi govorimo da, za svaku liniju, se ispisuje sadržaj drugog polja, a dešava se to da je to korisničko ime!
+
+Hajde da vidimo da li možemo nešto da uradimo još bolje. Prvo, primjećujete da sada imam obrazac (stvari koje idu prije `{...}`). Obrazac kaže da bi prvo polje reda trebalo da bude jednako 1 (to je brojanje od `uniq -c`), i da bi drugo polje trebalo da se podudari sa datim regularnim izrazom. A blok samo kaže da se ispiše korisničko ime. Zatim brojimo broj redova u outputu sa `wc -l`.
+
+Ipak, `awk` je programski jezik, sjećate se? 
+
+```console
+BEGIN { rows = 0 }
+$1 == 1 && $2 ~ /^c[^ ]*e$/ { rows += $1 }
+END { print rows }
+```
+
+`BEGIN` je obrazac koji se podudara sa početkom inputa (i `END` se podudara sa krajem). Sada, blok po redu samo dodati brojač iz prvog polja (iako će to biti 1 u ovom slučaju), i onda ćemo ispisati to na kraju. U stvari, mogli bismo se otarasiti `grep` i `sed` u potpunosti, iz razloga što `awk` [može sve to da odradi](https://backreference.org/2010/02/10/idiomatic-awk/), ali ćemo ipak izbor ostaviti čitaocu. 
+
+## Analiziranje podataka 
+
+Možete koristiti matematiku direktno u vašem shell-u koristeći `bc`, kalkulator koji može da čita iz STDIN! Na primer, dodavanje brojeva na svakoj liniji zajedno, konkatenirajući ih zajedno, razgraničavajući ih sa `+`:
+
+```console
+ | paste -sd+ | bc -l
+```
+
+Ili napraviti složenije izraze: 
+
+```console
+echo "2*($(data | paste -sd+))" | bc -l
+```
+
+Možete dobiti statistiku na više načina. [st](https://github.com/nferraz/st) je veoma uredan, ali ako već imate [R](https://www.r-project.org/): 
+
+```console
+ssh myserver journalctl
+ | grep sshd
+ | grep "Disconnected from"
+ | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
+ | sort | uniq -c
+ | awk '{print $1}' | R --slave -e 'x <- scan(file="stdin", quiet=TRUE); summary(x)'
+```
+
+R je još jedan (čudan) programski jezik koji je odličan za analizu podataka i [plotting](https://ggplot2.tidyverse.org/). Nećemo puno zalaziti u detalje, ali je dovoljno reći da `rezime` štampa zbirnu statisktiku za vektor, a kreirali smo vektor koji sadrži ulazni tok brojeva, tako da R daje statistiku koju smo željeli!
+
+Ukoliko samo želite jednostavan plotting, `gnuplot` je vaš prijatelj:
+
+```console
+ssh myserver journalctl
+ | grep sshd
+ | grep "Disconnected from"
+ | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
+ | sort | uniq -c
+ | sort -nk1,1 | tail -n10
+ | gnuplot -p -e 'set boxwidth 0.5; plot "-" using 1:xtic(2) with boxes'
+```
+
+## Upravljanje podacima da bi se napravili argumenti
+
+Ponekad želite da upravljate podacima da bi pronašli stvari koje ćete da instalirate ili uklonite bazirajući se na neku dužu listu. Upravljanje podacima o kojem smo pričali do sada + `xargs` mogu biti moćna kombinacija. 
+
+Na primer, kao što ste vidjeli u lekciji, mogu koristiti sledeću komandu da deinstaliram stari build Rust-a iz mog sistema izvodeći stare nazive build-a koristeći alate za upravljanje podacima i prosleđujući ih kroz `xargs` deinstalatoru:
+
+```console
+rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
+```
+
+## Upravljanje binarnim podacima
+
+Do sada, najviše smo pričali o upravljanju tekstualnim podacima, ali pajpovi su takođe korisni i za binarne podatke. Na primer, možemo koristiti ffmpeg da snimimo sliku iz naše kamere, konvertujemo je u grayscale, kompresujemo je, pošaljemo je na udaljenu mašinu preko SSH-a, tamo je dekompresujemo, napravimo kopiju, i onda je prikažemo. 
+
+```console
+ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
+ | convert - -colorspace gray -
+ | gzip
+ | ssh mymachine 'gzip -d | tee copy.jpg | env DISPLAY=:0 feh -'
+```
+
+## Vježbe 
+
+1. Pogledajte ovaj [kratki interaktivni regex tutorijal](https://regexone.com/)
+2. Pronađite broj riječi (u `/usr/share/dict/words`) koje sadrže bar tri `a` i nemaju `s` na kraju. Koje su tri kombinacije najčešća poslednja dva slova te riječi? `sed` i `y` komanda, ili `tr` program vam može pomoći sa neosjetljivošću velikih slova. Koliko je tih kombinacija sa dva slova tu? I za izazov: Koje kombinacije se ne pojavljuju?
+3. Da bi se uradila zamjena u mjestu veoma je izazovno uraditi nešto kao `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`. Ipak je ovo loša ideja, zašto? Da li je ovo posebno vezano za `sed`? Koristite `man sed` da bi saznalo kako ovo da odradite. 
+4. Pronađite vaš prosjek, medijanu, i najduže vrijeme podizanja sistema za poslednjih deset puta. Koristite `journalctl` na Linuxu i `log show` na macOS, i potražite vremenske oznake log-a blizu početka i kraja svakog pokretanja. Na Linuxu, oni mogu izgledati ovako: 
+
+```console
+Logs begin at ...
+```
+
+i
+
+```console
+systemd[577]: Startup finished in ...
+```
+
+Na macOS, [potražite](https://eclecticlight.co/2018/03/21/macos-unified-log-3-finding-your-way/):
+
+```console
+=== system boot:
+```
+
+i 
+
+```console
+Previous shutdown cause: 5
+```
+
+5. Potražite boot poruke koje nisu podijeljenje između vaših 3 poslednja podizanja sistema (pogledajte `journalctl` `-b` flag). Podijelite ovaj zadatak na više koraka. Prvo nađite način da dobijete log iz poslednja 3 podizanja sistema. Može postojati odgovarajući flag na alatu koji koristite da bi izvukli log podizanja sistema, ili možete koristiti `sed '0,/STRING/d'` da uklonite sve linije prije one koja se poklapa sa `STRING`. Dalje, uklonite sve dijelove reda koji uvijek varira (kao vremenski žig). Zatim, de-duplicirajte linije inputa i zadržite broj svake od njih (`uniq` je vaš prijatelj). I konačno, elminišite bilo koji red čiji je brojač 3 (budući da je bio podijeljen u svim podizanjima sistema).
+6. Pronađite skup podataka online kao što je [ovaj](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [ili ovaj](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1) ili možda [ovaj](https://www.springboard.com/blog/free-public-data-sets-data-science-project/). Dohvatite ih koristeći `curl` i izvadite smao dvije kolone numeričkih podataka. Ukoliko povlačite HTML podatke, [pup](https://github.com/EricChiang/pup) može biti od koristi. Za JSON podatke, pokušajte sa [jq](https://stedolan.github.io/jq/). Pronađite minimum i maksimum jedne kolone u jednoj komandi, i zbir razlika između dvije kolone u drugoj.
