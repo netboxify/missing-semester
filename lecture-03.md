@@ -6,7 +6,7 @@ alt="Lecture 3: Editors(Vim) (2020)" width="240" height="180" border="10" /></a>
 
 Pisanje riječi na engleskom i pisanje koda su dvije potpuno različite stvari. Dok programirate, provodite više vremena mijenjajući datoteke, čitajući, krećući se i uređujući kod u poređenju sa pisanjem teksta. Ima smisla da postoje različite vrste programa za pisanje Engleskih riječi u odnosu na kod (npr. Microsoft Word vs. Visual Studio Code).
 
-Kao programeri, koristimo najveći dio našeg vremene uređujući kod, tako da je isplativo uložiti vaše vrijeme da bi postali dobri u korišćenju editora koji zadovoljava vaše potrebe. Evo kako se uči novi editor: 
+Kao programeri, koristimo najveći dio našeg vremena uređujući kod, tako da je isplativo uložiti vaše vrijeme da bi postali dobri u korišćenju editora koji zadovoljava vaše potrebe. Evo kako se uči novi editor: 
 
 - Počnite sa tutorijalom (npr. ova lekcija, plus resursi na koje vas uputimo)
 - Koristite editor za sve potrebe uređivanja teksta (čak iako vas to u startu usporava)
@@ -18,17 +18,17 @@ Ukoliko budete slijedili, i u potpunosti se posvetite korišćenju novog program
 
 Programeri imaju [oprečna mišljenja](https://en.wikipedia.org/wiki/Editor_war) u vezi sa editorima teksta. 
 
-Koji editoru su popularni danas? Pogledajte ovaj [StackOverflow survey](https://insights.stackoverflow.com/survey/2019/#development-environments-and-tools) (može postojati i pristrasnost budući da korisnici StackOverflowa možda nisu reprezentativni za programere u cjelini). [Visual Studio Code](https://code.visualstudio.com/) je najpopularniji editor. [Vim](https://www.vim.org/) je najpopularniji editor koji se zasniva na komandnoj liniji. 
+Koji editori su popularni danas? Pogledajte ovaj [StackOverflow survey](https://insights.stackoverflow.com/survey/2019/#development-environments-and-tools) (može postojati i pristrasnost budući da korisnici StackOverflowa možda nisu reprezentativni za programere u cjelini). [Visual Studio Code](https://code.visualstudio.com/) je najpopularniji editor. [Vim](https://www.vim.org/) je najpopularniji editor koji se zasniva na komandnoj liniji. 
 
 ### Vim 
 
 Svi instruktori ovih lekcija koriste Vim kao njihov editor. Vim ima bogatu istoriju. Potiče od Vi editora (1976), i razvija se i dan danas. Iza Vima stoje neke veoma uredne ideje, i iz ovog razloga, puno alata podržava Vim mod emulacije (npr. 1.4 miliona ljudi je instaliralo Vim emulator za VS code). Vim je vjerovatno vrijedan učenja čak iako na kraju ipak pređete na neki drugi editor.
 
-Nije moguće naučiti svu funkcionalnost Vim-a za 50 minuta, tako da ćemo se fokusirati na objašnjenje filozofije Vim-a, naučiti vas osnove, pokazati vam neke napredne funkcionalnosti, i dati vam resursi da bi savladali alat.
+Nije moguće naučiti svu funkcionalnost Vim-a za 50 minuta, tako da ćemo se fokusirati na objašnjenje filozofije Vim-a, naučiti vas osnove, pokazati vam neke napredne funkcionalnosti, i dati vam resurse da bi savladali alat.
 
 ## Filozofija Vim-a
 
-Kada programirate, koristite najveći dio vašeg vremena čitajući/uređujući, a ne pišući. Iz ovog razloga, Vim je __modalni__ editor: ima različite modove za unošenje teksta u odnosu na manipulaciju tekstom. Vim je programatičan (Sa Vimscript i sa drugim jezicima kao što je Python), i Vim's interfejs je sam po sebi programski jezik: tasteri su komande, i ove komande su uklopljive. Vim izbjegava upotrebu miša, jer je to previše sporo, Vim čak izbjegava upotrebu dugmadi sa strelicama jer iziskuju previše pokreta.
+Kada programirate, koristite najveći dio vašeg vremena čitajući/uređujući, a ne pišući. Iz ovog razloga, Vim je __modalni__ editor: ima različite modove za unošenje teksta u odnosu na manipulaciju teksta. Vim je programatičan (Sa Vimscript i sa drugim jezicima kao što je Python), i Vim's interfejs je sam po sebi programski jezik: tasteri su komande, i ove komande su uklopljive. Vim izbjegava upotrebu miša, jer je to previše sporo, Vim čak izbjegava upotrebu dugmadi sa strelicama jer iziskuju previše pokreta.
 
 Krajnji rezultat je editor koji se uklapa u brzinu kojom mislite.
 
@@ -54,7 +54,7 @@ Koristićete `<ESC>` dosta u toku korišćenja Vim-a, razmislite da zamijenite C
  
  ### Ubacivanje teksta
  
- Iz Normalnog režima, pritisnite `i` za insert režim. Sada, Vim se ponaša kao bilo koji drugi text editor, dok ne pritisnete `<ESC>` da se vratite u normalni režim. Ovo, zajedno sa osnovama koje su gore objašnjene, je sve što vam je potrebno da bi počeli da koristite Vim kao tekstualni editor(iako nije izuzetno efikasno, ukoliko koristite svo vaše vrijeme editovanjem iz Insert režima).
+ Iz Normalnog režima, pritisnite `i` za insert režim. Sada, Vim se ponaša kao bilo koji drugi text editor, dok ne pritisnete `<ESC>` da se vratite u normalni režim. Ovo, zajedno sa osnovama koje su gore objašnjene, je sve što vam je potrebno da bi počeli da koristite Vim kao tekstualni editor(iako nije izuzetno efikasno, ukoliko koristite svo vaše vrijeme za editovanje iz Insert režima).
  
 ### Baferi, tabovi, i windows
 
@@ -78,7 +78,7 @@ Komandnoj liniji se može pristupiti kucanjem `:` u Normal režimu. Vaš kursor 
 
 ## Vim interfejs je programski jezik
 
-Najvažnija ideja u Vim-u jeste da je Vimov intefejs u stvari programski jezik. Pritisci na tastere su komande, i ove komande __sastavljaju__. Ovo omogućava efikasno kretanje i editovanje, posebno kada komande postanu memorije mišića. 
+Najvažnija ideja u Vim-u jeste da je Vimov intefejs u stvari programski jezik. Pritisci na tastere su komande, i ove komande __sastavljaju__. Ovo omogućava efikasno kretanje i editovanje, posebno kada komande postanu memorija mišića. 
 
 ### Kretanje 
 
@@ -130,7 +130,7 @@ Za sve što ste navikli da koristite miš, sada ćete raditi sa tastaturom koris
 
 ### Brojanje
 
-Možete kombinovati imenice i glagole sa brojanjem, koje će izvršiti zadatku akciju više puta. 
+Možete kombinovati imenice i glagole sa brojanjem, koje će izvršiti zadatu akciju više puta. 
 
 - `3w` pomijera tri riječi naprijed
 - `5j` pomijera pet linija dolje 
@@ -166,15 +166,15 @@ Popravićemo sledeće probleme:
 
 - Main nikada nije pozvan
 - Počinje sa 0 umjesto sa 1
-- Ispisuje "fizz" i "buzz" na posebnim linijama za brojeve dijeljive sa 15
-- Ispisuje "fizz" za brojeve dijelive sa 5 
+- Ispisuje "fizz" i "buzz" na posebnim linijama za brojeve djeljive sa 15
+- Ispisuje "fizz" za brojeve djelive sa 5 
 - Koristi hard-kodiran argument 10 umjesto da primi argument komandne linije
 
 Pogledajte video lekciju za demonstraciju. Uporedite kako se promjene vrše pomoću Vima sa načinom na koji možete izvršiti iste izmjene pomoću drugog programa. Vidite kako je u Vimu potrebno vrlo malo pritisaka tipki, što vam pruža mogućnost da uređujete brzinom kojom mislite. 
 
 ## Prilagođavanje Vima
 
-Vim se prilagođava putem konfiguracijske datoteke u običnom tekstu u `~/.vimrc` (Sadži Vimscript komande). Vjerovatno da postoji dosta osnovnih podešavanje koje želite da uključite. 
+Vim se prilagođava putem konfiguracijske datoteke u običnom tekstu u `~/.vimrc` (Sadži Vimscript komande). Vjerovatno da postoji dosta osnovnih podešavanja koje želite da uključite. 
 
 Mi pružamo dobro dokumentovanu osnovnu konfiguraciju koju možete koristiti kao polaznu tačku. Preporučujemo je zato što podešava neko od Vimovih pokvarenih osnovnih ponašanja. **Preuzmite naš config [ovdje](https://missing.csail.mit.edu/2020/files/vimrc) i sačuvajte ga u `~/.vimrc`.**
 
@@ -203,7 +203,7 @@ Ukoliko ste Bash user, koristite `set -o vi`. Ukoliko koristite Zsh, `bindkey -v
 
 ### Readline 
 
-Mnogi programi koriste [GNU Readline]() biblioteku za interfejs komandne linije. Readline podržava (osnovnu) Vim emulacije takođe, koja može biti omogućena dodavanjem sledeće linije u `~/.inputrc` fajl: 
+Mnogi programi koriste [GNU Readline]() biblioteku za interfejs komandne linije. Readline podržava (osnovnu) Vim emulaciju takođe, koja može biti omogućena dodavanjem sledeće linije u `~/.inputrc` fajl: 
 
 ```console
 set editing-mode vi
