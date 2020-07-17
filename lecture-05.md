@@ -321,3 +321,126 @@ Ovo se naziva __prosleđivanje port-a__ i dolazi u dvije varijatnte: Local Port 
 
 [img2]: https://i.stack.imgur.com/4iK3b.png%C2%A0
 
+Najčešći scenarijo je local port forwarding, gdje service na udaljenoj mašini sluša port a vi želite da povežete port na lokalnoj mašini da biste ga proslijedili na udaljeni port. Na primer, ukoliko mi izvršimo `jupyter notebook` na udaljenom serveru koji sluša port `8888`. Plus, da bi proslijedili to na lokalni port `9999`, uradili bi `ssh -L 9999:localhost:8888 foobar@remote_server` i onda se prebacili na `locahost:9999` na našoj lokalnoj mašini.
+
+### SSH podešavanja
+
+Prošli smo mnoge argumente koje možemo da proslijedimo. Izazovna alternativa jeste da se kreira shell pseudonim koji izgleda ovako: 
+
+```shell
+alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server
+```
+
+Ipak, postoji bolja alternativa koristeći `~/.ssh/config`.
+
+```shell
+Host vm
+    User foobar
+    HostName 172.16.174.141
+    Port 2222
+    IdentityFile ~/.ssh/id_ed25519
+    LocalForward 9999 localhost:8888
+
+# Configs can also take wildcards
+Host *.mit.edu
+    User foobaz
+```
+
+Dodatna prednost korišćenja `~/.ssh/config` datoteke preko pseudonima jesto što drugi programi kao što su `scp`, `rsync`, `mosh`, itd. su u stanju da ga pročitaju i konvertuju podešavanja u odgovarajuće flag-ove.
+
+Imajte na umu da `~/.ssh/config` može biti razmatran kao dotfile, i uopšteno je u redu da bude uključen sa ostatkom vaših dotfiles. Ipak, ukoliko ga podesite da bude javan, razmislite o informacijama koje potencijalno pružate strancima na internetu, adrese vaših servera, korisnika, otvorenih portova, itd.. Ovo može olakšati neke vrste napada pa budite pažljivi kada je u pitanju dijeljenje vaših SSH podešavanja.
+
+Konfiguracija na serveru je obično označena u `/etc/ssh/sshd_config`. Ovdje možete napraviti izmjene kao što je deaktiviranje autentikacije lozinke, mijenjanje ssh portova, omogućavanje prosleđivanja X11 prosleđivanja, itd. Konfiguracijske postavke možete odrediti za svakog korisnika.
+
+### Ostalo 
+
+Čest problem prilikom povezivanja sa udaljenim serverom su prekidi veze zbog isključivanja/spavanja računara ili promjene mreže. Štaviše, može postati prilično frustrirajuće ukoliko neko ima značajan lag korišćenjem ssh-a.
+[Mosh](https://mosh.org/), mobilni shell, poboljšanje je u odnosu na ssh, omogućuje roming veze, povremeno povezivanje i pružanje inteligentnog lokalnog echo-a. Ponekad je prikladno montirati ga u udaljenu datoteku. [sshfs](https://github.com/libfuse/sshfs) može montirati datoteku na udaljeni server lokalno, a zatim možete koristiti lokalni editor. 
+
+## Shells & Frameworks
+
+Tokom lekcije o shell alatima i scriptingu, prošli smo `bash` shell jer je on najprisutniji shell i većina sistema ga ima kao defaultnu opciju. Ipak, on nije jedina opcija. 
+
+Na primer, `zsh` shell je superset `bash`-a i pruža mnoge pogodnosti kao što su:
+
+- Pametniji globbing, `**`
+- Inline globbing/wildcard ekspanzija
+- Pravopisna korekcija
+- Bolje popunjavanje/odabir tabova
+- Path ekspanzija (`cd /u/lo/b` će se proširit kao `/usr/local/bin`)
+
+Frameworks mogu poboljšati shell takođe. Neki popularni opšti frameworks su [prezto](https://github.com/sorin-ionescu/prezto) ili [ohmyz](https://ohmyz.sh/), i manji koji se fokusiraju na specifične funkcije kao što su [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) ili [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Shell kao što je [fish](https://fishshell.com/) uključuje mnoge user-friendly funkcije defaultno. Neke od tih funkcija uključuju
+
+- Pravi prompt
+- Označavanje sintaksnih komandi
+- Pretraga substring istorije
+- Dovršavanje flagova na bazi manpage-a
+- Pametnije auto dovršavanje
+- Prompt teme
+
+Treba da imate na umu da kada koristite ove frameworke, da oni mogu usporiti vaš shell, posebno ukoliko kod koji oni izvršavaju nije optimizovan ili se radi o previše koda. Uvijek ga možete profilisati ili omogućiti funkcije koje ne koristite često ili ih ne vrednujete u odnosu na brzinu.
+
+## Emulatori Terminala
+
+Zajedno sa podešavanjem vašeg shella, vrijedi uložiti malo vremena da bi izabrali emulator terminala i njegova podešavanja. Postoji mnogo emulatora terminala (ovdje je [poređenje](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)
+
+S obzirom na to da možete provoditi stotine ili hiljade sati u vašem terminalu, isplati se da pogledate njegova podešavanja. Neki od tih stvari koje bi željeli da podesite u vašem terminalu uključuju:
+
+- Izbor fonta
+- Schemu boja
+- Prečice na tastaturi
+- Tab/Pane podrška
+- Scrollback podešavanja
+- Performanse (Neki noviji terminali kao što su [Alacritty](https://github.com/alacritty/alacritty), ili [kitty](https://sw.kovidgoyal.net/kitty/) nude ubrzanje GPU-a).
+
+## Vježbe 
+
+### Kontrola poslova
+
+1. Iz onoga što smo vidjeli, možemo koristiti neke `ps aux | grep` komande da dobijemo proces ID posla i zatim da ih ugasimo, ali postoji bolji način da to odradimo. Započnite `sleep 10000` posao u terminalu, prebacite ga u pozadinu sa `Ctrl-Z` i nastavite izvršavanje sa `bg`. Sada koristite [pgrep](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) da saznate ID procesa i [pkill](https://man7.org/linux/man-pages/man1/pgrep.1.html) da bi ga ugasili bez toga da sami kucate ID procesa.(Nagovještaj: koristite `-af` flag).
+
+2. Recimo da ne želite da započnete proces dok se drugi ne završi, na koji način bi to riješili? U ovoj vježbi naš proces ograničavanja će uvijek biti `our limiting process will always be`. Jedan način da ovo ostvarite jeste da koristite [wait](https://www.man7.org/linux/man-pages/man1/wait.1p.html) komandu. Pokušajte da pokrenete sleep komandu i da `ls` sačeka dok se proces u pozadini završi.
+
+Ipak, ovakva strategija neće uspjeti ukoliko započnemo u drugoj bash sesiji, budući da `wait` jedino radi za child procese. Jedna funkcija o kojoj nismo raspravljali u zabilješkama jeste da će exit status `kill` komande biti nula za uspjeh i broj koji nije nula za neuspjeh. `kill -0` ne šalje signal ali će dati exit status koji nije nula ukoliko proces ne postoji. Napišite bash funkciju sa nazivom `pidwait` koja uzima ID procesa i čeka dok se dati proces ne završi. Trebali bi da koristite `sleep` da ne bi trošili CPU bez potrebe.
+
+### Multiplexeri Terminala
+
+1. Pratite ovaj `tmux` [tutorijal](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) i naučite kako da uradite neka osnovna podešavanja prateći [ove korake](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/). 
+
+### Pseudonimi 
+
+1. Kreirajte pseudonim `dc` koji se pretvara u `cd` kada ga pogrešno napišete.
+2. Pokrenite `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` da bi dobili vaših top 10 komandi koje najčešće koristite i razmislite da napišete kraće pseudonime za njih. Napomena: ovo radi za Bash; Ukoliko koristite ZSH, koristite `history 1` umjesto samo `history`.
+
+### Dotfiles
+
+Hajde da vas ubrzamo sa dotfiles.
+
+1. Kreirajte folder za vaše dotfiles i postavite kontrolu verzije. 
+2. Dodajte konfiguraciju za bar jedan folder, npr. vaš shell, sa nekim podešavanjem (za početak, može biti nešto tako jednostavno kao što je podešavanje vašeg shell prompta stavljajući `$PS1`).
+3. Podesite način za bržu instalaciju vaših dotfiles (i bez ručnog truda) na novoj mašini. Ovo može biti jednostavno kao shell skripta koja poziva `ln -s` za svaku datoteku, ili možete koristiti [specijalno sredstvo](https://dotfiles.github.io/utilities/).
+4. Testirajte vašu instalacionu skriptu na svježoj virtualnoj mašini
+5. Prebacite sve svoje trenutno konfiguracije alata u skladište vaših dotfiles
+6. Objavite vaše dotfiles na GitHubu.
+
+### Udaljene mašine
+
+Instalirajte Linux virtualnu mašinu (ili koristite već postojeću) za ovu vježbu. Ukoliko vam nisu poznate virtualne mašine pogledajte [ovaj](https://hibbard.eu/install-ubuntu-virtual-box/) tutorijal da bi je instalirali.
+
+1. Idite na `~/.ssh/` i provjerite da li imate par SSH ključeva tu. Ukoliko nemate, generišite ih sa `ssh-keygen -o -a 100 -t ed25519`. Preporučuje se da koristite password i `ssh-agent`, više informacija [ovdje](https://www.ssh.com/ssh/agent).
+2. Editujte `.ssh/config` da ima unos kakav slijedi 
+
+```shell
+Host vm
+    User username_goes_here
+    HostName ip_goes_here
+    IdentityFile ~/.ssh/id_ed25519
+    LocalForward 9999 localhost:8888
+```
+
+1. Koristite `ssh-copy-id vm` da bi kopirali vaš ssh ključ na serveru.
+2. Pokrenite webserver na vašoj VM izvršavanjem `python -m http.server 8888`.
+Pristupite VM webserveru krećući se do `http://localhost:9999` u vašoj mašini.
+3. Uredite vaš SSH server config sa `sudo vim /etc/ssh/sshd_config` i onemogućite autentikaciju passworda editovanjem vrijednosti `PasswordAuthentication`. Onemogućite root login uređivanjem vrijednosti `PermitRootLogin`. Restartujte `ssh` servise sa `sudo service sshd restart`. Pokušajte ssh ponovo. 
+4. (Izazov) Instalirajte [mosh](https://mosh.org/) u VM i uspostavite konekciju. Zatim prekinite konekciju network adaptera sa serverom/VM. Da li se mosh može propisno oporaviti od toga?
+5. (Izazov) Pogledajte šta `-N` i `-f` flagovi rade u `ssh` i smislite koju komandu da izvršite da bi postigli port forwarding u pozadini.
