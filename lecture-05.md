@@ -62,7 +62,7 @@ Da bi prebacili u pozadinu program koji je u toku možete odraditi `Ctrl-Z` pra�
 
 Ispod je jednostavna sesija koja prikazuje neke od tih koncepata. 
 
-```console
+```shell
 $ sleep 1000
 ^Z
 [1]  + 18653 suspended  sleep 1000
@@ -145,4 +145,179 @@ Najpopularniji multiplexer terminala ovih dana je [tmux](https://www.man7.org/li
 Za dalje čitanje, [ovdje](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) je kratki tutorijal na `tmux` a [ovdje](http://linuxcommand.org/lc3_adv_termmux.php) je detaljnije objašnjenje koje pokriva originalnu `screen` komandu. Možda ćete željete da se bolje upoznate sa [screen](https://www.man7.org/linux/man-pages/man1/screen.1.html), budući da dolazi instaliran na većini UNIX sistema.
 
 ## Pseudonimi
+
+Može biti zamorno kucanje dugih komandi koje uključuju mnoge flagove ili opširne opcije. Iz ovog razloga, većina shell-ova podržava __pseudonime__. Shell pseudonim je kratka forma neke komande koju će vaš shell automatski zamijeniti za vas. Na primer, psuedonim u bash-u ima sledeću strukturu: 
+
+```shell
+alias alias_name="command_to_alias arg1 arg2"
+```
+
+Imajte u vidu da nema razmaka okolo znaka jednako `=`, jer je [alias](https://www.man7.org/linux/man-pages/man1/alias.1p.html) shell komanda koja prima jedan argument. 
+
+Pseudonimi imaju mnoge pogodne funkcije: 
+
+```shell
+# Make shorthands for common flags
+alias ll="ls -lh"
+
+# Save a lot of typing for common commands
+alias gs="git status"
+alias gc="git commit"
+alias v="vim"
+
+# Save you from mistyping
+alias sl=ls
+
+# Overwrite existing commands for better defaults
+alias mv="mv -i"           # -i prompts before overwrite
+alias mkdir="mkdir -p"     # -p make parent dirs as needed
+alias df="df -h"           # -h prints human readable format
+
+# Alias can be composed
+alias la="ls -A"
+alias lla="la -l"
+
+# To ignore an alias run it prepended with \
+\ls
+# Or disable an alias altogether with unalias
+unalias la
+
+# To get an alias definition just call it with alias
+alias ll
+# Will print ll='ls -lh'
+```
+
+Imajte u vidu da pseudonimi nisu trajni u shell sesiji po default-u. Da bi neki pseudonim bio trajan morate ih uključiti u shell startup datoteci, kao što je `.bashrc` ili `.zshrc` koje ćemo predstaviti u sledećoj sekciji.
+
+## Dotfiles
+
+Mnogi programi se podešavaju koristeći datoteke sa čistim tekstom poznate kao __dotfiles__ (jer naziv datoteke počinje sa `.`, npr. `~/.vimrc`, tako da su oni po defaultu skriveni u listingu direktorijuma `ls`).
+
+Shell-ovi su jedan primjer programa koji se podešavaju preko takvih fajlova. Prilikom pokretanja, vaš shell će pročitati mnoge datoteke da bi se učitala njegova podešavanja. Zavisno od shell-a, bilo da pokrećete login i/ili interakciju, čitav proces može biti veoma kompleksan. [Ovo](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) je odličan resurs na ovu temu. 
+
+Za `bash`, uređivanje vašeg `.bashrc` ili `.bash_profile` će raditi na većini sistema. Ovdje možete uključiti komande koje želite da se pokrenu prilikom pokretanja, kao što su pseudonimi koje smo opisali ili modifikacija vašeg `PATH` okruženja varijabli. U stvari, mnogi programi će vas pitati da uključite red kao što je `export PATH="$PATH:/path/to/program/bin"` u vašoj shell konfiguracionoj datoteci, tako da njegovi binarni fajlovi mogu biti pronađeni.
+
+Neki drugi primjeri alata koji mogu biti podešeni kroz dotfiles su: 
+
+- `bash - ~/.bashrc, ~/.bash_profile`
+- `git - ~/.gitconfig`
+- `vim` - `~/.vimrc` and the `~/.vim folder`
+- `ssh - ~/.ssh/config`
+- `tmux - ~/.tmux.conf`
+
+Kako da organizujete vaše dotfiles? Oni bi trebali da budu u njihovom posebnom folderu, ispod kontrole verzije, i **symlinked** na mjesto koristeći script. Ovo ima sledeće benefite:
+
+- **Laka instalacija:** ukoliko se ulogujete na novu mašinu, potvrđivanje vaših podešavanja će trajati samo oko minuta.
+- **Prenosivost:** Vaši alati će raditi na isti način svuda.
+- **Sinhronizacija:** Možete da ažurirate vaše dotfiles bilo gdje i da svi oni budu sinhronizovani.
+- **Praćenje promjena:** Vjerovatno ćete kroz vašu čitavu programersku karijeru održavati vaše dotfiles, i jako je dobro imati kontrolu istorije za projekte koji će duže trajati.
+
+Šta bi trebali da stavite u dotfiles? Možete učiti o podešavanju vaših alata čitanjem online dokumentacije ili [man pages](https://en.wikipedia.org/wiki/Man_page). Drugi dobar način jeste pretraživanje interneta za blog postove o specifičnim programima, gdje će vam autori iznijeti njihvoe preference podešavanja. Johttps://github.com/jonhoo/configsš jedan način da učite o podešavanjima jeste pregledanjem dotfiles drugih ljudi: možete pronaći gomilu [dotfiles repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) na Githubu - pogledajte najpopularnije [ovdje](https://github.com/mathiasbynens/dotfiles) (Savjetujemo vam da ne kopirate na slijepo podešavanja). [Ovdje](https://dotfiles.github.io/) je još jedan dobar resurs na ovu temu. 
+
+Svi instruktori ovih lekcija imaju njihove dotfiles koji su svima dostupni na Github-u: [Anish](https://github.com/anishathalye/dotfiles), [Jon](https://github.com/jonhoo/configs), [Jose](https://github.com/jjgo/dotfiles).
+
+### Prenosivost
+
+Čest problem sa dotfiles jeste što podešavanja možda neće raditi u radu sa nekoliko mašina, npr. ukoliko imaju različite operativne sisteme ili shell-ove. Ponekad takođe želite da se podešavanja primjenjuju samo na mašini na kojoj u tom trenutku radite.
+
+Postoje česti trikovi da vam to olakšaju. Ukoliko to datoteka sa podešavanjima podržava, koristite ekvivalent if izjava da bi na mašini primjenili specifična podešavanja. Na primer, vaš shell može imati nešto kao što je:
+
+```shell
+if [[ "$(uname)" == "Linux" ]]; then {do_something}; fi
+
+# Check before using shell-specific features
+if [[ "$SHELL" == "zsh" ]]; then {do_something}; fi
+
+# You can also make it machine-specific
+if [[ "$(hostname)" == "myServer" ]]; then {do_something}; fi
+```
+
+Ukoliko fajl sa podešavanjima to podržava, koristite includes. Na primer, `~/.gitconfig` može imati podešavanje:
+
+```shell
+[include]
+    path = ~/.gitconfig_local
+```
+
+Onda na svakoj mašini, `~/.gitconfig_local` može sadržati specifična podešavanja za mašinu.
+
+Ova ideja je takođe korisna ako želite da različiti programi dijele ista podešavanja. Na primer, ukoliko želite da i `bash` i `zsh` dijele iste pseudonime možete ih napisati u `.aliases` i imati sledeći blok u oba: 
+
+```shell
+# Test if ~/.aliases exists and source it
+if [ -f ~/.aliases ]; then
+    source ~/.aliases
+fi
+```
+
+## Udaljene mašine
+
+Kod programera je postalo često da koriste udaljene servere u njihovom svakodnevnom životu. Ukoliko morate da koristite udaljene servere da bi razvili backend software ili vam je potreban server sa visokim računarskim sposobnostima, na kraju ćete koristiti Secure Shell (SSH). Kao i za većina alata koje smo prešli, SSH je veoma podesiv i vrijedan je učenja.
+
+Da izvršite komandu `ssh` na serveru uradite sledeće:
+
+```shell
+ssh foo@bar.mit.edu
+```
+
+Ovdje pokušavamo da ssh kao korisnik `foo` na serveru `bar.mit.edu`. Server može biti naznačen sa URL-om (kao što je `bar.mit.edu`) ili IP (nešto kao `foobar@192.168.1.42`). Kasnije ćemo vidjeti ako prilagodimo ssh config datoteku možete pristupiti samo koristeći nešto kao `ssh bar`.
+
+### Izvršavanje komandi
+
+Funkcija `ssh` koja se često ne obazire jeste mogućnost da se komanda izvršava direktno. `ssh foobar@server ls` će izvršiti `ls` u home datoteci foobar. To radi sa pajpom, tako da će `ssh foobar@server ls | grep PATTERN` će lokalno grepovati udaljeni output `ls`-a i `ls | ssh foobar@server grep PATTERN` će grepovati udaljeni lokani output `ls`.
+
+### SSH ključevi
+
+Autentikacija na bazi ključeva koristi kriptografiju javnog ključa kako bi dokazala serveru da klijent posjeduje tajni privatni ključ bez otkrivanja ključa. Na ovaj način ne morate ponovo da unosite password svaki put. Ipak, privatni ključ (često kao ` ~/.ssh/id_rsa` i još češće kao `~/.ssh/id_ed25519`) je efektivno vaš password, tako ga i tretirajte.
+
+### Generisanje ključeva 
+
+Da bi generisali par možete izvršiti [ssh-keygen](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
+
+```shell
+ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
+```
+
+Trebali bi da izaberete lozinku, da bi izbjegli da neko ko dođe do vašeg privatnog ključa ima autorizovani pristup serverima. Koristite [ssh-agent](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) ili [gpg-agent](https://linux.die.net/man/1/gpg-agent) tako da ne morate da kucate vašu lozinku svaki put.
+
+Ako ste ikada podešavali pushing na GitHub koristeći SSH ključ, onda ste vjerovatno napravili korake koji su navedeni [ovdje](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh) i već imate validan par ključeva. Da bi provjerili da li imate lozinku i da je potvrdite možete izvršiti `ssh-keygen -y -f /path/to/key`.
+
+### Autentikacija bazirana na ključevima
+
+`ssh` će provjeriti u `.ssh/authorized_keys` da bi odredio kog klijenta bi trebao da pusti. Da bi kopirali javni ključ ovdje možete koristiti: 
+
+```shell
+cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
+```
+
+Jednostavnije rešenje može biti postignuto sa `ssh-copy-id` tamo gdje je dostupno: 
+
+```shell
+ssh-copy-id -i .ssh/id_ed25519.pub foobar@remote
+```
+### Kopiranje datoteka preko SSH-a
+
+Postoji mnogo načina da kopirate datoteke preko SSH:
+
+- `ssh+tee`, najlakše je koristiti `ssh` izvršenje komande i STDIN input koristeći `cat localfile | ssh remote_server tee serverfile`. Sjetite se da [tee](https://www.man7.org/linux/man-pages/man1/tee.1.html) ispisuje output iz STDIN u datoteku. 
+- [scp](https://www.man7.org/linux/man-pages/man1/scp.1.html) kada kopirate veliku količinu datoteka/direktorijuma, sigurna copy `scp` komanda je pogodnija jer se lakše može kretati kroz paths. Sintaksa je `scp path/to/local_file remote_host:path/to/remote_file`.
+- [rsync](https://www.man7.org/linux/man-pages/man1/rsync.1.html) je poboljšanje u odnosu na `scp` zbog detektovanja indetičnih datoteka lokalno i udaljeno, i sprečavanja njihovog ponovnog kopiranja. Takođe omogućava bolju kontrolu nad symlinks, dozvolama i ima dodatne funkicje kao što su `--partial` flag koji može nastaviti iz prethodno prekinute kopije. `rsync` ima sličnu sintaksu kao i `scp`.
+
+### Prosleđivanje port-a
+
+U mnogim scenarijima ćete naići na software koji sluša određene portove na mašini. Kada se ovo desi na vašoj lokalnoj mašini možete kucati `localhost:PORT` ili `127.0.0.1:PORT`, ali šta radite sa udaljenim serverima čiji port nije direktno dostupan kroz network/internet?
+
+Ovo se naziva __prosleđivanje port-a__ i dolazi u dvije varijatnte: Local Port Forwarding and Remote Port Forwarding (pogledajte slike za više detalja, slike su sa [ovog StackOverflow posta](https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot).
+
+### Local Port Forwarding
+
+![img1][img1]
+
+[img1]: https://i.stack.imgur.com/a28N8.png%C2%A0
+
+### Remote Port Forwarding 
+
+![img2][img2]
+
+[img2]: https://i.stack.imgur.com/4iK3b.png%C2%A0
 
