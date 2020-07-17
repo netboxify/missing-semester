@@ -321,7 +321,7 @@ Ovo se naziva __prosleđivanje port-a__ i dolazi u dvije varijatnte: Local Port 
 
 [img2]: https://i.stack.imgur.com/4iK3b.png%C2%A0
 
-Najčešći scenarijo je local port forwarding, gdje service na udaljenoj mašini sluša port a vi želite da povežete port na lokalnoj mašini da biste ga proslijedili na udaljeni port. Na primer, ukoliko mi izvršimo `jupyter notebook` na udaljenom serveru koji sluša port `8888`. Plus, da bi proslijedili to na lokalni port `9999`, uradili bi `ssh -L 9999:localhost:8888 foobar@remote_server` i onda se prebacili na `locahost:9999` na našoj lokalnoj mašini.
+Najčešći scenario je local port forwarding, gdje service na udaljenoj mašini sluša port a vi želite da povežete port na lokalnoj mašini da biste ga proslijedili na udaljeni port. Na primer, ukoliko mi izvršimo `jupyter notebook` na udaljenom serveru koji sluša port `8888`. Plus, da bi proslijedili to na lokalni port `9999`, uradili bi `ssh -L 9999:localhost:8888 foobar@remote_server` i onda se prebacili na `locahost:9999` na našoj lokalnoj mašini.
 
 ### SSH podešavanja
 
