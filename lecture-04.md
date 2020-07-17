@@ -10,24 +10,24 @@ Već smo vidjeli neke osnove upravljanja podacima u prethodnim lekcijama. Manje-
 
 Krenimo od početka. Da bi upravljali podacima, potrebne su nam dvije stvari: podaci kojima upravljamo, i nešto što ćemo sa njima da uradimo. Logs su obično dobar primjer, jer često želite da ispitate stvari koje su vezane za njih, a kompletno čitanje nije izvodljivo. Hajde da shvatimo ko pokušava da se uloguje u moj server posmatranjem mog server log-a: 
 
-```console
+```shell
 ssh myserver journalctl
 ```
 
 To je previše stvari. Ograničimo to na ssh stvari:
 
-```console 
+```shell 
 ssh myserver journalctl | grep sshd
 ```
 
 Primjetite da koristimo pajp za striming __udaljene__ datoteke kroy `grep` na našem lokalnom računaru! `ssh` je magičan, govorićemo više o njemu u sledećoj lekciji koja se tiče koja se tiče okruženja komandne linije. Ipak, ovo je i dalje mnogo više stvari nego što smo željeli. I jako je teško za čitati. Bolje da odradimo:
 
-```console
+```shell
 ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' | less
 ```
 Zašto dodatno citiranje? Pa, naši logs mogu biti veoma veliki, suvišno je da sve to strimujemo na naš računar i onda da ih filtriramo. Umjesto toga, možemo odraditi filtriranje na udaljenom serveru, a zatim proslijediti podatke lokalno. `less` nam pruža "pager" koji nam omogućuje da skrolujemo gore i dolje kroz dugi output. Da bi mogli da uštedimo dodatni promet dok ispravljamo našu komandnu liniju, možemo umetnuti trenutni filtrirane zapise u datoteku, tako da ne moramo da pristupamo networku dok razvijamo: 
 
-```console
+```shell
 $ ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' > ssh.log
 $ less ssh.log
 ```
@@ -36,7 +36,7 @@ Ovdje postoji još mnogo buke. Postoji još __mnogo__ načina da se toga riješi
 
 `sed` je "strim editor" koji je napravljen na osnovama starog `ed` editora. U njemu, vi u osnovi dajete kratke komande vezane za modifikaciju datoteke, umjesto da manipulišete sa njenim sadržajem direktno(iako i to možete da uradite). Postoji jako puno komandi, ali jedna od najčešćih je `s`: zamjena. Na primer, možemo napisati:
 
-```console
+```shell
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -64,19 +64,19 @@ Uobičajeni obrasci su:
 
 Gledajući ponovo na `/.*Disconnected from /`, vidimo da se poklapa sa bilo kojim tekstom koji počinje sa bilo kojim brojem karaktera, praćenim literalnim stringom "Disconnected from". To je upravo ono što želimo. Ali budite oprezni, regularni izrazi umiju da budu nezgodni. Šta ukoloko je neko pokušao da se uloguje sa korisničkim imenom "Disconnected from"? Imali bi: 
 
-```console
+```shell
 Jan 17 03:13:00 thesquareplanet.com sshd[2631]: Disconnected from invalid user Disconnected from 46.97.239.16 port 55920 [preauth]
 ```
 
 Sa čim bi završili? Pa, `*` i `+` su, uobičajeno "pohlepni". Oni će se podudariti sa najviše teksta koliko mogu. Tako, da bi gore završili sa samo
 
-```console
+```shell
 46.97.239.16 port 55920 [preauth]
 ```
 
 To može biti ono što nismo željeli. U nekim implementacijama regularnih izraza, možete samo dodati `*` ili `+` sa `?` da bi učinili da ne budu pohlepni, ali nažalost `sed` to ne podržava. Mogli bismo se okrenuti perl-ovom modu komandne linije, koji __podržava__ takav konstrukt: 
 
-```console
+```shell
 perl -pe 's/.*?Disconnected from //'
 ```
 
@@ -84,7 +84,7 @@ Držaćemo se `sed`-a do kraja ovoga, jer to mnogo češći alat za ovakvu vrstu
 
 U redu, takođe imamo sufix kojeg bi da se riješimo. Kako bi mogli to da uradimo? Malo je nezgodno izvršiti poklapanje teksta koji prati korisničko ime, posebno ukoliko ime ima razmake i slično. Ono što moramo da uradimo jeste da se podudari __čitava__ linija: 
 
-```console
+```shell
 | sed -E 's/.*Disconnected from (invalid |authenticating )?user .* [^ ]+ port [0-9]+( \[preauth\])?$//'
 ```
 Hajde da pogledamo šta se dešava sa [regex debugger](https://regex101.com/r/qqbZqh/2). U redu, početak je isti kao i ranije. Onda, vrišimo podudaranje sa bilo kojom varijantom "korisnika" (postoje dva prefixa u logs). Onda vršimo podudaranje bilo kojeg stringa gdje je korisničko ime. Onda vršimo podudaranje bilo koje pojedinačne riječi `([^ ]+`; i dijelova karaktera koji nisu prazni). Zatim riječ "port" koja je praćena dijelovima cifara. Zatim mogući suffix `[preauth]`, i zatim kraj reda.
@@ -93,7 +93,7 @@ Primjećujete da koristeći ovu vrstu tehnike, korisničko ime "Disconnected fro
 
 Postoji jedan problem sa ovim, a to je da čitav log postaje prazan. Mi želimo da __zadržimo__ korisničko ime nakon svega. Za ovo, možemo koristiti "hvatanje grupa". Bilo koji tekst koji se poklapa sa regex-om okruženim zagradom se čuva u grupi koja je označena brojem. Ove su dostupne u zamjeni (a u nekim engin-ima, čak i sam obrazac) kao `\1`, `\2`, `\3`, itd. Tako da: 
 
-```console
+```shell
 | sed -E 's/.*Disconnected from (invalid |authenticating )?user (.*) [^ ]+ port [0-9]+( \[preauth\])?$/\2/'
 ```
 
@@ -105,7 +105,7 @@ Regularni izrazi su notorno teški za pročitati, ali ih je jako pogodno znati.
 
 U redu, sada imamo
 
-```console
+```shell
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -116,7 +116,7 @@ ssh myserver journalctl
 
 Da se vratimo na stvar. Ono što imamo sada je lista svih korisničkih imena koji su pokušali da se uloguju. Ali ovo i nije baš korisno. Hajde da pogledamo neke česte primjere: 
 
-```console
+```shell
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -126,7 +126,7 @@ ssh myserver journalctl
 
 `sort` će sortirati njegov input.  `uniq -c` će oboriti uzastopne linije koje su iste u jednu liniju, koji ima prefix u vidu broja slučajeva. Vjerovatno da to želimo da sortiramo i zadržimo najčešća korisnička imena:
 
-```console
+```shell
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -142,7 +142,7 @@ Takođe postoji `sort -r`, koji sortira u obrnutom redosledu.
 
 U redu, to je bilo prilično dobro, ali šta ukoliko bi željeli da izvedemo samo korisnička imena sa listom koja je odvojena zarezom umjesto novim redom, možda za config datoteku? 
 
-```console
+```shell
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -164,7 +164,7 @@ Hajde da vidimo da li možemo nešto da uradimo još bolje. Prvo, primjećujete 
 
 Ipak, `awk` je programski jezik, sjećate se? 
 
-```console
+```shell
 BEGIN { rows = 0 }
 $1 == 1 && $2 ~ /^c[^ ]*e$/ { rows += $1 }
 END { print rows }
@@ -176,19 +176,19 @@ END { print rows }
 
 Možete koristiti matematiku direktno u vašem shell-u koristeći `bc`, kalkulator koji može da čita iz STDIN! Na primer, dodavanje brojeva na svakoj liniji zajedno, konkatenirajući ih zajedno, razgraničavajući ih sa `+`:
 
-```console
+```shell
  | paste -sd+ | bc -l
 ```
 
 Ili napraviti složenije izraze: 
 
-```console
+```shell
 echo "2*($(data | paste -sd+))" | bc -l
 ```
 
 Možete dobiti statistiku na više načina. [st](https://github.com/nferraz/st) je veoma uredan, ali ako već imate [R](https://www.r-project.org/): 
 
-```console
+```shell
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -201,7 +201,7 @@ R je još jedan (čudan) programski jezik koji je odličan za analizu podataka i
 
 Ukoliko samo želite jednostavan plotting, `gnuplot` je vaš prijatelj:
 
-```console
+```shell
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -217,7 +217,7 @@ Ponekad želite da upravljate podacima da bi pronašli stvari koje ćete da inst
 
 Na primer, kao što ste vidjeli u lekciji, mogu koristiti sledeću komandu da deinstaliram stari build Rust-a iz mog sistema izvodeći stare nazive build-a koristeći alate za upravljanje podacima i prosleđujući ih kroz `xargs` deinstalatoru:
 
-```console
+```shell
 rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
 ```
 
@@ -225,7 +225,7 @@ rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//'
 
 Do sada, najviše smo pričali o upravljanju tekstualnim podacima, ali pajpovi su takođe korisni i za binarne podatke. Na primer, možemo koristiti ffmpeg da snimimo sliku iz naše kamere, konvertujemo je u grayscale, kompresujemo je, pošaljemo je na udaljenu mašinu preko SSH-a, tamo je dekompresujemo, napravimo kopiju, i onda je prikažemo. 
 
-```console
+```shell
 ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
  | convert - -colorspace gray -
  | gzip
@@ -239,25 +239,25 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
 3. Da bi se uradila zamjena u mjestu veoma je izazovno uraditi nešto kao `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`. Ipak je ovo loša ideja, zašto? Da li je ovo posebno vezano za `sed`? Koristite `man sed` da bi saznalo kako ovo da odradite. 
 4. Pronađite vaš prosjek, medijanu, i najduže vrijeme podizanja sistema za poslednjih deset puta. Koristite `journalctl` na Linuxu i `log show` na macOS, i potražite vremenske oznake log-a blizu početka i kraja svakog pokretanja. Na Linuxu, oni mogu izgledati ovako: 
 
-```console
+```shell
 Logs begin at ...
 ```
 
 i
 
-```console
+```shell
 systemd[577]: Startup finished in ...
 ```
 
 Na macOS, [potražite](https://eclecticlight.co/2018/03/21/macos-unified-log-3-finding-your-way/):
 
-```console
+```shell
 === system boot:
 ```
 
 i 
 
-```console
+```shell
 Previous shutdown cause: 5
 ```
 
