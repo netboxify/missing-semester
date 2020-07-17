@@ -205,7 +205,7 @@ Ukoliko ste Bash user, koristite `set -o vi`. Ukoliko koristite Zsh, `bindkey -v
 
 Mnogi programi koriste [GNU Readline]() biblioteku za interfejs komandne linije. Readline podržava (osnovnu) Vim emulaciju takođe, koja može biti omogućena dodavanjem sledeće linije u `~/.inputrc` fajl: 
 
-```console
+```shell
 set editing-mode vi
 ```
 
