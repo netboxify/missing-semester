@@ -16,7 +16,7 @@ Da bi dodali varijble u bash-u, koristite sintaksu `foo=bar` i pristupite vrijed
 
 Stringovi u bash-u mogu biti definisani sa `'` i `"` navodnicima, ali oni nisu jednaki. Stringovi označeni sa `'` su literalni stringovi i neće zamijeniti vrijednost varijable, dok `"` navodnici hoće.
 
-```console
+```shell
 foo=bar
 echo "$foo"
 # prints bar
@@ -25,7 +25,7 @@ echo '$foo'
 ```
 Kao i sa većinom programskih jezika, bash podržava kontrolu toka sa tehnikama koje uključuju `if`, `case`, `while` i `for`. Slično, `bash` ima funkcije koje primaju argumente i dozvoljava vršenje operacija sa njima. Evo primjera funkcija koja kreira direktorijum i vrši cd u njega.
 
-```console
+```shell
 mcd () {
     mkdir -p "$1"
     cd "$1"
@@ -47,7 +47,7 @@ Komande će često vratiti output koristeći `STDOUT`, greške kroz `STDERR`, i 
 
 Exit kodovi se mogu koristiti da bi se uslovno izvršavala komanda koristeći `&&` (i operator) i `||` (ili operator). Komande takođe mogu biti razdvojene u okviru iste linije koristće tačku zarez `;`. `Ispravni program` će uvijek imati 0 kao return kod, a komanda koja `nije uspjela` će uvijek imati 1 kao return kod. Hajde da vidimo neke primjere.
 
-```console
+```shell
 false || echo "Oops, fail"
 # Oops, fail
 
@@ -71,7 +71,7 @@ Još jedan poznati obrazac je kada želite da dobijete output komande kao varija
 Kako je ovdje prikazano jako puno informacija, hajde da vidimo primjer koji prikazuje primjenu ovih stvari. Izvršiće iteraciju kroz argumente koje smo obezbijedili, 
 `grep` za string `foobar`, i dodaće ih fajlu kao komentar ukoliko nije pronađen.
 
-```console
+```shell
 #!/bin/bash
 
 echo "Starting program at $(date)" # Date will be substituted
@@ -96,7 +96,7 @@ Kada pokrećemo skriptu, često ćete željete da pružite argumente koji su sli
 
 -Vitičaste zagrade {} - Kada god imate zajednički substring u seriji komandi, možete koristiti vitičaste zagrade za bash da bi proširili ovo automatski. Ovo je veoma korisno kada pomjerate ili konvertujete fajlove.
 
-```console
+```shell
 convert image.{png,jpg}
 # Will expand to
 convert image.png image.jpg
@@ -125,7 +125,7 @@ diff <(ls foo) <(ls bar)
 Pisanje bash bash skripti može biti izazovno i neintuitivno. Postoje alati kao što je [spellcheck](https://github.com/koalaman/shellcheck) koji će vam pomoći da pronađete greške u vašim sh/bash skriptama.
 
 Imajte na umu da skripte ne moraju biti napisane u bash-u da bi bile pozvane iz terminala. Na primer, ovo je jednostavna Python skripta koja ispisuje argumente u obrnutom redosledu:
-```console
+```python
 #!/usr/local/bin/python
 import sys
 for arg in reversed(sys.argv[1:]):
@@ -154,7 +154,7 @@ Nekada manpages mogu pružiti previše detaljan opis komandi, i mogu da otežaju
 
 Jedan od najčešćih zadataka koji se ponavljaju jeste traženje fajlova ili direktorijuma. Svi UNIX-like sistemi dolaze sa find, odličnim shell alatom kojim se pretražuju fajlovi. Find će rekurzivno tražiti fajlove koji ispunjavaju zadati kriterijum. Neki primjeri: 
 
-```console
+```shell
 # Find all directories named src
 find . -name src -type d
 # Find all python files that have a folder named test in their path
@@ -166,7 +166,7 @@ find . -size +500k -size -10M -name '*.tar.gz'
 ```
 Osim listinga fajlova, pretraga takođe može izvršiti akcije za fajlove koji se poklapaju sa vašim upitom. Ovo svojstvo može biti nevjerovatno korisno da bi se pojednostavilo ono što može biti jako monoton zadatak.
 
-```console
+```shell
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
 # Find all PNG files and convert them to JPG
@@ -228,7 +228,7 @@ Postoje složeniji alati da biste brzo dobili pregled strukture direktorijuma: [
 
 Jednostavan output bi izgledao ovako
 
-```console
+```shell
  -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
  drwxr-xr-x   5 user group  160 Jan 14 09:53 .
  -rw-r--r--   1 user group  514 Jan 14 06:42 bar
@@ -239,7 +239,7 @@ Jednostavan output bi izgledao ovako
 
 3. Recimo da imate komandu koja rijetko ne uspijeva. Da biste otklonili grešku morate da snimite njen output ali može proći dosta vremena da biste ostvarili neuspjeh. Napišite bash skriptu koja pokreće sledeću skriptu dok se ne desi greška i zabilježi standardni output i ispiše greške iz datoteka i fajlova. Bonus poeni ukoliko dobijete podatak koliko je puta skripta pokrenuta prije nego se desila greška. 
 
-```console
+```shell
  #!/usr/bin/env bash
 
  n=$(( RANDOM % 100 ))
