@@ -70,7 +70,7 @@ o <-- o <-- o <-- o <---- *o*
 
 Commits u Git-u su nepromenljivi. Ovo ne znači da greške ne mogu biti ispravljene, ipak; izmjene u commit istoriji zapravo kreiraju potpuno novi commit, i reference (vidi dolje) se ažuriraju tako da ukazuju na nove. 
 
-Model podataka, kao pseudokod
+### Model podataka, kao pseudokod
 
 Može biti poučno da vidite model podataka Git-a napisan dolje u pseudokodu:
 
