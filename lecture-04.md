@@ -20,7 +20,7 @@ To je previše stvari. Ograničimo to na ssh stvari:
 ssh myserver journalctl | grep sshd
 ```
 
-Primjetite da koristimo pajp za striming __udaljene__ datoteke kroy `grep` na našem lokalnom računaru! `ssh` je magičan, govorićemo više o njemu u sledećoj lekciji koja se tiče koja se tiče okruženja komandne linije. Ipak, ovo je i dalje mnogo više stvari nego što smo željeli. I jako je teško za čitati. Bolje da odradimo:
+Primjetite da koristimo pajp za striming __udaljene__ datoteke kroz `grep` na našem lokalnom računaru! `ssh` je magičan, govorićemo više o njemu u sledećoj lekciji koja se tiče okruženja komandne linije. Ipak, ovo je i dalje mnogo više stvari nego što smo željeli. I jako je teško za čitati. Bolje da odradimo:
 
 ```shell
 ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' | less
@@ -32,7 +32,7 @@ $ ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' > ssh.log
 $ less ssh.log
 ```
 
-Ovdje postoji još mnogo buke. Postoji još __mnogo__ načina da se toga riješite, ali hajde da pogledamo jedan od najmoćnijih alata koji su vam na raspolagnaju: `sed`.
+Ovdje postoji još mnogo buke. Postoji još __mnogo__ načina da se toga riješite, ali hajde da pogledamo jedan od najmoćnijih alata koji su vam na raspolaganju: `sed`.
 
 `sed` je "strim editor" koji je napravljen na osnovama starog `ed` editora. U njemu, vi u osnovi dajete kratke komande vezane za modifikaciju datoteke, umjesto da manipulišete sa njenim sadržajem direktno(iako i to možete da uradite). Postoji jako puno komandi, ali jedna od najčešćih je `s`: zamjena. Na primer, možemo napisati:
 
@@ -45,7 +45,7 @@ ssh myserver journalctl
 
 Ovo što smo upravo napisali je jednostavni __regularni izraz__; moćan konstrukt koji vam pruža mogućnost da uparujete tekst sa obrascima. Komanda `s` je napisana u formi: `s/REGEX/SUBSTITUTION/`, gdje je `REGEX` regularni izraz koji želite da pretražite, i `SUBSTITUTION` je tekst sa kojim želite da zamijenite tekst koji se poklapa. 
 
-(Možda možete prepoznati ovu sintaksu iz "Pronađi i zamijeni" sekcije iz naših Vim [Zabilješke lekcije](https://missing.csail.mit.edu/2020/editors/#advanced-vim)! Zaista, Vim koristi sintaksu da pronađe i zamijeni koja je slična sa `sed` komandom zamjene. Učenje jednog alata će vam često pomoći u tome da budete mnogo bolji i sta ostalim alatima.)
+(Možda možete prepoznati ovu sintaksu iz "Pronađi i zamijeni" sekcije iz naših Vim [Zabilješke lekcije](https://missing.csail.mit.edu/2020/editors/#advanced-vim)! Zaista, Vim koristi sintaksu da pronađe i zamijeni koja je slična sa `sed` komandom zamjene. Učenje jednog alata će vam često pomoći u tome da budete mnogo bolji i sa ostalim alatima.)
 
 ## Regularni izrazi
 
@@ -62,7 +62,7 @@ Uobičajeni obrasci su:
 
 `sed` regularni izrazi su donekle čudni, i zahtjevaće da stavite `\` prije većine navedenih da bi im se dalo specijalno značenje. Ili možete proslijediti `-E`.
 
-Gledajući ponovo na `/.*Disconnected from /`, vidimo da se poklapa sa bilo kojim tekstom koji počinje sa bilo kojim brojem karaktera, praćenim literalnim stringom "Disconnected from". To je upravo ono što želimo. Ali budite oprezni, regularni izrazi umiju da budu nezgodni. Šta ukoloko je neko pokušao da se uloguje sa korisničkim imenom "Disconnected from"? Imali bi: 
+Gledajući ponovo na `/.*Disconnected from /`, vidimo da se poklapa sa bilo kojim tekstom koji počinje sa bilo kojim brojem karaktera, praćenim literalnim stringom "Disconnected from". To je upravo ono što želimo. Ali budite oprezni, regularni izrazi umiju da budu nezgodni. Šta ukoliko je neko pokušao da se uloguje sa korisničkim imenom "Disconnected from"? Imali bi: 
 
 ```shell
 Jan 17 03:13:00 thesquareplanet.com sshd[2631]: Disconnected from invalid user Disconnected from 46.97.239.16 port 55920 [preauth]
@@ -80,7 +80,7 @@ To može biti ono što nismo željeli. U nekim implementacijama regularnih izraz
 perl -pe 's/.*?Disconnected from //'
 ```
 
-Držaćemo se `sed`-a do kraja ovoga, jer to mnogo češći alat za ovakvu vrstu poslova. `sed` takođe može raditi druge pogodne stvari, kao što je ispisivanje redova praćene zadatim poklapanjem, izvršiti više zamjena u toku jednog poziva, pretražiti stvari itd. Ali nećemo previše tih stvari pokriti ovdje. `sed` je, u stvari, posebna tema za sebe, ali često postoje i bolji alati.
+Držaćemo se `sed`-a do kraja ovoga, jer je to mnogo češći alat za ovakvu vrstu poslova. `sed` takođe može raditi druge pogodne stvari, kao što je ispisivanje redova praćene zadatim poklapanjem, izvršiti više zamjena u toku jednog poziva, pretražiti stvari itd. Ali nećemo previše tih stvari pokriti ovdje. `sed` je, u stvari, posebna tema za sebe, ali često postoje i bolji alati.
 
 U redu, takođe imamo sufix kojeg bi da se riješimo. Kako bi mogli to da uradimo? Malo je nezgodno izvršiti poklapanje teksta koji prati korisničko ime, posebno ukoliko ime ima razmake i slično. Ono što moramo da uradimo jeste da se podudari __čitava__ linija: 
 
@@ -174,7 +174,7 @@ END { print rows }
 
 ## Analiziranje podataka 
 
-Možete koristiti matematiku direktno u vašem shell-u koristeći `bc`, kalkulator koji može da čita iz STDIN! Na primer, dodavanje brojeva na svakoj liniji zajedno, konkatenirajući ih zajedno, razgraničavajući ih sa `+`:
+Možete koristiti matematiku direktno u vašem shell-u koristeći `bc`, kalkulator koji može da čita iz STDIN! Na primer, dodavanje brojeva na svakoj liniji zajedno, spajajući ih zajedno, razgraničavajući ih sa `+`:
 
 ```shell
  | paste -sd+ | bc -l
@@ -213,7 +213,7 @@ ssh myserver journalctl
 
 ## Upravljanje podacima da bi se napravili argumenti
 
-Ponekad želite da upravljate podacima da bi pronašli stvari koje ćete da instalirate ili uklonite bazirajući se na neku dužu listu. Upravljanje podacima o kojem smo pričali do sada + `xargs` mogu biti moćna kombinacija. 
+Ponekad želite da upravljate podacima da bi pronašli stvari koje ćete da instalirate ili uklonite bazirajući se na nekoj dužoj listi. Upravljanje podacima o kojem smo pričali do sada + `xargs` mogu biti moćna kombinacija. 
 
 Na primer, kao što ste vidjeli u lekciji, mogu koristiti sledeću komandu da deinstaliram stari build Rust-a iz mog sistema izvodeći stare nazive build-a koristeći alate za upravljanje podacima i prosleđujući ih kroz `xargs` deinstalatoru:
 
@@ -236,7 +236,7 @@ ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
 
 1. Pogledajte ovaj [kratki interaktivni regex tutorijal](https://regexone.com/)
 2. Pronađite broj riječi (u `/usr/share/dict/words`) koje sadrže bar tri `a` i nemaju `s` na kraju. Koje su tri kombinacije najčešća poslednja dva slova te riječi? `sed` i `y` komanda, ili `tr` program vam može pomoći sa neosjetljivošću velikih slova. Koliko je tih kombinacija sa dva slova tu? I za izazov: Koje kombinacije se ne pojavljuju?
-3. Da bi se uradila zamjena u mjestu veoma je izazovno uraditi nešto kao `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`. Ipak je ovo loša ideja, zašto? Da li je ovo posebno vezano za `sed`? Koristite `man sed` da bi saznalo kako ovo da odradite. 
+3. Da bi se uradila zamjena u mjestu veoma je izazovno uraditi nešto kao `sed s/REGEX/SUBSTITUTION/ input.txt > input.txt`. Ipak je ovo loša ideja, zašto? Da li je ovo posebno vezano za `sed`? Koristite `man sed` da bi saznali kako ovo da odradite. 
 4. Pronađite vaš prosjek, medijanu, i najduže vrijeme podizanja sistema za poslednjih deset puta. Koristite `journalctl` na Linuxu i `log show` na macOS, i potražite vremenske oznake log-a blizu početka i kraja svakog pokretanja. Na Linuxu, oni mogu izgledati ovako: 
 
 ```shell
@@ -261,5 +261,5 @@ i
 Previous shutdown cause: 5
 ```
 
-5. Potražite boot poruke koje nisu podijeljenje između vaših 3 poslednja podizanja sistema (pogledajte `journalctl` `-b` flag). Podijelite ovaj zadatak na više koraka. Prvo nađite način da dobijete log iz poslednja 3 podizanja sistema. Može postojati odgovarajući flag na alatu koji koristite da bi izvukli log podizanja sistema, ili možete koristiti `sed '0,/STRING/d'` da uklonite sve linije prije one koja se poklapa sa `STRING`. Dalje, uklonite sve dijelove reda koji uvijek varira (kao vremenski žig). Zatim, de-duplicirajte linije inputa i zadržite broj svake od njih (`uniq` je vaš prijatelj). I konačno, elminišite bilo koji red čiji je brojač 3 (budući da je bio podijeljen u svim podizanjima sistema).
-6. Pronađite skup podataka online kao što je [ovaj](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [ili ovaj](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1) ili možda [ovaj](https://www.springboard.com/blog/free-public-data-sets-data-science-project/). Dohvatite ih koristeći `curl` i izvadite smao dvije kolone numeričkih podataka. Ukoliko povlačite HTML podatke, [pup](https://github.com/EricChiang/pup) može biti od koristi. Za JSON podatke, pokušajte sa [jq](https://stedolan.github.io/jq/). Pronađite minimum i maksimum jedne kolone u jednoj komandi, i zbir razlika između dvije kolone u drugoj.
+5. Potražite boot poruke koje nisu podijeljenje između vaša 3 poslednja podizanja sistema (pogledajte `journalctl` `-b` flag). Podijelite ovaj zadatak na više koraka. Prvo nađite način da dobijete log iz poslednja 3 podizanja sistema. Može postojati odgovarajući flag na alatu koji koristite da bi izvukli log podizanja sistema, ili možete koristiti `sed '0,/STRING/d'` da uklonite sve linije prije one koja se poklapa sa `STRING`. Dalje, uklonite sve dijelove reda koji uvijek varira (kao vremenski žig). Zatim, de-duplicirajte linije inputa i zadržite broj svake od njih (`uniq` je vaš prijatelj). I konačno, elminišite bilo koji red čiji je brojač 3 (budući da je bio podijeljen u svim podizanjima sistema).
+6. Pronađite skup podataka online kao što je [ovaj](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm), [ili ovaj](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1) ili možda [ovaj](https://www.springboard.com/blog/free-public-data-sets-data-science-project/). Dohvatite ih koristeći `curl` i izvadite samo dvije kolone numeričkih podataka. Ukoliko povlačite HTML podatke, [pup](https://github.com/EricChiang/pup) može biti od koristi. Za JSON podatke, pokušajte sa [jq](https://stedolan.github.io/jq/). Pronađite minimum i maksimum jedne kolone u jednoj komandi, i zbir razlika između dvije kolone u drugoj.
