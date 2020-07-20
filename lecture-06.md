@@ -156,3 +156,103 @@ Jedan detalj jeste da često želimo da znamo "gdje se trenutno nalazimo" u isto
 
 ### Skladište
 
+Konačno, možemo definisati šta je (okvirno) Git skladište: to su `objekti` podataka i `reference`.
+
+Na disku, Git skladišti objekte i reference: to je sve vezano za model podataka Git-a. Sve `git` komande se odnose na neku manipulaciju commit DAG dodavanjem objekata i dodavanjem/ažuriranjem referenci.
+
+Kada god upisujete bilo koju komandu, razmislite kakvu manipulaciju pravi u graph strukturi podataka. Suprotno tome, ukoliko želite da napravite posebnu vrstu izmjene DAG commit-a, npr. "Odbaci promjene koje nisu commit-ovane i podesi 'master' pokazivač da ukazuje na `5d83f9e`", vjerovatno postoji komanda da se to uradi(npr. u ovom slučaju, `git checkout master; git reset --hard 5d83f9e`).
+
+## Scensko područje
+
+Ovo je još jedan koncept koji je ortogonalan modelu podataka, ali je dio interfejsa za kreiranje commit-a.
+
+Jedan način na koji bi mogli da zamislite implementiranje snimaka kao što je gore navedeno jeste da imate "kreiraj snimak" komandu koja kreira novi snimak na osnovu __trenutnog stanja__ radnog direktorijuma. Neki alati kontrole verzije rade na ovaj način, ali ne i Git. Mi želimo čiste snimke, i možda ne bi uvijek bilo idealno da pravimo snimke u odnosu na trenutno stanje. Na primer, zamislite scenario gdje ste implementirali dvije odvojene funkcije, i želite da kreirate dva različita commit-a, gdje prvi predstavlja prvu funkciju, a drugi predstavlja drugu funkciju. Ili zamislite scenario gdje imate debugging print izjave koje su dodate po čitavom kodu, zajedno sa bugfix-om; Vi želite da commitujete bugfix i da otpišete sve print izjave.
+
+Git se uklapa u takve scenarije dozvoljavajući vam da odredite koje bi izmjene trebalo uključiti u sledećem snimku kroz mehanizam koji se naziva "staging area".
+
+## Git komandna linija interfejsa
+
+Da bi izbjegli dupliranje informacija, nećemo objašnjavati komande ispod u detalje. Pogledajte veoma preporučeni [Pro Git](https://git-scm.com/book/en/v2) za više informacija, ili pogledajte lekciju iz videa.
+
+### Osnove
+
+- `git help <command>`: git pomoć za git komandu
+- `git init`: kreira novi git repo, sa podacima skladištenim u `.git` direktorijumu.
+- `git status`: govori vam šta se dešava
+- `git add <filename>`: dodaje fajlove u scensko područje
+- `git commit`: kreira novi commit
+    - Pišite [dobre git commit poruke](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+    - Još više razloga da pišete [dobre git commit poruke](https://chris.beams.io/posts/git-commit/)
+- `git log`: pokazuje spljošteni log istorije
+- `git log --all --graph --decorate`: Vizualizuje istoriju kao DAG
+- `git diff <filename>`: pokazuje promjene koje ste napravili koje su relativne u odnosu na scensko područje
+- `git diff <revision> <filename>`: Prikazuje promjene u fajlovima između snimaka
+- `git checkout <revision>`: Ažurira HEAD i trenutnu granu
+
+### Grananje i spajanje
+
+- `git branch`: pokazuje grane
+- `git branch <name> `: kreira granu
+- `git checkout -b <name>`: kreira granu i prebacuje se na nju
+    - isto kao i ` git branch <name>; git checkout <name>`
+- `git merge <revision> `: spaja se u trenutnu granu
+- `git mergetool `: koristi fensi tool za pomoć pri rešavanju konflikata u spajanju
+- `git rebase `: postavlja set zakrpa na novu bazu
+ 
+ ### Udaljeni
+ 
+- `git remote`: izlistava remote 
+- `git remote add <name> <url>`: dodaje remote 
+- `git push <remote> <local branch>:<remote branch>`: šalje objekte na remote, i ažurira remote referencu
+- `git branch --set-upstream-to=<remote>/<remote branch>`: podešava vezu između lokalne i remote grane
+- `git fetch`: dohvata objekte/reference iz remote-a 
+- `git pull`: isto što i `git fetch; git merge` 
+- `git clone`: preuzima skladište iz remote-a 
+
+### Undo
+
+- `git commit --amend`: uređuje commit sadržaj/poruku
+- `git reset HEAD <file>`: uklanja fajl iz scenskog područja
+- `git checkout -- <file>`: odbacuje izmjene
+
+## Napredni Git
+
+- `git config`: Git je [veoma podesiv](https://git-scm.com/docs/git-config) 
+- `git clone --depth=1`: plitak clone, bez čitave istorije verzije 
+- `git add -p`: interaktivno scensko područje 
+- `git rebase -i`: interaktivan rebasing 
+- `git blame`: pokazuje ko je poslednji editovao koju liniju 
+- `git stash`: trenutno uklanja izmjene u radnom direktorijumu 
+- `git bisect`:  binarno pretražuje istoriju (npr. za regresiju)
+- `.gitignore`: [označava](https://git-scm.com/docs/gitignore) namjerno fajlove koji se ne prate da budu ignorisani
+
+## Ostalo
+
+- **GUIs**: Postoji mnogo [GUI klijenata](https://git-scm.com/downloads/guis) za Git. Umjesto njih, mi koristimo komandnu liniju interfejsa.
+- **Shell integracija**: Veoma je pogodno imati git status kao dio vašeg shell prompta([zsh](https://github.com/olivierverdier/zsh-git-prompt), [bash](https://github.com/magicmonty/bash-git-prompt)). Obično uključuju framework kao što je [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
+- **Editor integracija**: slično ovome iznad, pogodne integracije sa mnogo funkcija. [fugitive.vim](https://github.com/tpope/vim-fugitive) je standardan za Vim.
+- **Radni tokovi**: Naučili smo vas model podataka, plus neke osnovne komande: nismo vam rekli koju praksu da pratite kada radite na velikim projektima (i postoji [mnogo](https://nvie.com/posts/a-successful-git-branching-model/) [različitih](https://www.endoflineblog.com/gitflow-considered-harmful) [pristupa](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow))
+- **GitHub**: Git nije GitHub. GitHub ima specifičan način doprinošenja koda drugim projektima, koji se naziva [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
+- **Drugi Git provajderi**: GitHub nije specijalan: Postoji mnogo Git repository hostova, kao što su [GitLab](https://about.gitlab.com/) i [BitBucket](https://bitbucket.org/).
+
+## Resursi
+
+- [Pro Git](https://git-scm.com/book/en/v2) se **veoma preporučuje za čitanje**. Prolazak kroz poglavlja 1-5 će vas naučiti najveći dio toga što vam je potrebno da bi tečno koristili Git, sada kada razumijete model podataka. Dalja poglavlja imaju neke zanimljive, napredne materijale. 
+- [Oh Shit, Git!?!](https://ohshitgit.com/) je kratak vodič o tome kako da se oporavite od nekih najčešćih Git grešaka.
+- [Git for Computer Scientists](https://eagain.net/articles/git-for-computer-scientists/) je kratko objašnjenje Git modela podataka, sa manje pseudokoda i više fenski dijagrama nego što ih ima u ovim zabilješkama lekcija.
+- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/) je detaljno objašnjenje Git implementacije detalja iznad samo modela podataka, za radoznale.
+- [How to explain git in simple words](https://smusamashah.github.io/explain-git-in-simple-words/)
+- [Learn Git Branching](https://learngitbranching.js.org/) je igrica koja se zasniva na browser-u i koja vas uči Git.
+
+## Vježbe
+
+1. Ukoliko nemate prethodnog iskustva sa Git-om, ili pokušajte da pročitate prvih nekoliko poglavlja [Pro Git](https://git-scm.com/book/en/v2) ili prođite tutorijal kao što je [Learn Git Branching](https://learngitbranching.js.org/). Kako prolazite kroz to, povezujte Git komande sa modelom podataka.
+2. Klonirajte [repository for the class website](https://github.com/missing-semester/missing-semester).
+  - Pretražite istorju verzije vizualizujući je kao grafik.
+  - Ko je poslednja osoba koja je podesila `README.md`? (Nagovještaj: koristite `git log` sa argumentom)
+  - Koja je commit poruka koja je povezana sa poslednjim izmjenama `collections:` linija `_config.yml`? (Nagovještaj: koristite `git blame` i `git show`)
+3. Jedna česta greška u toku učenja Git-a jeste commit velikih fajlova kojima ne bi trebao da upravlja Git ili dodavanje osjetljivih informacija. Pokušajte da dodate fajl u repository, napravite neke commit-ove i zatim obrišite taj fajl iz istorije (možda ćete željeti da pogledate [ovo](https://docs.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository)).
+4. Klonirajte neki repository iz GitHub-a, i podesite neki od postojećih fajlova. Šta se dešava kada uradite `git stash`? Šta vidite kada pokrenete `git log --all --oneline`? Pokrenite `git stash pop` da bi poništili on o što ste uradili sa `git stash`. U kom scenariju bi ovo moglo biti korisno?
+5. Kao sa mnogim alatima komandne linije, Git pruža configuration fajl (ili dotfile) koji se naziva ` ~/.gitconfig`. Kreirajte pseudonim u ` ~/.gitconfig` tako da kada pokrenete `git graph`, dobijate output `git log --all --graph --decorate --oneline`.
+6. Možete definisati globalne obrasce za ignorisanje u `~/.gitignore_global` nakon pokretanja `git config --global core.excludesfile ~/.gitignore_global`. Uradite ovo, i podesite vaš globalni gitignore fajl da ignoriše OS-specifične ili editor-specifične privremene fajlove, kao što je `.DS_Store`.
+7. Forkujte [repository for the class website](https://github.com/missing-semester/missing-semester), pronađite grešku u kucanju ili napravite neko drugo poboljšanje, i podnesite pull request na GitHub.
