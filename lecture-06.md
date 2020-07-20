@@ -199,7 +199,7 @@ Da bi izbjegli dupliranje informacija, nećemo objašnjavati komande ispod u det
 - `git mergetool `: koristi fensi tool za pomoć pri rešavanju konflikata u spajanju
 - `git rebase `: postavlja set zakrpa na novu bazu
  
- ### Udaljeni
+ ### Remote
  
 - `git remote`: izlistava remote 
 - `git remote add <name> <url>`: dodaje remote 
