@@ -6,11 +6,11 @@ alt="Lecture 5: Command-line Environment (2020)" width="240" height="180" border
 
 U ovoj lekciji ćemo proći kroz nekoliko načina pomoću kojih možete da poboljšate vaš rad u korišćenju shell-a. Sa shell-om radimo već neko vrijeme, ali smo se najviše fokusirali na izvršavanje različitih komandi. Sada ćemo vidjeti kako da pokrenemo nekoliko procesa u isto vrijeme dok ih pratimo, kako da zaustavimo ili pauziramo specifični proces i kako da podesimo proces da radi u pozadini.
 
-Takođe ćemo naučiti različite načine da pobljšate vaš shell i druge alate, definisanjem pseudonima i konfigurisanjem istih pomoću dotfiles. I jedno i drugo će vam uštedjeti vrijeme, npr. korišćenjem istih konfiguracija za sve vaše mašine bez potrebe da pišete duge komande. Vidjećemo i kako da radimo sa udaljenim mašinama koristeći SSH.
+Takođe ćemo naučiti različite načine da poboljšate vaš shell i druge alate, definisanjem pseudonima i konfigurisanjem istih pomoću dotfiles. I jedno i drugo će vam uštedjeti vrijeme, npr. korišćenjem istih konfiguracija za sve vaše mašine bez potrebe da pišete duge komande. Vidjećemo i kako da radimo sa udaljenim mašinama koristeći SSH.
 
 ## Kontrola posla
 
-U nekim slučajevima ćete morati da prekinete posao u toku izvršavanja, npr. ukoliko je komandi potrebno previše vremena da bi se izvršila (kao npr. `nalaženje` veoma velike strukture direktorijuma za pretraživanje). Većinu vremena, možete odraditi `Ctrl-C` i komanda će se zaustaviti. Ali, kako ovo zapravo radi i zašto ponekad ne uspijeva da prekne proces? 
+U nekim slučajevima ćete morati da prekinete posao u toku izvršavanja, npr. ukoliko je komandi potrebno previše vremena da bi se izvršila (kao npr. `nalaženje` veoma velike strukture direktorijuma za pretraživanje). Većinu vremena, možete odraditi `Ctrl-C` i komanda će se zaustaviti. Ali, kako ovo zapravo radi i zašto ponekad ne uspijeva da prekine proces? 
 
 ### Ubijanje procesa 
 
@@ -126,7 +126,7 @@ Najpopularniji multiplexer terminala ovih dana je [tmux](https://www.man7.org/li
     - `tmux ls` izlistava trenutnu sesiju
     - U okviru `tmux` kucanje `<C-b> d` odvaja trenutnu sesiju
     - `tmux a` pridodaje poslednju sesiju. Možete da koristite `-t` flag da označite koju
-- Windows - Ekvivalent tabovima u editoru ili pretraživaču - vizuelno dovaja dio iste sesije
+- Windows - Ekvivalent tabovima u editoru ili pretraživaču - vizuelno odvaja dio iste sesije
     - `<C-b> c` Kreira novi prozor. Da ga zatvorite možete zaustaviti shell koristeći `<C-d>`
     - `<C-b> N` Ide do __N__ th prozora. Imajte u vidu da su numerisani
     - `<C-b> p` Ide do prethodnog prozora
@@ -137,7 +137,7 @@ Najpopularniji multiplexer terminala ovih dana je [tmux](https://www.man7.org/li
     - `<C-b> "` Dijeli trenutni pane horizontalno
     - `<C-b> %` Dijeli trenutni pane vertikalno
     - `<C-b> <direction>` pomjera pane u zadati __pravac__. 
-    Pravac ovdje označava tastera sa strelicama.
+    Pravac ovdje označava tastere sa strelicama.
     - `<C-b> z` Uključuje zoom za trenutni pane
     - `<C-b> [` Započinje pomicanje unazad. Zatim možete pritisnuti `<space>`da započnete selekciju i `<enter>` da kopirate tu selekciju.
     - `<C-b> <space>` Kruži kroz pane uređenje.
@@ -207,12 +207,12 @@ Neki drugi primjeri alata koji mogu biti podešeni kroz dotfiles su:
 
 Kako da organizujete vaše dotfiles? Oni bi trebali da budu u njihovom posebnom folderu, ispod kontrole verzije, i **symlinked** na mjesto koristeći script. Ovo ima sledeće benefite:
 
-- **Laka instalacija:** ukoliko se ulogujete na novu mašinu, potvrđivanje vaših podešavanja će trajati samo oko minuta.
+- **Laka instalacija:** ukoliko se ulogujete na novu mašinu, potvrđivanje vaših podešavanja će trajati samo oko minut.
 - **Prenosivost:** Vaši alati će raditi na isti način svuda.
 - **Sinhronizacija:** Možete da ažurirate vaše dotfiles bilo gdje i da svi oni budu sinhronizovani.
 - **Praćenje promjena:** Vjerovatno ćete kroz vašu čitavu programersku karijeru održavati vaše dotfiles, i jako je dobro imati kontrolu istorije za projekte koji će duže trajati.
 
-Šta bi trebali da stavite u dotfiles? Možete učiti o podešavanju vaših alata čitanjem online dokumentacije ili [man pages](https://en.wikipedia.org/wiki/Man_page). Drugi dobar način jeste pretraživanje interneta za blog postove o specifičnim programima, gdje će vam autori iznijeti njihvoe preference podešavanja. Johttps://github.com/jonhoo/configsš jedan način da učite o podešavanjima jeste pregledanjem dotfiles drugih ljudi: možete pronaći gomilu [dotfiles repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) na Githubu - pogledajte najpopularnije [ovdje](https://github.com/mathiasbynens/dotfiles) (Savjetujemo vam da ne kopirate na slijepo podešavanja). [Ovdje](https://dotfiles.github.io/) je još jedan dobar resurs na ovu temu. 
+Šta bi trebali da stavite u dotfiles? Možete učiti o podešavanju vaših alata čitanjem online dokumentacije ili [man pages](https://en.wikipedia.org/wiki/Man_page). Drugi dobar način jeste pretraživanje interneta za blog postove o specifičnim programima, gdje će vam autori iznijeti njihove preference podešavanja. Još jedan način da učite o podešavanjima jeste pregledanjem dotfiles drugih ljudi: možete pronaći gomilu [dotfiles repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) na Githubu - pogledajte najpopularnije [ovdje](https://github.com/mathiasbynens/dotfiles) (Savjetujemo vam da ne kopirate na slijepo podešavanja). [Ovdje](https://dotfiles.github.io/) je još jedan dobar resurs na ovu temu. 
 
 Svi instruktori ovih lekcija imaju njihove dotfiles koji su svima dostupni na Github-u: [Anish](https://github.com/anishathalye/dotfiles), [Jon](https://github.com/jonhoo/configs), [Jose](https://github.com/jjgo/dotfiles).
 
@@ -252,7 +252,7 @@ fi
 
 ## Udaljene mašine
 
-Kod programera je postalo često da koriste udaljene servere u njihovom svakodnevnom životu. Ukoliko morate da koristite udaljene servere da bi razvili backend software ili vam je potreban server sa visokim računarskim sposobnostima, na kraju ćete koristiti Secure Shell (SSH). Kao i za većina alata koje smo prešli, SSH je veoma podesiv i vrijedan je učenja.
+Kod programera je postalo često da koriste udaljene servere u njihovom svakodnevnom životu. Ukoliko morate da koristite udaljene servere da bi razvili backend software ili vam je potreban server sa visokim računarskim sposobnostima, na kraju ćete koristiti Secure Shell (SSH). Kao i za većinu alata koje smo prešli, SSH je veoma podesiv i vrijedan je učenja.
 
 Da izvršite komandu `ssh` na serveru uradite sledeće:
 
@@ -264,7 +264,7 @@ Ovdje pokušavamo da ssh kao korisnik `foo` na serveru `bar.mit.edu`. Server mo�
 
 ### Izvršavanje komandi
 
-Funkcija `ssh` koja se često ne obazire jeste mogućnost da se komanda izvršava direktno. `ssh foobar@server ls` će izvršiti `ls` u home datoteci foobar. To radi sa pajpom, tako da će `ssh foobar@server ls | grep PATTERN` će lokalno grepovati udaljeni output `ls`-a i `ls | ssh foobar@server grep PATTERN` će grepovati udaljeni lokani output `ls`.
+Funkcija `ssh` koja se često ne obazire jeste mogućnost da se komanda izvršava direktno. `ssh foobar@server ls` će izvršiti `ls` u home datoteci foobar. To radi sa pajpom, tako da će `ssh foobar@server ls | grep PATTERN` lokalno grepovati udaljeni output `ls`-a i `ls | ssh foobar@server grep PATTERN` će grepovati udaljeni lokani output `ls`.
 
 ### SSH ključevi
 
@@ -301,7 +301,7 @@ Postoji mnogo načina da kopirate datoteke preko SSH:
 
 - `ssh+tee`, najlakše je koristiti `ssh` izvršenje komande i STDIN input koristeći `cat localfile | ssh remote_server tee serverfile`. Sjetite se da [tee](https://www.man7.org/linux/man-pages/man1/tee.1.html) ispisuje output iz STDIN u datoteku. 
 - [scp](https://www.man7.org/linux/man-pages/man1/scp.1.html) kada kopirate veliku količinu datoteka/direktorijuma, sigurna copy `scp` komanda je pogodnija jer se lakše može kretati kroz paths. Sintaksa je `scp path/to/local_file remote_host:path/to/remote_file`.
-- [rsync](https://www.man7.org/linux/man-pages/man1/rsync.1.html) je poboljšanje u odnosu na `scp` zbog detektovanja indetičnih datoteka lokalno i udaljeno, i sprečavanja njihovog ponovnog kopiranja. Takođe omogućava bolju kontrolu nad symlinks, dozvolama i ima dodatne funkicje kao što su `--partial` flag koji može nastaviti iz prethodno prekinute kopije. `rsync` ima sličnu sintaksu kao i `scp`.
+- [rsync](https://www.man7.org/linux/man-pages/man1/rsync.1.html) je poboljšanje u odnosu na `scp` zbog detektovanja identičnih datoteka lokalno i udaljeno, i sprečavanja njihovog ponovnog kopiranja. Takođe omogućava bolju kontrolu nad symlinks, dozvolama i ima dodatne funkicje kao što su `--partial` flag koji može nastaviti iz prethodno prekinute kopije. `rsync` ima sličnu sintaksu kao i `scp`.
 
 ### Prosleđivanje port-a
 
@@ -350,7 +350,7 @@ Dodatna prednost korišćenja `~/.ssh/config` datoteke preko pseudonima jesto š
 
 Imajte na umu da `~/.ssh/config` može biti razmatran kao dotfile, i uopšteno je u redu da bude uključen sa ostatkom vaših dotfiles. Ipak, ukoliko ga podesite da bude javan, razmislite o informacijama koje potencijalno pružate strancima na internetu, adrese vaših servera, korisnika, otvorenih portova, itd.. Ovo može olakšati neke vrste napada pa budite pažljivi kada je u pitanju dijeljenje vaših SSH podešavanja.
 
-Konfiguracija na serveru je obično označena u `/etc/ssh/sshd_config`. Ovdje možete napraviti izmjene kao što je deaktiviranje autentikacije lozinke, mijenjanje ssh portova, omogućavanje prosleđivanja X11 prosleđivanja, itd. Konfiguracijske postavke možete odrediti za svakog korisnika.
+Konfiguracija na serveru je obično označena u `/etc/ssh/sshd_config`. Ovdje možete napraviti izmjene kao što je deaktiviranje autentikacije lozinke, mijenjanje ssh portova, omogućavanje X11 prosleđivanja, itd. Konfiguracijske postavke možete odrediti za svakog korisnika.
 
 ### Ostalo 
 
@@ -399,7 +399,7 @@ S obzirom na to da možete provoditi stotine ili hiljade sati u vašem terminalu
 
 1. Iz onoga što smo vidjeli, možemo koristiti neke `ps aux | grep` komande da dobijemo proces ID posla i zatim da ih ugasimo, ali postoji bolji način da to odradimo. Započnite `sleep 10000` posao u terminalu, prebacite ga u pozadinu sa `Ctrl-Z` i nastavite izvršavanje sa `bg`. Sada koristite [pgrep](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) da saznate ID procesa i [pkill](https://man7.org/linux/man-pages/man1/pgrep.1.html) da bi ga ugasili bez toga da sami kucate ID procesa.(Nagovještaj: koristite `-af` flag).
 
-2. Recimo da ne želite da započnete proces dok se drugi ne završi, na koji način bi to riješili? U ovoj vježbi naš proces ograničavanja će uvijek biti `our limiting process will always be`. Jedan način da ovo ostvarite jeste da koristite [wait](https://www.man7.org/linux/man-pages/man1/wait.1p.html) komandu. Pokušajte da pokrenete sleep komandu i da `ls` sačeka dok se proces u pozadini završi.
+2. Recimo da ne želite da započnete proces dok se drugi ne završi, na koji način bi to riješili? U ovoj vježbi naš proces ograničavanja će uvijek biti `sleep 60 &`. Jedan način da ovo ostvarite jeste da koristite [wait](https://www.man7.org/linux/man-pages/man1/wait.1p.html) komandu. Pokušajte da pokrenete sleep komandu i da `ls` sačeka dok se proces u pozadini završi.
 
 Ipak, ovakva strategija neće uspjeti ukoliko započnemo u drugoj bash sesiji, budući da `wait` jedino radi za child procese. Jedna funkcija o kojoj nismo raspravljali u zabilješkama jeste da će exit status `kill` komande biti nula za uspjeh i broj koji nije nula za neuspjeh. `kill -0` ne šalje signal ali će dati exit status koji nije nula ukoliko proces ne postoji. Napišite bash funkciju sa nazivom `pidwait` koja uzima ID procesa i čeka dok se dati proces ne završi. Trebali bi da koristite `sleep` da ne bi trošili CPU bez potrebe.
 
@@ -420,7 +420,7 @@ Hajde da vas ubrzamo sa dotfiles.
 2. Dodajte konfiguraciju za bar jedan folder, npr. vaš shell, sa nekim podešavanjem (za početak, može biti nešto tako jednostavno kao što je podešavanje vašeg shell prompta stavljajući `$PS1`).
 3. Podesite način za bržu instalaciju vaših dotfiles (i bez ručnog truda) na novoj mašini. Ovo može biti jednostavno kao shell skripta koja poziva `ln -s` za svaku datoteku, ili možete koristiti [specijalno sredstvo](https://dotfiles.github.io/utilities/).
 4. Testirajte vašu instalacionu skriptu na svježoj virtualnoj mašini
-5. Prebacite sve svoje trenutno konfiguracije alata u skladište vaših dotfiles
+5. Prebacite sve svoje trenutne konfiguracije alata u skladište vaših dotfiles
 6. Objavite vaše dotfiles na GitHubu.
 
 ### Udaljene mašine
