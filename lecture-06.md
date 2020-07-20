@@ -20,9 +20,9 @@ Dok postoje i drugi VSCs, **Git** je suštinksi standard za kontrolu verzije. Ov
 
 [img1]: https://imgs.xkcd.com/comics/git.png
 
-Budući da je Git-ov interfejs nepropusna apstrakcija, učenje Git-a odozgo nadolje (krećući sa njegovim interfejsom / komandnom linijom interfejsa) može dovesti do mnogo zabune. Moguće je zapamtiti dosta komandi i zamišljajući ih kao neku vrstu magije, i prateći pristup stripa odozgo kada god nešto krene po zlu. 
+Budući da je Git-ov interfejs nepropusna apstrakcija, učenje Git-a odozgo nadolje (krećući sa njegovim interfejsom / komandnom linijom interfejsa) može dovesti do mnogo zabune. Moguće je zapamtiti dosta komandi i zamisliti ih kao neku vrstu magije, i prateći pristup stripa odozgo kada god nešto krene po zlu. 
 
-Dok Git priznato ima ružan interfejs, dizajn i ideje koje leže ispod njega su prelijepe. Dok se ružni interfejs može __zapamtiti__, predivan dizajn se može __razumjeti__. Iz ovoh razloga, mi dajemo objašnjenje Git-a od dna ka vrhu, startujući sa njegovim modelom podataka i kasnije pokrivajući interfejs komandne linije. Jednom kada je model podataka shvaćen, komande mogu biti bolje shvaćene, u smislu toga kako one manipulišu modelom podataka.
+Dok Git priznato ima ružan interfejs, dizajn i ideje koje leže ispod njega su prelijepe. Dok se ružni interfejs može __zapamtiti__, predivan dizajn se može __razumjeti__. Iz ovih razloga, mi dajemo objašnjenje Git-a od dna ka vrhu, startujući sa njegovim modelom podataka i kasnije pokrivajući interfejs komandne linije. Jednom kada je model podataka shvaćen, komande mogu biti bolje shvaćene, u smislu toga kako one manipulišu modelom podataka.
 
 ## Model podataka Git-a
 
@@ -30,7 +30,7 @@ Postoji mnogo ad-hoc pristupa koje bi mogli da primijenite na kontrolu verzije. 
 
 ### Snimci
 
-Git modelira istoriju kolekcije fajlova i foldera unutar nekog najvišeg nivoa direktorijuma u vidu serije snimaka. U Git terminologiji, fajl se naziva "blob" i on je samo gomila bajtova. Direktorijum se naziva "drvo", i on mapira imena blob-u ili drvećima (tako da direktorijumu mogu sadržati druge direktorijume). Snimak je drvo najvećeg nivoa koji se prati. Na primer, mogli bismo imati drvo kao što slijedi:
+Git modelira istoriju kolekcije fajlova i foldera unutar nekog najvišeg nivoa direktorijuma u vidu serije snimaka. U Git terminologiji, fajl se naziva "blob" i on je samo gomila bajtova. Direktorijum se naziva "drvo", i on mapira imena blob-u ili drveće (tako da direktorijumi mogu sadržati druge direktorijume). Snimak je drvo najvećeg nivoa koji se prati. Na primer, mogli bismo imati drvo kao što slijedi:
 
 ```git
 <root> (tree)
@@ -50,7 +50,7 @@ Kako bi sistem kontrole verzije trebao da povezuje snimke? Jedan jednostavan mod
 
 U Git-u, istorija je usmjereni aciklički grafik (DAG) snimaka. Ovo može zvučati kao fensi riječ iz matematike, ali nemojte biti zastrašeni. Ovo samo znači da se svaki snimak u Git-u odnosi na skup "roditelja", snimaka koji su mu prethodili. U pitanju je skup roditelja prije nego jedan roditelj (kao što bi bio slučaj sa linearnom istorijom) jer snimak može poticati od više roditelja, na primer zbog kombinovanja (spajanja) dvije pararelne grane developmenta.
 
-Git naziva ove snimke "commit"s. Vizualizaciju commit istorije može izgledati ovako: 
+Git naziva ove snimke "commit's". Vizualizacija commit istorije može izgledati ovako: 
 
 ```git
 o <-- o <-- o <-- o
@@ -100,7 +100,7 @@ To je čist, jednostavan model istorije.
 type object = blob | tree | commit
 ```
 
-U Git bazi podataka, svi objekti su sadržajno adresirani na osnovu njihovo [SHA-1 hash](https://en.wikipedia.org/wiki/SHA-1).
+U Git bazi podataka, svi objekti su sadržajno adresirani na osnovu njihovog [SHA-1 hash](https://en.wikipedia.org/wiki/SHA-1).
 
 ```git
 objects = map<string, object>
@@ -113,9 +113,9 @@ def load(id):
     return objects[id]
 ```
 
-Blobs, drveća, i commiti ujedinjeni na ovaj način: svi su oni objekt. Kada oni referenciraju druge objekte, oni ih u stvari ne __sadrže__ na njihovoj on-disk reprezentaciji, ali imaju referencu ka njima na osnovu hash-a.
+Blobs, drveća, i commiti su ujedinjeni na ovaj način: svi su oni objekt. Kada oni referenciraju druge objekte, oni ih u stvari ne __sadrže__ na njihovoj on-disk reprezentaciji, ali imaju referencu ka njima na osnovu hash-a.
 
-Na primer, drva za primjer strukture direktorijuma [iznad](https://missing.csail.mit.edu/2020/version-control/#snapshots) (vizualizovan koristeći ` git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d`), izgleda ovako:
+Na primer, drvo za primjer strukture direktorijuma [iznad](https://missing.csail.mit.edu/2020/version-control/#snapshots) (vizualizovan koristeći ` git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d`), izgleda ovako:
 
 ```git
 100644 blob 4448adbf7ecd394f42ae135bbeed9676e894af85    baz.txt
@@ -152,7 +152,7 @@ def load_reference(name_or_id):
 
 Sa ovim, Git može koristiti ljudski razumljiva imena kao što su "master" da ukaže na određeni snimak u istoriji, umjesto dugog heksadecimalnog stringa.
 
-Jedan detalj jeste da često želimo da znamo "gdje se trenutno nalazimo" u istoriji, tako da kada napravimo novi snimak, da znamo na šta se tačno odnosi (kako smo postavili __roditelj__ polje u commit-u).U Git-u, to "gdje se trenutno nalazimo" je specijalna referenca koja se naziva "HEAD".
+Jedan detalj jeste da često želimo da znamo "gdje se trenutno nalazimo" u istoriji, tako da kada napravimo novi snimak, da znamo na šta se tačno odnosi (kako smo postavili __roditelj__ polje u commit-u). U Git-u, to "gdje se trenutno nalazimo" je specijalna referenca koja se naziva "HEAD".
 
 ### Skladište
 
@@ -223,14 +223,14 @@ Da bi izbjegli dupliranje informacija, nećemo objašnjavati komande ispod u det
 - `git rebase -i`: interaktivan rebasing 
 - `git blame`: pokazuje ko je poslednji editovao koju liniju 
 - `git stash`: trenutno uklanja izmjene u radnom direktorijumu 
-- `git bisect`:  binarno pretražuje istoriju (npr. za regresiju)
+- `git bisect`: binarno pretražuje istoriju (npr. za regresiju)
 - `.gitignore`: [označava](https://git-scm.com/docs/gitignore) namjerno fajlove koji se ne prate da budu ignorisani
 
 ## Ostalo
 
 - **GUIs**: Postoji mnogo [GUI klijenata](https://git-scm.com/downloads/guis) za Git. Umjesto njih, mi koristimo komandnu liniju interfejsa.
 - **Shell integracija**: Veoma je pogodno imati git status kao dio vašeg shell prompta([zsh](https://github.com/olivierverdier/zsh-git-prompt), [bash](https://github.com/magicmonty/bash-git-prompt)). Obično uključuju framework kao što je [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
-- **Editor integracija**: slično ovome iznad, pogodne integracije sa mnogo funkcija. [fugitive.vim](https://github.com/tpope/vim-fugitive) je standardan za Vim.
+- **Editor integracija**: Slično ovome iznad, pogodne integracije sa mnogo funkcija. [fugitive.vim](https://github.com/tpope/vim-fugitive) je standard za Vim.
 - **Radni tokovi**: Naučili smo vas model podataka, plus neke osnovne komande: nismo vam rekli koju praksu da pratite kada radite na velikim projektima (i postoji [mnogo](https://nvie.com/posts/a-successful-git-branching-model/) [različitih](https://www.endoflineblog.com/gitflow-considered-harmful) [pristupa](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow))
 - **GitHub**: Git nije GitHub. GitHub ima specifičan način doprinošenja koda drugim projektima, koji se naziva [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 - **Drugi Git provajderi**: GitHub nije specijalan: Postoji mnogo Git repository hostova, kao što su [GitLab](https://about.gitlab.com/) i [BitBucket](https://bitbucket.org/).
@@ -239,8 +239,8 @@ Da bi izbjegli dupliranje informacija, nećemo objašnjavati komande ispod u det
 
 - [Pro Git](https://git-scm.com/book/en/v2) se **veoma preporučuje za čitanje**. Prolazak kroz poglavlja 1-5 će vas naučiti najveći dio toga što vam je potrebno da bi tečno koristili Git, sada kada razumijete model podataka. Dalja poglavlja imaju neke zanimljive, napredne materijale. 
 - [Oh Shit, Git!?!](https://ohshitgit.com/) je kratak vodič o tome kako da se oporavite od nekih najčešćih Git grešaka.
-- [Git for Computer Scientists](https://eagain.net/articles/git-for-computer-scientists/) je kratko objašnjenje Git modela podataka, sa manje pseudokoda i više fenski dijagrama nego što ih ima u ovim zabilješkama lekcija.
-- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/) je detaljno objašnjenje Git implementacije detalja iznad samo modela podataka, za radoznale.
+- [Git for Computer Scientists](https://eagain.net/articles/git-for-computer-scientists/) je kratko objašnjenje Git modela podataka, sa manje pseudokoda i više fensi dijagrama nego što ih ima u ovim zabilješkama lekcija.
+- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/) je detaljno objašnjenje Git implementacije detalja izvan samog modela podataka, za radoznale.
 - [How to explain git in simple words](https://smusamashah.github.io/explain-git-in-simple-words/)
 - [Learn Git Branching](https://learngitbranching.js.org/) je igrica koja se zasniva na browser-u i koja vas uči Git.
 
@@ -252,7 +252,7 @@ Da bi izbjegli dupliranje informacija, nećemo objašnjavati komande ispod u det
   - Ko je poslednja osoba koja je podesila `README.md`? (Nagovještaj: koristite `git log` sa argumentom)
   - Koja je commit poruka koja je povezana sa poslednjim izmjenama `collections:` linija `_config.yml`? (Nagovještaj: koristite `git blame` i `git show`)
 3. Jedna česta greška u toku učenja Git-a jeste commit velikih fajlova kojima ne bi trebao da upravlja Git ili dodavanje osjetljivih informacija. Pokušajte da dodate fajl u repository, napravite neke commit-ove i zatim obrišite taj fajl iz istorije (možda ćete željeti da pogledate [ovo](https://docs.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository)).
-4. Klonirajte neki repository iz GitHub-a, i podesite neki od postojećih fajlova. Šta se dešava kada uradite `git stash`? Šta vidite kada pokrenete `git log --all --oneline`? Pokrenite `git stash pop` da bi poništili on o što ste uradili sa `git stash`. U kom scenariju bi ovo moglo biti korisno?
+4. Klonirajte neki repository iz GitHub-a, i podesite neki od postojećih fajlova. Šta se dešava kada uradite `git stash`? Šta vidite kada pokrenete `git log --all --oneline`? Pokrenite `git stash pop` da bi poništili ono što ste uradili sa `git stash`. U kom scenariju bi ovo moglo biti korisno?
 5. Kao sa mnogim alatima komandne linije, Git pruža configuration fajl (ili dotfile) koji se naziva ` ~/.gitconfig`. Kreirajte pseudonim u ` ~/.gitconfig` tako da kada pokrenete `git graph`, dobijate output `git log --all --graph --decorate --oneline`.
 6. Možete definisati globalne obrasce za ignorisanje u `~/.gitignore_global` nakon pokretanja `git config --global core.excludesfile ~/.gitignore_global`. Uradite ovo, i podesite vaš globalni gitignore fajl da ignoriše OS-specifične ili editor-specifične privremene fajlove, kao što je `.DS_Store`.
 7. Forkujte [repository for the class website](https://github.com/missing-semester/missing-semester), pronađite grešku u kucanju ili napravite neko drugo poboljšanje, i podnesite pull request na GitHub.
