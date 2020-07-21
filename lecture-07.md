@@ -4,7 +4,7 @@
 " target="_blank"><img src="" 
 alt="Lecture 7: Debugging and Profiling (2020)" width="240" height="180" border="10" /></a>
 
-Zlatno pravilo u programiranju jeste da kod ne radi ono što očekujete od njega, već ono što mo kažete da uradi. Premostiti taj problem ponekad može biti veoma krupan korak. U ovoj lekciji ćemo preći korisne tehnike za nošenje sa kodom koji ima bagove i kojem fale resursi: debugging i profilisanje. 
+Zlatno pravilo u programiranju jeste da kod ne radi ono što očekujete od njega, već ono što mu kažete da uradi. Premostiti taj problem ponekad može biti veoma krupan korak. U ovoj lekciji ćemo preći korisne tehnike za nošenje sa kodom koji ima bagove i kojem fale resursi: uklanjanje grešaka i profilisanje. 
 
 ## Uklanjanje grešaka
 
@@ -12,7 +12,7 @@ Zlatno pravilo u programiranju jeste da kod ne radi ono što očekujete od njega
 
 "Najefikasnije sredstvo za uklanjanje grešaka je i dalje pažljivo razmišljanje, zajedno sa dobro postavljenim izjavama o ispisu" - Brian Kernighan, __Unix for Beginners.__
 
-Prvi pristup da bi se uklonile greške iz programa i dodavanje print izjave okolo dijela u kojem imate problem, i to ponavljate dok ne dobijete dovoljno informacija da shvatite ko je krivac za dati problem.
+Prvi pristup da bi se uklonile greške iz programa je dodavanje print izjave okolo dijela u kojem imate problem, i ponavljanje toga dok ne dobijete dovoljno informacija da shvatite ko je krivac za dati problem.
 
 Drugi pristup je upotreba logovanja u vašem programu, umjesto ad hoc print izjava. Logovanje je bolje u odnosu na print izjave iz više razloga: 
 
@@ -52,7 +52,7 @@ done
 
 Kako počinjete da pravite šire softverske sisteme vjerovatno ćete naići na zavisnosti koje se pokreću kao poseban program. Veb serveri, baze podataka ili brokeri poruka su česti primjeri ovakvih vrsta zavisnosti. Kada imate interakciju sa ovim sistemima često je neophodno pročitati njihove logove, jer error poruka na klijent strani možda neće biti dovoljna.
 
-Srećom, većina programa piše svoje logove negdje u vašem sistemu. U UNIX sistemima, uobičajeno je da programi pišu svoje logove u `var/log`. Na primer, [NGINX](https://www.nginx.com/) webserveri ih čuvaju u `/var/log/nginx`. U skorije vrijeme, sistemi su počeli da koriste **system log**, što je sve više mjesto gdje vaše log poruke idu. Većina (ali ne i svi) Linux sistemi koriste `systemd`, sistem daemon koji kontroliše mnoge stvari u vašem sistemu kao npr. koje usluge su omogućene i pokrenute. `systemd` stavlja logove u `/var/log/journal` u posebnom formatu i možete koristiti [journalctl](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) komandu da prikažete poruke. Slično, na macOS takođe postoji `/var/log/system.log` ali povećan broj alata koristi system log, koji može biti prikazan sa [log show](https://www.manpagez.com/man/1/log/). Na većini UNIX sistema takođe možete koristiti [dmesg](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) komandu da pristupite logu kernela.
+Srećom, većina programa piše svoje logove negdje u vašem sistemu. U UNIX sistemima, uobičajeno je da programi pišu svoje logove u `var/log`. Na primer, [NGINX](https://www.nginx.com/) webserveri ih čuvaju u `/var/log/nginx`. U skorije vrijeme, sistemi su počeli da koriste **system log**, što je sve više mjesto gdje vaše log poruke idu. Većina (ali ne i svi) Linux sistemi koriste `systemd`, sistem daemon koji kontroliše mnoge stvari u vašem sistemu kao npr. koje usluge su omogućene i pokrenute. `systemd` stavlja logove u `/var/log/journal` u posebni format i možete koristiti [journalctl](https://www.man7.org/linux/man-pages/man1/journalctl.1.html) komandu da prikažete poruke. Slično, na macOS takođe postoji `/var/log/system.log` ali povećan broj alata koristi system log, koji može biti prikazan sa [log show](https://www.manpagez.com/man/1/log/). Na većini UNIX sistema takođe možete koristiti [dmesg](https://www.man7.org/linux/man-pages/man1/dmesg.1.html) komandu da pristupite logu kernela.
 
 Za logovanje u sistem logs možete koristiti [logger](https://www.man7.org/linux/man-pages/man1/logger.1.html) shell program. Evo primjera korišćenja `logger`-a i kako da provjerite da li je unos stigao do sistem logova. Štaviše, većina programskih jezika ima vezivanje logginga za sistem log.
 
@@ -64,7 +64,7 @@ log show --last 1m | grep Hello
 journalctl --since "1m ago" | grep Hello
 ```
 
-Kao što smo vidjeli u lekciji o upravljanju podacima, logs mogu biti veoma opširni i oni zahtijevaju odreženi nivo filtriranja i procesiranja da bi dobili informacije koje želite. Ukoliko upadnete u teško filtriranje kroz `journalctl` i `log show` razmislite da koristite njihove flagove, koji mogu izršiti prvi korak u filtriranju njihovog outputa. Postoje još neki alati kao što je [lnav](http://lnav.org/), koji omogućuju poboljšanu prezentaciju i navigaciju kroz log fajlove.
+Kao što smo vidjeli u lekciji o upravljanju podacima, logs mogu biti veoma opširni i oni zahtijevaju određeni nivo filtriranja i procesiranja da bi dobili informacije koje želite. Ukoliko upadnete u teško filtriranje kroz `journalctl` i `log show` razmislite da koristite njihove flagove, koji mogu izršiti prvi korak u filtriranju njihovog outputa. Postoje još neki alati kao što je [lnav](http://lnav.org/), koji omogućuju poboljšanu prezentaciju i navigaciju kroz log fajlove.
 
 ### Debageri
 
@@ -89,7 +89,7 @@ Takođe postoji `pp` da se prikaže koristeći [pprint](https://docs.python.org/
 - **r**(eturn) - Nastavlja izvršavanje sve dok sledeća funkcija ne vrati.
 - **q**(uit) - Izlazi iz debagera.
 
-Hajde da prođemo kroz primjer koristeći `pdb` da popravimo sledeće python kod koji ima bagove. (Pogledajte video lekciju).
+Hajde da prođemo kroz primjer koristeći `pdb` da popravimo sledeći Python kod koji ima bagove. (Pogledajte video lekciju).
 
 ```python
 def bubble_sort(arr):
@@ -104,9 +104,9 @@ def bubble_sort(arr):
 print(bubble_sort([4, 2, 1, 8, 7, 6]))
 ```
 
-Imajte u vidu da pošto je Python interpretiran jezik mi možemo koristiti `pdb` shell da izvršimo komande i izvršimo instrukcije. [ipdb](https://pypi.org/project/ipdb/) je unapređeni `pdb` koji koristi [IPython](https://ipython.org/) REPL omogućujući dovršavanje tabova, isticanje sintakse, bolje tragove, i bolju introspekciju dok zadržava isti isti interfejs kao i `pdb` modul.
+Imajte u vidu da pošto je Python interpretiran jezik mi možemo koristiti `pdb` shell da izvršimo komande i izvršimo instrukcije. [ipdb](https://pypi.org/project/ipdb/) je unapređeni `pdb` koji koristi [IPython](https://ipython.org/) REPL omogućujući dovršavanje tabova, isticanje sintakse, bolje tragove, i bolju introspekciju dok zadržava isti interfejs kao i `pdb` modul.
 
-Za još nižeg nivoa programiranja vjerovatni ćete željeti da pogledate [gdb](https://www.gnu.org/software/gdb/) (i kvalitet njegovih izmjena [pwndbg](https://github.com/pwndbg/pwndbg)) i [lldb](https://lldb.llvm.org). Oni su optimizovani za debaging za jezike kao što je C, ali će vam dozvoliti isptivanje bilo kojeg procesa i dobiti trenutno stanje mašine: registre, stack, brojač programa i sl.
+Za još niži nivo programiranja vjerovatno ćete željeti da pogledate [gdb](https://www.gnu.org/software/gdb/) (i kvalitet njegovih izmjena [pwndbg](https://github.com/pwndbg/pwndbg)) i [lldb](https://lldb.llvm.org). Oni su optimizovani za debaging za jezike kao što je C, ali će vam dozvoliti isptivanje bilo kojeg procesa i dobićete trenutno stanje mašine: registre, stack, brojač programa i sl.
 
 ### Specijalizovani alati
 
@@ -127,7 +127,7 @@ Pod nekim okolnostima, možda ćete morati da pogledate network pakete da bi shv
 Za web development, Chrome/Firefox alatke za programere su veoma pogodne. 
 One imaju veliki broj alata, uključujući: 
 
-- Izvorni kod - Pregledajte HTML/CSS/JS izvorni kod bilo kog sajta.
+- Izvorni kod - Pregledajte HTML/CSS/JS izvorni kod bilo kojeg sajta.
 - Uživo modifikacije HTML/CSS/JS - Mijenjate sadržaj sajtova, stilova i ponašanja da bi testirali (možete i sami da vidite da snimci sajtova nisu validni dokazi).
 - Javascript shell - Izvršite komande u JS REPL.
 - Network - Analizirajte vremensku liniju zahtjeva.
@@ -135,7 +135,7 @@ One imaju veliki broj alata, uključujući:
 
 ### Statička analiza
 
-Za neke probleme ne morate da izvršavate bilo kakav kod. Na primer, samo pažljivim gledanjem u dio vašeg koda možete shvatiti varijabla petlje zasjenjuje već postojeću varijablu ili naziv funkcije; ili da program čita varijablu prije njenog definisanja. Ovo je gdje alati [statičke analize](https://en.wikipedia.org/wiki/Static_program_analysis) dolaze do izražaja. Programi statičke analize uzimaju izvorni kod kao input i analiziraju ga koristeći pravila kodiranja da bi procijenili njegovu ispravnost.
+Za neke probleme ne morate da izvršavate bilo kakav kod. Na primer, samo pažljivim gledanjem u dio vašeg koda možete shvatiti da varijabla petlje zasjenjuje već postojeću varijablu ili naziv funkcije; ili da program čita varijablu prije njenog definisanja. Ovo je gdje alati [statičke analize](https://en.wikipedia.org/wiki/Static_program_analysis) dolaze do izražaja. Programi statičke analize uzimaju izvorni kod kao input i analiziraju ga koristeći pravila kodiranja da bi procijenili njegovu ispravnost.
 
 U sledećem Python isječku postoji nekoliko grešaka. Prvo, naša varijabla petlje `foo` zasjenjuje prethodnu definiciju funkcije `foo`. Takođe smo napisali `baz` umjesto `bar` u poslednjoj liniji, tako da će u programu doći do greške nakon izvršavanja `sleep` poziva (što će trajati oko minut).
 
@@ -177,7 +177,7 @@ Dodatni alati za linting stila su kod formateri kao što je [black](https://gith
 
 ## Profilisanje
 
-Čak iako se vaš kod funkcionalno ponaša kao što i očekujete, to možda neće biti dovoljno dobro ukoliko zauzima čitav CPU ili memoriju u tom procesu. Na časovima algoritama se često uči big __O__ notation ali ne ikako pronaći hot spots u vašim programima. Kako je [prerana optimizacija korijen svakog zla](http://wiki.c2.com/?PrematureOptimization), trebali bi da naučite o profilisanju i alatima za praćenje. Oni će vam pomoći da shvatite koji dijelovi vašeg programa zauzimaju najviše vremena i/ili resursa tako da se možete fokusirati na optimizaciju tih dijelova.
+Čak iako se vaš kod funkcionalno ponaša kao što i očekujete, to možda neće biti dovoljno dobro ukoliko zauzima čitav CPU ili memoriju u tom procesu. Na časovima algoritama se često uči big __O__ notation ali ne i kako pronaći hot spots u vašim programima. Kako je [prerana optimizacija korijen svakog zla](http://wiki.c2.com/?PrematureOptimization), trebali bi da naučite o profilisanju i alatima za praćenje. Oni će vam pomoći da shvatite koji dijelovi vašeg programa zauzimaju najviše vremena i/ili resursa tako da se možete fokusirati na optimizaciju tih dijelova.
 
 ### Tajming
 
@@ -271,7 +271,7 @@ $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
 [omitted lines]
 ```
 
-Napomena za Pythonov `cProfile` profajler (i mnoge drugi profajlere koji se toga tiču) jeste da oni prikazuju vrijeme za pojedinačan poziv funkcije. To može biti postati neintuitivno veoma brzo, posebno ako koristite biblioteke treće strane u vašem kodu budući da se unutrašnji pozivi funkcija takođe računaju. Intuitivniji način prikazivanja informacija o profilisanju jeste da uključe vrijeme koje je potrošeno za pojedinačnu liniju koda, što je ono što __line profilers__ rade.
+Napomena za Pythonov `cProfile` profajler (i mnoge drugi profajlere koji se toga tiču) jeste da oni prikazuju vrijeme za pojedinačan poziv funkcije. To može postati neintuitivno veoma brzo, posebno ako koristite biblioteke treće strane u vašem kodu budući da se unutrašnji pozivi funkcija takođe računaju. Intuitivniji način prikazivanja informacija o profilisanju jeste da uključe vrijeme koje je potrošeno za pojedinačnu liniju koda, što je ono što __line profilers__ rade.
 
 Na primer, sledeći dio Python koda izvršava zahtjev na sajtu i parsira odgovor da bi dobio sve URL-ove na stranici: 
 
@@ -294,7 +294,7 @@ if __name__ == '__main__':
     get_urls()
 ```
 
-Ako bi koristili Pythonov `cProfile` profajler dobili bi preko 2500 linija outputa, i čak sa sortiranjem bilo bi teško da shvatimo gdje se zapravo troši vrijeme. Brzo izvršavanje sa [line profiler](https://github.com/rkern/line_profiler) pokazuje vrijeme potrošeno po liniji.
+Ako bi koristili Pythonov `cProfile` profajler dobili bi preko 2500 linija outputa, čak i sa sortiranjem bi bilo teško da shvatimo gdje se zapravo troši vrijeme. Brzo izvršavanje sa [line profiler](https://github.com/rkern/line_profiler) pokazuje vrijeme potrošeno po liniji.
 
 ```python
 $ kernprof -l -v a.py
@@ -318,7 +318,7 @@ Line #  Hits         Time  Per Hit   % Time  Line Contents
 
 ### Memorija
 
-U jezicima ako što su C ili C++ curenje memorije može prouzrokovati problem da se nikada ne oslobodi memorija koja se više ne koristi. Za Pomoć u procesu ispravljanja grešaka u memoriji možete koristiti alata kao što je [Valgrind](https://valgrind.org/) koji će vam pomoći da identifikujete curenje memorije.
+U jezicima kao što su C ili C++ curenje memorije može prouzrokovati problem da se nikada ne oslobodi memorija koja se više ne koristi. Za pomoć u procesu ispravljanja grešaka u memoriji možete koristiti alate kao što je [Valgrind](https://valgrind.org/) koji će vam pomoći da identifikujete curenje memorije.
 
 U jezicima sa sakupljačima smeća kao što je Python i dalje je korisno koristiti profajler memorije jer dokle god imate pokazivače na objekte u memoriji njih čistač neće očistiti. Evo primjera programa i njegovog povezanog outputa kada ga pokrećete sa [memory-profiler](https://pypi.org/project/memory-profiler/) (primjetite dekorator kao u `line-profiler`).
 
@@ -357,7 +357,7 @@ Kao što je bio slučaj sa `strace` za ispravljanje grešaka, možda ćete želj
 
 ### Vizualizacija
 
-Output profajlera za stvarne programe će sadržati veliku količinu informacija zbog kompleksnosti softverskog projekta. Ljudi su vizualna bića i prilično su loši u čitanju velike količine brojeva koji bi trebali da imaju smisao. Dodatno, postoji mnogo alata za prikazivanje outputa profajlera na lakši način.
+Output profajlera za stvarne programe će sadržati veliku količinu informacija zbog kompleksnosti softverskog projekta. Ljudi su vizuelna bića i prilično su loši u čitanju velike količine brojeva koji bi trebali da imaju smisao. Dodatno, postoji mnogo alata za prikazivanje outputa profajlera na lakši način.
 
 Jedan čest način da bi se prikazalo profilisanje CPU informacija za uzeti profajler jeste korišćenje [Flame Graph](http://www.brendangregg.com/flamegraphs.html) koji će prikazati hijerarhiju poziva funkcije preko Y ose i korišćeno vrijeme proporcionalno X osi. Takođe su interaktivni, dopuštaju vam da zumirate specifične dijelove programa i da dobijete njihove stack tragove (pokušajte da kliknete na sliku ispod).
 
@@ -380,7 +380,7 @@ Nekada, prvi korak ka analiziranju performansi vašeg programa je razumijevanje 
 - **Korišćenje diska** - [df](https://www.man7.org/linux/man-pages/man1/df.1.html) prikazuje metriku po particiji i [du](https://man7.org/linux/man-pages/man1/du.1.html) prikazuje korišćenje diska po fajlu za trenutni direktorijum. U ovim alatima `-h` flag govori programu da ispiše format koji je čitljiv za ljude. Interaktivnija verzija `du`-a je [ncdu](https://dev.yorhel.nl/ncdu) koji vam dopušta da se krećete kroz foldere i brišete fajlove i foldere u toku kretanja.
 - **Korišćenje memorije** - [free](https://www.man7.org/linux/man-pages/man1/free.1.html) prikazuje totalnu količinu slobodne i korišćene memorije u sistemu. Memorija se takođe prikazuje u alatima kao što je `htop`.
 - **Otvoreni Fajlovi** - [lsof](https://www.man7.org/linux/man-pages/man8/lsof.8.html) prikazuje informacije o fajlovima koji su otvoreni od strane procesa. Može biti veoma korisno za provjeru koji proces ima otvoreno specifičan fajl.
-- **Network konekcija i konfiguracija** - [ss](https://www.man7.org/linux/man-pages/man8/ss.8.html) vam dopušta da pratite dolazeće i odlazeće network statističke pakete kao i interfejs statistike. Uobičajen način korišćenja `ss` jeste otkrivanje koji proces koristi dati port u mašini. Za prikazivanje routinga, network uređaja i interfejsa možete koristiti [ip](https://man7.org/linux/man-pages/man8/ip.8.html). Imajte u vidu da su `netstat` i `ifconfig` preveziđeni u korist drugih alata.
+- **Network konekcija i konfiguracija** - [ss](https://www.man7.org/linux/man-pages/man8/ss.8.html) vam dopušta da pratite dolazeće i odlazeće network statističke pakete kao i interfejs statistike. Uobičajen način korišćenja `ss` jeste otkrivanje koji proces koristi dati port u mašini. Za prikazivanje routinga, network uređaja i interfejsa možete koristiti [ip](https://man7.org/linux/man-pages/man8/ip.8.html). Imajte u vidu da su `netstat` i `ifconfig` prevaziđeni u korist drugih alata.
 - **Korišćenje networka** - [nethogs](https://github.com/raboof/nethogs) i [iftop](http://www.ex-parrot.com/pdw/iftop/) su dobri interaktivni CLI alati za praćenje korišćenja networka.
 
 Ukolko želite da testirate ove alate možete vještački nametnuti opterećenja mašini koristeći [stress](https://linux.die.net/man/1/stress) komandu.
@@ -411,7 +411,7 @@ Kao što je bio slučaj sa ispravljanjem grešaka, pretraživači takođe dolaze
 ### Ispravljanje grešaka
 
 1. Koristite `journalctl` na Linuxu ili `log show` na macOS da bi dobili komande od strane super korisnika u poslednjem danu. Ukoliko ih nema, možete izvršiti neke bezopasne komande kao što je `sudo ls` i provjeriti ponovo.
-2. Uradite [ovaj](https://github.com/spiside/pdb-tutorial) `pdb` tutorijal da bi se upoznali sa konandama. Za dublji tutorijal pročitajte [ovo](https://realpython.com/python-debugging-pdb/).
+2. Uradite [ovaj](https://github.com/spiside/pdb-tutorial) `pdb` tutorijal da bi se upoznali sa komandama. Za dublji tutorijal pročitajte [ovo](https://realpython.com/python-debugging-pdb/).
 3. Instalirajte [spellcheck](https://www.shellcheck.net/) i pokušajte da provjerite sledeću skriptu. Šta nije u redu sa ovim kodom? Popravite ga. Instalirajte linter plugin u vašem editoru tako da možete automatski da dobijete upozorenja.
 
 ```shell
@@ -428,9 +428,9 @@ done
 
 ### Profilisanje
 
-5. [ovdje](https://missing.csail.mit.edu/static/files/sorts.py) su neke sortirajuće implementacije algoritama. Koristite [cProfile](https://docs.python.org/3/library/profile.html) i [line_profiler](https://github.com/rkern/line_profiler) da bi uporedili vrijeme izvoženje sortiranja i brzog sortiranja. Šta je usko grlo svakog od algoritama? Zatim koristite `memory_profiler` da bi provjerili upotrebu memorije, zašto je umetnuto sortiranje bolje? Provjerite sada inplace verziju brzog sortiranja. Izazov: Koristite `pref` da bi pogledali brojanje ciklusa i keširanje udara i propusta svakog od algoritama.
+5. [ovdje](https://missing.csail.mit.edu/static/files/sorts.py) su neke sortirajuće implementacije algoritama. Koristite [cProfile](https://docs.python.org/3/library/profile.html) i [line_profiler](https://github.com/rkern/line_profiler) da bi uporedili vrijeme izvoženja sortiranja i brzog sortiranja. Šta je usko grlo svakog od algoritama? Zatim koristite `memory_profiler` da bi provjerili upotrebu memorije, zašto je umetnuto sortiranje bolje? Provjerite sada inplace verziju brzog sortiranja. Izazov: Koristite `pref` da bi pogledali brojanje ciklusa i keširanje udara i propusta svakog od algoritama.
 
-6. Evo jednog (iskrivljenog) Python koda za računanje Finonačijevih brojeva korišćenjem funkcije za svaki broj.
+6. Evo jednog (iskrivljenog) Python koda za računanje Fibonačijevih brojeva korišćenjem funkcije za svaki broj.
 
 ```python
 #!/usr/bin/env python
@@ -451,7 +451,7 @@ if __name__ == '__main__':
 ```
 Stavite kod u fajl i podesite da je izvršan. Instalirajte [pycallgraph](http://pycallgraph.slowchop.com/en/master/). Pokrenite kod kakav jeste sa `pycallgraph graphviz -- ./fib.py` i provjerite `pycallgraph.png` fajl. Koliko je puta `fib0` pozvan? Možemo uraditi bolje od toga optimizovanjem funkcija. Maknite iz komentara linije koje se nalaze u komentaru i regenerišite slike. Koliko puta mi pozivamo `fibN` funkciju sada?
 
-7. Čest problem je što je port koji želite da slušate već zauzet od strane drugog procesa. Hajde da naučimo kako da saznamo ID procesa. Prvi izvršite `python -m http.server 4444` da bi pokrenuli minimalistički web server slušajući na portu `4444`. Na odvojenim terminalima pokrenite ` lsof | grep LISTEN` da bi ispisali sve procese i portove koji se slušaju. Pronađite ID tog procesa i prekinite ga komadnom `kill <PID>`.
+7. Čest problem je što je port koji želite da slušate već zauzet od strane drugog procesa. Hajde da naučimo kako da saznamo ID procesa. Prvo izvršite `python -m http.server 4444` da bi pokrenuli minimalistički web server slušajući na portu `4444`. Na odvojenim terminalima pokrenite ` lsof | grep LISTEN` da bi ispisali sve procese i portove koji se slušaju. Pronađite ID tog procesa i prekinite ga komandom `kill <PID>`.
 
 8. Ograničavanje resursa za procese može biti još jedan zgodan alat koji posjedujete. Pokušajte pokretanje `stress -c 3` i vizualizujte potrošnju CPU-a sa `htop`. Sada izvršite `taskset --cpu-list 0,2 stress -c 3` i vizualizujte ga. Da li je `stress` zauzeo tri CPU-a? Zbog čega nije? Pročitajte [man taskset](https://www.man7.org/linux/man-pages/man1/taskset.1.html). Izazov: ostvarite isto koristeći [cpgroups](https://www.man7.org/linux/man-pages/man7/cgroups.7.html). Pokušajte da ograničite korišćenje memorije `stress -m`.
 
