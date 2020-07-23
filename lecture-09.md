@@ -147,3 +147,20 @@ U praksi, jednom kada server sazna javni ključ klijenta (sačuvan u `.ssh/autho
 
 ## Resursi
 
+- [Zabilješke od prošle godine](https://missing.csail.mit.edu/2019/security/): kada je ova lekcija bila više fokusirana na bezbjednost i privatnost korisnika računara
+- [Pravi odgovori vezani za kriptografiju](https://latacora.micro.blog/2018/04/03/cryptographic-right-answers.html): odgovori "koji crypto bih trebao da koristim za x?" za mnoge česte x.
+
+## Vježbe
+
+1. **Entropija**
+    - Pretpostavimo da je lozinka izabrana kao spajanje četiri riječi sa malim slovima iz rječnika, gdje je svaka riječ izabrana jednako nasumično iz rečnika od veličine od 100.000. Primjer takve lozinke je `correcthorsebatterystaple`. Koliko bitova entropije on ima?
+    - Uzmite u obzir alternativnu šemu gdje je lozinka izabrana kao dio od 8 random alfanumeričkih karaktera (uključujući karaktere i sa malim i sa velikim slovom). Jedan primjer je `rg8Ql34g`. Koliko on ima bitova entropije?
+    - Koja je lozinka jača?
+    - Pretpostavimo da napadač pokušava da pogodi 10.000 lozinki po sekundi. Prosječno, koliko će mu vremena trebati da probije svaku od lozinki?
+2. **Kriptografkse hash funkcije**. Preuzmite Debian sliku iz [mirror](https://www.debian.org/CD/http-ftp/) (npr. [iz ovog Argentinean mirror](http://debian.xfree.com.ar/debian-cd/current/amd64/iso-cd/)). Unaprijed provjerite hash (npr. koristeći `sha256sum` komandu) sa hashom preuzetim sa zvanične Debian stranice (npr. [ovaj fajl](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS) je hostovan na `debian.org`, ukoliko ste preuzeli link fajl sa Argentinean mirror).
+3. **Simetrična kriptografija**. Enrkiptujte fajl sa AES enkripcijom, koristeći [OpenSSL](https://www.openssl.org/): `openssl aes-256-cbc -salt -in {input filename} -out {output filename}`. Pogledajte sadržaje koristeći `cat` i `hexdump`. Dekriptujte ga sa `openssl aes-256-cbc -d -in {input filename} -out {output filename}` i potvrdite da se sadržaj poklapa sa originialom koristeći `cmp`.
+4. **Asimetrična kriptografija**. 
+    - Postavite [SSH keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) na kompjuter kojem imate pristup (ne Athena, jer Kerberos ima čudnu interakciju sa SSH ključevima). Umjesto da koristite RSA ključeve kao u linkovanom tutorijalu, koristite sigurnije [ED25519 keys](https://wiki.archlinux.org/index.php/SSH_keys#Ed25519). Provjerite da li je vaš privatni ključ enkriptovan sa frazom, tako da je zaštićen.
+    - [Postavite GPG](https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages)
+    - Pošaljite Anishu enkriptovani mejl ([javni ključ](https://keybase.io/anish)).
+    - Potpišite Git commit sa `git commit -S` ili kreirajte potpisani Git tag sa `git tag -s`. Ovjerite potpisa commita sa `git show --show-signature` ili sa tagom koristeći `git tag -v`.
