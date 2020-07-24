@@ -94,7 +94,7 @@ Kada pokrećemo skriptu, često ćete željete da pružite argumente koji su sli
 
 - Wildcards - Kada god želite da izvedete neku vrstu wildcard podudaranja, možete koristiti `?` i `*` da bi se podudarili sa jednim ili više karaktera. Na primer, dati fajlovi `foo`, `foo1`, `foo2`, `foo10` i `bar`, i komanda `rm foo?` će izbrisati `foo1` i `foo2`, dok će `rm foo*` izbrisati sve osim `bar`.
 
--Vitičaste zagrade {} - Kada god imate zajednički substring u seriji komandi, možete koristiti vitičaste zagrade za bash da bi proširili ovo automatski. Ovo je veoma korisno kada pomjerate ili konvertujete fajlove.
+- Vitičaste zagrade {} - Kada god imate zajednički substring u seriji komandi, možete koristiti vitičaste zagrade za bash da bi proširili ovo automatski. Ovo je veoma korisno kada pomjerate ili konvertujete fajlove.
 
 ```shell
 convert image.{png,jpg}
@@ -122,7 +122,7 @@ diff <(ls foo) <(ls bar)
 # > y
 ```
 
-Pisanje bash bash skripti može biti izazovno i neintuitivno. Postoje alati kao što je [spellcheck](https://github.com/koalaman/shellcheck) koji će vam pomoći da pronađete greške u vašim sh/bash skriptama.
+Pisanje `bash` skripti može biti izazovno i neintuitivno. Postoje alati kao što je [spellcheck](https://github.com/koalaman/shellcheck) koji će vam pomoći da pronađete greške u vašim sh/bash skriptama.
 
 Imajte na umu da skripte ne moraju biti napisane u bash-u da bi bile pozvane iz terminala. Na primer, ovo je jednostavna Python skripta koja ispisuje argumente u obrnutom redosledu:
 ```python
@@ -131,7 +131,7 @@ import sys
 for arg in reversed(sys.argv[1:]):
     print(arg)
 ```
-Kernel zna da izvrši ovu skriptu sa python interpreterom umjesto sa shell komandom zato što smo uključili [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix) linije na samom vrhu skripte. Dobra praksa je da pišete shebang liniju koristeći env komandu koja će se izvršiti bez obzira koja je komanda linija u sistemu, povećavajući prenosivost vaših skripti. Da bi riješio lokaciju, env će koristiti `PATH` evironment variable koji smo predstavili u prvoj lekciji. Za ovaj primjer shebang linija će izgledati ovako: `#!/usr/bin/env python.`
+Kernel zna da izvrši ovu skriptu sa python interpreterom umjesto sa shell komandom zato što smo uključili [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) linije na samom vrhu skripte. Dobra praksa je da pišete shebang liniju koristeći env komandu koja će se izvršiti bez obzira koja je komanda linija u sistemu, povećavajući prenosivost vaših skripti. Da bi riješio lokaciju, env će koristiti `PATH` evironment variable koji smo predstavili u prvoj lekciji. Za ovaj primjer shebang linija će izgledati ovako: `#!/usr/bin/env python.`
 
 Neke razlike između shell funcija i scripti koje bi trebali da imate u vidu su:
 
