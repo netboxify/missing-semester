@@ -10,17 +10,17 @@ Procitajte još o [motivaciji vezanoj za ove lekcije](https://missing.csail.mit.
 
 # Raspored
 
-- **1/13:** [Pregled kursa + shell](https://missing.csail.mit.edu/2020/course-shell/)
-- **1/14:** [Shell alati i skripting](https://missing.csail.mit.edu/2020/shell-tools/)
-- **1/15:** [Editori (Vim)](https://missing.csail.mit.edu/2020/editors/)
-- **1/16:** [Upravljanje podacima](https://missing.csail.mit.edu/2020/data-wrangling/)
-- **1/21:** [Komandna linija - Okruženje](https://missing.csail.mit.edu/2020/command-line/)
-- **1/22:** [Kontrola verzije(Git)](https://missing.csail.mit.edu/2020/version-control/)
-- **1/23:** [Debaging i profilisanje](https://missing.csail.mit.edu/2020/debugging-profiling/)
-- **1/27:** [Metaprogramiranje](https://missing.csail.mit.edu/2020/metaprogramming/)
-- **1/28:** [Bezbjednost i kriptografija](https://missing.csail.mit.edu/2020/security/)
-- **1/29:** [Potpouri](https://missing.csail.mit.edu/2020/potpourri/)
-- **1/30:** [Q&A](https://missing.csail.mit.edu/2020/qa/)
+- **1/13:** [Pregled kursa + shell](https://github.com/netboxify/missing-semester/blob/master/lecture-01.md)
+- **1/14:** [Shell alati i skripting](https://github.com/netboxify/missing-semester/blob/master/lecture-02.md)
+- **1/15:** [Editori (Vim)](https://github.com/netboxify/missing-semester/blob/master/lecture-03.md)
+- **1/16:** [Upravljanje podacima](https://github.com/netboxify/missing-semester/blob/master/lecture-04.md)
+- **1/21:** [Okruženje komandne linije](https://github.com/netboxify/missing-semester/blob/master/lecture-05.md)
+- **1/22:** [Kontrola verzije(Git)](https://github.com/netboxify/missing-semester/blob/master/lecture-06.md)
+- **1/23:** [Uklanjanje grešaka i profilisanje](https://github.com/netboxify/missing-semester/blob/master/lecture-07.md)
+- **1/27:** [Metaprogramiranje](https://github.com/netboxify/missing-semester/blob/master/lecture-08.md)
+- **1/28:** [Bezbjednost i kriptografija](https://github.com/netboxify/missing-semester/blob/master/lecture-09.md)
+- **1/29:** [Potpouri](https://github.com/netboxify/missing-semester/blob/master/lecture-10.md)
+- **1/30:** [Q&A](https://github.com/netboxify/missing-semester/blob/master/lecture-11.md)
 
 Video snimci ovih lekcija su dostupni [na Youtube.](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
