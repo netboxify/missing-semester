@@ -19,7 +19,7 @@ U poslednjoj lekciji, odgovorili smo na pitanja koja su studenti postavili:
 - [Koje su prednosti i mane svakog od operativnih sistema i kako da biramo između njih (npr. izbor najboljeg Linux distra za naše potrebe)](#)
 - [Vim vs Emacs?](#)
 - [Neki trik ili savjet za Machine Learning aplikaciju?](#)
-- [Još neki Vim trik?]()
+- [Još neki Vim trik?](#)
 - [Šta je 2FA i zašto bih trebao da je koristim?](#)
 - [Neki komentar na razlike između veb pretraživača?](#)
 
