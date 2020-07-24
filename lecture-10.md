@@ -155,7 +155,7 @@ code goes here
 
 Da bi dodali link, stavite _text_ linka u uglastim zagradama, i URL koji ga odmah prati u zagradama: [name](url). Lako je početi sa Markdown-om, i možete ga koristiti gotovo svuda. U stvari, zabilješke za ovu lekciju, kao i za sve ostale, su napisane u Markdown-u, i čisti Markdown možete vidjeti [ovdje](https://raw.githubusercontent.com/missing-semester/missing-semester/master/_2020/potpourri.md).
 
-### Hammerspoon dekstop automatizacija za macOS
+### Hammerspoon desktop automatizacija za macOS
 
 [Hammerspoon](https://www.hammerspoon.org/) je desktop framework za automatizaciju za macOS. Dopušta vam da pišete Lua skriptu koja se kači u funkcionalnost operativnog sistema, dopuštajući vam interakciju sa tastaturom/mišem, prozorom, displejom, sistemom fajlova, i još mnogo stvari. 
 
