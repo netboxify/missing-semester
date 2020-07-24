@@ -6,7 +6,7 @@ alt="Lecture 11: Q&A (2020)" width="240" height="180" border="10" /></a>
 
 U poslednjoj lekciji, odgovorili smo na pitanja koja su studenti postavili:
 
-- [Da li imate neke preporuke za učenje tema koje se tiču operativnih sistema kao što su procesi, virtuelna memorija, prekidi, menadzment memorije i sl. ?]()
+- [Da li imate neke preporuke za učenje tema koje se tiču operativnih sistema kao što su procesi, virtuelna memorija, prekidi, menadzment memorije i slično ?](#da-li-imate-neke-preporuke-za-učenje-tema-koje-se-tiču-operativnih-sistema-kao-što-su-procesi,-virtuelna-memorija,-prekidi,-menadzment-memorije-i-slično-?)
 - [Koji su alati za koje mislite da bi trebali da imaju prioritet u učenju?]()
 - [Kada koristim Python u odnosu na Bash skripte ili neke druge jezike?]()
 - [Koja je razlika između `source script.sh` i `./script.sh` ?]()
