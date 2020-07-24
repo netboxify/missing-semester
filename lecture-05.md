@@ -371,7 +371,7 @@ Na primer, `zsh` shell je superset `bash`-a i pruža mnoge pogodnosti kao što s
 - Bolje popunjavanje/odabir tabova
 - Path ekspanzija (`cd /u/lo/b` će se proširit kao `/usr/local/bin`)
 
-Frameworks mogu poboljšati shell takođe. Neki popularni opšti frameworks su [prezto](https://github.com/sorin-ionescu/prezto) ili [ohmyz](https://ohmyz.sh/), i manji koji se fokusiraju na specifične funkcije kao što su [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) ili [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Shell kao što je [fish](https://fishshell.com/) uključuje mnoge user-friendly funkcije defaultno. Neke od tih funkcija uključuju
+**Frameworks** mogu poboljšati shell takođe. Neki popularni opšti frameworks su [prezto](https://github.com/sorin-ionescu/prezto) ili [ohmyz](https://ohmyz.sh/), i manji koji se fokusiraju na specifične funkcije kao što su [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) ili [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search). Shell kao što je [fish](https://fishshell.com/) uključuje mnoge user-friendly funkcije defaultno. Neke od tih funkcija uključuju
 
 - Pravi prompt
 - Označavanje sintaksnih komandi
@@ -384,7 +384,7 @@ Treba da imate na umu da kada koristite ove frameworke, da oni mogu usporiti va�
 
 ## Emulatori Terminala
 
-Zajedno sa podešavanjem vašeg shella, vrijedi uložiti malo vremena da bi izabrali emulator terminala i njegova podešavanja. Postoji mnogo emulatora terminala (ovdje je [poređenje](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)
+Zajedno sa podešavanjem vašeg shella, vrijedi uložiti malo vremena da bi izabrali **emulator terminala** i njegova podešavanja. Postoji mnogo emulatora terminala (ovdje je [poređenje](https://anarc.at/blog/2018-04-12-terminal-emulators-1/)
 
 S obzirom na to da možete provoditi stotine ili hiljade sati u vašem terminalu, isplati se da pogledate njegova podešavanja. Neki od tih stvari koje bi željeli da podesite u vašem terminalu uključuju:
 
