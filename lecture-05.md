@@ -355,7 +355,9 @@ Konfiguracija na serveru je obično označena u `/etc/ssh/sshd_config`. Ovdje mo
 ### Ostalo 
 
 Čest problem prilikom povezivanja sa udaljenim serverom su prekidi veze zbog isključivanja/spavanja računara ili promjene mreže. Štaviše, može postati prilično frustrirajuće ukoliko neko ima značajan lag korišćenjem ssh-a.
-[Mosh](https://mosh.org/), mobilni shell, poboljšanje je u odnosu na ssh, omogućuje roming veze, povremeno povezivanje i pružanje inteligentnog lokalnog echo-a. Ponekad je prikladno montirati ga u udaljenu datoteku. [sshfs](https://github.com/libfuse/sshfs) može montirati datoteku na udaljeni server lokalno, a zatim možete koristiti lokalni editor. 
+[Mosh](https://mosh.org/), mobilni shell, poboljšanje je u odnosu na ssh, omogućuje roming veze, povremeno povezivanje i pružanje inteligentnog lokalnog echo-a.
+
+Ponekad je prikladno montirati ga u udaljenu datoteku. [sshfs](https://github.com/libfuse/sshfs) može montirati datoteku na udaljeni server lokalno, a zatim možete koristiti lokalni editor. 
 
 ## Shells & Frameworks
 
