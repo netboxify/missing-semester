@@ -152,7 +152,7 @@ Nekada manpages mogu pružiti previše detaljan opis komandi, i mogu da otežaju
 
 ## Traženje fajlova
 
-Jedan od najčešćih zadataka koji se ponavljaju jeste traženje fajlova ili direktorijuma. Svi UNIX-like sistemi dolaze sa find, odličnim shell alatom kojim se pretražuju fajlovi. Find će rekurzivno tražiti fajlove koji ispunjavaju zadati kriterijum. Neki primjeri: 
+Jedan od najčešćih zadataka koji se ponavljaju jeste traženje fajlova ili direktorijuma. Svi UNIX-like sistemi dolaze sa [find](https://www.man7.org/linux/man-pages/man1/find.1.html), odličnim shell alatom kojim se pretražuju fajlovi. `find` će rekurzivno tražiti fajlove koji ispunjavaju zadati kriterijum. Neki primjeri: 
 
 ```shell
 # Find all directories named src
