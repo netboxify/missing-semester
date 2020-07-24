@@ -69,7 +69,7 @@ kada završi i vrati kontrolu parent bash sesiji, parent sesija će ostati na is
 - `/home` - Home direktorijumi za korisnike u sistemu
 - `/lib` - Česte biblioteke za sistemske programe
 - `/opt` - Opcioni softver aplikacije
-- `/sys` - Sadrži informacije i konfiguracije za sistem (pokriveni u [prvoj lekciji](https://missing.csail.mit.edu/2020/course-shell/))
+- `/sys` - Sadrži informacije i konfiguracije za sistem (pokriveni u [prvoj lekciji](https://github.com/netboxify/missing-semester/blob/master/lecture-01.md)
 - `/tmp` - Privremeni fajlovi (isto kao i `/var/tmp`). Obično se brišu između dva podizanja sistema
 - `/usr/` - Čitaju samo podatke korisnika
     - `/usr/bin` - Ne-suštinska binarna komanda
