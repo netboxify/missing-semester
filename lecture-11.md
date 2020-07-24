@@ -29,7 +29,7 @@ Prvo, nije jasno da li bi stvarno trebali da budete upoznati sa navedenim temama
 
 Neki dobri resursi za učenje o ovim temama:
 
--[MIT's 6.828 class](https://pdos.csail.mit.edu/6.828/) - Lekcija diplomskog nivoa za inženjering operativnih sistema. Materijal lekcija sa časa je javno dostupan.
+- [MIT's 6.828 class](https://pdos.csail.mit.edu/6.828/) - Lekcija diplomskog nivoa za inženjering operativnih sistema. Materijal lekcija sa časa je javno dostupan.
 - Moderni operativni sistemi (4 izdanje) - od autora Andrew S. Tanenbaum je dobar pregled mnogih pomenutih koncepata.
 - Dizajn i implementacija FreeBSD operativnih sistema - dobar resurs o FreeBSD operativnim sistemima (napomena: ovo nije Linux).
 - Drugi vodiči kao što je [pisanje operativnog sistema u Rust-u](https://os.phil-opp.com/) gdje ljudi implementiraju kernel korak po korak u raznim jezicima, najviše za svrhe predavanja.
