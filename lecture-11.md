@@ -7,7 +7,7 @@ alt="Lecture 11: Q&A (2020)" width="240" height="180" border="10" /></a>
 U poslednjoj lekciji, odgovorili smo na pitanja koja su studenti postavili:
 
 - [Da li imate neke preporuke za učenje tema koje se tiču operativnih sistema kao što su procesi, virtuelna memorija, prekidi, menadzment memorije i slično ?](#da-li-imate-neke-preporuke-za-učenje-tema-koje-se-tiču-operativnih-sistema-kao-što-su-procesi,-virtuelna-memorija,-prekidi,-menadzment-memorije-i-slično-?)
-- [Koji su alati za koje mislite da bi trebali da imaju prioritet u učenju?]()
+- [Koji su alati za koje mislite da bi trebali da imaju prioritet u učenju?](koji-su-alati-za-koje-mislite-da-bi-trebali-da-imaju-prioritet-u-učenju-?)
 - [Kada koristim Python u odnosu na Bash skripte ili neke druge jezike?]()
 - [Koja je razlika između `source script.sh` i `./script.sh` ?]()
 - [Gdje su mjesta u kojima se čuvaju razni paketi i alati i kako njihovo referenciranje funkcioniše. Šta je ustvari `./bin` ili `./lib`?]()
@@ -34,7 +34,7 @@ Neki dobri resursi za učenje o ovim temama:
 - Dizajn i implementacija FreeBSD operativnih sistema - dobar resurs o FreeBSD operativnim sistemima (napomena: ovo nije Linux).
 - Drugi vodiči kao što je [pisanje operativnog sistema u Rust-u](https://os.phil-opp.com/) gdje ljudi implementiraju kernel korak po korak u raznim jezicima, najviše za svrhe predavanja.
 
-## Koji su alati za koje mislite da bi trebali da imaju prioritet u učenju?
+## Koji su alati za koje mislite da bi trebali da imaju prioritet u učenju ?
 
 Neke teme kojima vrijedi dati prioritet:
 
