@@ -22,7 +22,7 @@ Koji editori su popularni danas? Pogledajte ovaj [StackOverflow survey](https://
 
 ### Vim 
 
-Svi instruktori ovih lekcija koriste Vim kao njihov editor. Vim ima bogatu istoriju. Potiče od Vi editora (1976), i razvija se i dan danas. Iza Vima stoje neke veoma uredne ideje, i iz ovog razloga, puno alata podržava Vim mod emulacije (npr. 1.4 miliona ljudi je instaliralo Vim emulator za VS code). Vim je vjerovatno vrijedan učenja čak iako na kraju ipak pređete na neki drugi editor.
+Svi instruktori ovih lekcija koriste Vim kao njihov editor. Vim ima bogatu istoriju. Potiče od Vi editora (1976), i razvija se i dan danas. Iza Vima stoje neke veoma uredne ideje, i iz ovog razloga, puno alata podržava Vim mod emulacije (npr. 1.4 miliona ljudi je instaliralo [Vim emulator za VS code](https://github.com/VSCodeVim/Vim)). Vim je vjerovatno vrijedan učenja čak iako na kraju ipak pređete na neki drugi editor.
 
 Nije moguće naučiti svu funkcionalnost Vim-a za 50 minuta, tako da ćemo se fokusirati na objašnjenje filozofije Vim-a, naučiti vas osnove, pokazati vam neke napredne funkcionalnosti, i dati vam resurse da bi savladali alat.
 
