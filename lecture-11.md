@@ -7,8 +7,8 @@ alt="Lecture 11: Q&A (2020)" width="240" height="180" border="10" /></a>
 U poslednjoj lekciji, odgovorili smo na pitanja koja su studenti postavili:
 
 - [Da li imate neke preporuke za učenje tema koje se tiču operativnih sistema kao što su procesi, virtuelna memorija, prekidi, menadzment memorije i slično ?](#da-li-imate-neke-preporuke-za-učenje-tema-koje-se-tiču-operativnih-sistema-kao-što-su-procesi,-virtuelna-memorija,-prekidi,-menadzment-memorije-i-slično-?)
-- [Koji su alati za koje mislite da bi trebali da imaju prioritet u učenju?](koji-su-alati-za-koje-mislite-da-bi-trebali-da-imaju-prioritet-u-učenju-?)
-- [Kada koristim Python u odnosu na Bash skripte ili neke druge jezike?]()
+- [Koji su alati za koje mislite da bi trebali da imaju prioritet u učenju?](#koji-su-alati-za-koje-mislite-da-bi-trebali-da-imaju-prioritet-u-učenju-?)
+- [Kada koristim Python u odnosu na Bash skripte ili neke druge jezike?](#kada-koristim-Python-u-odnosu-na-Bash-skripte-ili-neke-druge-jezike-?)
 - [Koja je razlika između `source script.sh` i `./script.sh` ?]()
 - [Gdje su mjesta u kojima se čuvaju razni paketi i alati i kako njihovo referenciranje funkcioniše. Šta je ustvari `./bin` ili `./lib`?]()
 - [Da li bih trebao da izvršavam `apt-get install` python-ili nešto drugo, ili `pip install` nekog paketa?]()
@@ -43,7 +43,7 @@ Neke teme kojima vrijedi dati prioritet:
 - Naučite kako da automatizujete/pojednostavite zadatke koji se ponavljaju u vašem radu jer će ušteda vremena biti ogromna.
 - Učenje alata o kontroli verzije kao što je Git i kako ga koristiti u kombinaciji sa GitHubom da bi sarađivali na modernim softverskim projektima.
 
-## Kada koristim Python u odnosu na Bash skripte ili neke druge jezike?
+## Kada koristim Python u odnosu na Bash skripte ili neke druge jezike ?
 
 Generalno, bash skripte su korisne kao kratke i jednostavne skirpte, kada želite da izvršite specifičnu seriju komandi. Bash ima dio čudnih dijelova koji čine da bude jako teško raditi sa većim programima ili skriptama:
 
