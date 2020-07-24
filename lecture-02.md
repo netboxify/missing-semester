@@ -45,7 +45,7 @@ Ovdje je `$1` prvi argument skripti/funkciji. Za razliku od drugih skripting jez
 
 Komande će često vratiti output koristeći `STDOUT`, greške kroz `STDERR`, i Return Code da bi izvijestile o greškama na način koji je više skript-friendly. Kod koji se vraća ili exit status je način na koji skript/komande moraju da komuniciraju o tome kako je izvršavanje proteklo. Vrijednost 0 obično znači da je sve proteklo dobro; Bilo šta što je drugačije od 0 znači da je nastupila greška.
 
-Exit kodovi se mogu koristiti da bi se uslovno izvršavala komanda koristeći `&&` (i operator) i `||` (ili operator). Komande takođe mogu biti razdvojene u okviru iste linije koristće tačku zarez `;`. `Ispravni program` će uvijek imati 0 kao return kod, a komanda koja `nije uspjela` će uvijek imati 1 kao return kod. Hajde da vidimo neke primjere.
+Exit kodovi se mogu koristiti da bi se uslovno izvršavala komanda koristeći `&&` (i operator) i `||` (ili operator), gdje su i jedan i drugi [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operatori. Komande takođe mogu biti razdvojene u okviru iste linije koristće tačku zarez `;`. `true` program će uvijek imati 0 kao return kod, a komanda koja je `false` će uvijek imati 1 kao return kod. Hajde da vidimo neke primjere.
 
 ```shell
 false || echo "Oops, fail"
