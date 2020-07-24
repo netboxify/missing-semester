@@ -15,7 +15,7 @@ alt="Lecture 10: Potpourri (2020)" width="240" height="180" border="10" /></a>
 - [Menadžeri prozora](#menadžeri-prozora)
 - [VPN's](#vpns)
 - [Markdown](#markdown)
-- [Hammerspoon (desktop automatizacija na macOS)](hammerspoon-desktop-automatizacija-na-macOS)
+- [Hammerspoon (desktop automatizacija na macOS)](#hammerspoon-desktop-automatizacija-na-macOS)
 - [Booting + Live USBs](#booting--live-usbs)
 - [Docker, Vagrant, VMs, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
 - [Notebook programiranje](#notebook-programiranje)
