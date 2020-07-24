@@ -53,9 +53,9 @@ missing:~$ echo hello
 hello
 ```
 
-U ovom slučaju smo zadali shell-u da izvrši program echo sa argumentom hello. Echo program jednostavno ispisuje zadate argumente. Shell analizira komandu dijeleći je na bijeli prostor, a zatim izvršava program naznačen prvom riječju, posmatrajući svaku sledeću riječ kao argument kojem program može da pristupi. Ukoliko želite da omogućite argument koji sadrži razmake ili druge specijalne karaktere (npr. direktorijum po imenu "My photos"), možete citirati argument sa `'` ili `""` `("My Photos")`, ili izbjeći samo relevantne karaktere sa `\` `(My\ Photos)`.
+U ovom slučaju smo zadali shell-u da izvrši program `echo` sa argumentom `hello`. `Echo` program jednostavno ispisuje zadate argumente. Shell analizira komandu dijeleći je na bijeli prostor, a zatim izvršava program naznačen prvom riječju, posmatrajući svaku sledeću riječ kao argument kojem program može da pristupi. Ukoliko želite da omogućite argument koji sadrži razmake ili druge specijalne karaktere (npr. direktorijum po imenu "My photos"), možete citirati argument sa `'` ili `""` `("My Photos")`, ili izbjeći samo relevantne karaktere sa `\` `(My\ Photos)`.
 
-Ali kako shell zna kako da pronađe datum ili echo program? Pa, shell je programsko okruženje, isto kao i Python ili Ruby, tako da ima varijable, kondicionale, petlje, funkcije (sledeća lekcija!). Kada pokrenete komandu u vašem shellu, vi zapravo pišete male dijelove koda koji shell interpretira. Ukoliko je shell upitan da izvrši komandu koja se ne poklapa sa bilo kojom od njegovih programskih ključnih riječi, on konsultuje _environment variable_ zvano $PATH koje navodi u kojem direktorijumu bi shell trebao da traži program kada mu je zadata komanda:
+Ali kako shell zna kako da pronađe `datum` ili `echo` program? Pa, shell je programsko okruženje, isto kao i Python ili Ruby, tako da ima varijable, kondicionale, petlje, funkcije (sledeća lekcija!). Kada pokrenete komandu u vašem shellu, vi zapravo pišete male dijelove koda koji shell interpretira. Ukoliko je shell upitan da izvrši komandu koja se ne poklapa sa bilo kojom od njegovih programskih ključnih riječi, on konsultuje _environment variable_ zvano $PATH koje navodi u kojem direktorijumu bi shell trebao da traži program kada mu je zadata komanda:
 
 ```console
 missing:~$ echo $PATH
