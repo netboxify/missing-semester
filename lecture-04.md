@@ -160,7 +160,13 @@ Počnimo sa `paste`: Dopušta vam da kombinujete linije (`-s`) sa datim razdjeln
 
 Prvo, šta `{print $2}` radi? Pa, `awk` program uzima formu opcionog obrasca plus blok koji govori šta da se uradi ukoliko se obrazac poklopi sa datim redom. Uobičajen obrazac (koji smo koristili gore) se podudara sa svim redovima. Unutar bloka, `$0` je podešen za čitav sadržaj reda, i `$1` kroz `$n` su podešene za `n` polje tog reda, koji je odvojen `awk` separatorom polja (obično bijeli prostor, mijenja se sa `-F`). U ovom slučaju, mi govorimo da, za svaku liniju, se ispisuje sadržaj drugog polja, a dešava se to da je to korisničko ime!
 
-Hajde da vidimo da li možemo nešto da uradimo još bolje. Prvo, primjećujete da sada imam obrazac (stvari koje idu prije `{...}`). Obrazac kaže da bi prvo polje reda trebalo da bude jednako 1 (to je brojanje od `uniq -c`), i da bi drugo polje trebalo da se podudari sa datim regularnim izrazom. A blok samo kaže da se ispiše korisničko ime. Zatim brojimo broj redova u outputu sa `wc -l`.
+Hajde da vidimo da li možemo nešto da uradimo još bolje. Hajde da izračunamo broj korisničkih imena za jednu upotrebu koji počinju sa `c` i završavaju sa `e`:
+
+```shell
+ | awk '$1 == 1 && $2 ~ /^c[^ ]*e$/ { print $2 }' | wc -l
+```
+
+Mnogo toga je neraspakovano ovdje. Prvo, primjećujete da sada imam obrazac (stvari koje idu prije `{...}`). Obrazac kaže da bi prvo polje reda trebalo da bude jednako 1 (to je brojanje od `uniq -c`), i da bi drugo polje trebalo da se podudari sa datim regularnim izrazom. A blok samo kaže da se ispiše korisničko ime. Zatim brojimo broj redova u outputu sa `wc -l`.
 
 Ipak, `awk` je programski jezik, sjećate se? 
 
