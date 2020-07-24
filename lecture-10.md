@@ -7,19 +7,19 @@ alt="Lecture 10: Potpourri (2020)" width="240" height="180" border="10" /></a>
 ## Tabela sadržaja
 
 - [Podešavanje tastature](#podešavanje-tastature)
-- [Daemons](https://missing.csail.mit.edu/2020/potpourri/#daemons)
-- [FUSE](https://missing.csail.mit.edu/2020/potpourri/#fuse)
-- [Backups](https://missing.csail.mit.edu/2020/potpourri/#backups)
-- [APIs](https://missing.csail.mit.edu/2020/potpourri/#apis)
-- [Uobičajeni flagovi/obrasci komandne linije](https://missing.csail.mit.edu/2020/potpourri/#common-command-line-flagspatterns)
-- [Menadžeri prozora](https://missing.csail.mit.edu/2020/potpourri/#window-managers)
-- [VPN's](https://missing.csail.mit.edu/2020/potpourri/#vpns)
-- [Markdown](https://missing.csail.mit.edu/2020/potpourri/#markdown)
-- [Hammerspoon (desktop automatizacija na macOS)](https://missing.csail.mit.edu/2020/potpourri/#hammerspoon-desktop-automation-on-macos)
-- [Booting * Live USBs](https://missing.csail.mit.edu/2020/potpourri/#booting--live-usbs)
-- [Docker, Vagrant, VMs, Cloud, OpenStack](https://missing.csail.mit.edu/2020/potpourri/#docker-vagrant-vms-cloud-openstack)
-- [Notebook programiranje](https://missing.csail.mit.edu/2020/potpourri/#notebook-programming)
-- [GitHub](https://missing.csail.mit.edu/2020/potpourri/#github)
+- [Daemons](#daemons)
+- [FUSE](#fuse)
+- [Backups](#backups)
+- [APIs](#apis)
+- [Uobičajeni flagovi/obrasci komandne linije](#uobičajeni-flagovi/obrasci-komandne-linije)
+- [Menadžeri prozora](#menadžeri-prozora)
+- [VPN's](#vpns)
+- [Markdown](#markdown)
+- [Hammerspoon (desktop automatizacija na macOS)](hammerspoon-(desktop-automatizacija-na-macOS))
+- [Booting + Live USBs](#booting--live-usbs)
+- [Docker, Vagrant, VMs, Cloud, OpenStack](#docker-vagrant-vms-cloud-openstack)
+- [Notebook programiranje](#notebook-programiranje)
+- [GitHub](#github)
 
 ### Podešavanje tastature
 
