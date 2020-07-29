@@ -18,7 +18,7 @@ Kako da automatizujete česte zadatke koji se ponavljaju sa alijasima, skriptama
 
 Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U primjeru ispod pokazećemo nekoliko trikova koji se odnose na kretanje kroz shell istoriju za `convert` komande. 
 
-[Video](https://missing.csail.mit.edu/static/media/demos/history.mp4)
+[History](https://missing.csail.mit.edu/static/media/demos/history.mp4)
 
 ## Kontrola verzije
   
@@ -26,7 +26,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
  
  U primjeru ispod mi koristimo `git bisect` da saznamo koji commit je probio test jedinice i zatim to popravljamo koristeći `git revert`. 
  
- **Video**
+ [Git](https://missing.csail.mit.edu/static/media/demos/git.mp4)
  
  ## Editovanje teksta
  
@@ -34,7 +34,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
  
  Vim makroi su jedni od najboljih funkcija, i u primjeru ispod mi brzo konvertujemo html tabelu u csv format koristeći ugnježdene vim makroe. 
  
- **Video**
+ [Vim](https://missing.csail.mit.edu/static/media/demos/vim.mp4)
  
  ## Udaljene mašine
  
@@ -42,7 +42,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
  
  U primjeru ispod mi koristimo `tmux` da održimo živim sesije na udaljenim serverima i `mosh` da podržimo network roaming i diskonekciju.
  
- **Video**
+ [SSH](https://missing.csail.mit.edu/static/media/demos/ssh.mp4)
  
  ## Pretraga fajlova
  
@@ -50,7 +50,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
  
  U primjeru ispod mi brzo tražimo fajlove sa `fd` i isječke koda sa `rg`. Takođe brzo izvršavamo `cd` i `vim` skoriji/česti fajlovi/folderi koristeći `fasd`.
  
- **Video**
+ [Find](https://missing.csail.mit.edu/static/media/demos/find.mp4)
  
  ## Upravljanje podacima
  
