@@ -18,7 +18,7 @@ Kako da automatizujete česte zadatke koji se ponavljaju sa alijasima, skriptama
 
 Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U primjeru ispod pokazećemo nekoliko trikova koji se odnose na kretanje kroz shell istoriju za `convert` komande. 
 
-**video**
+**Video**
 
 ## Kontrola verzije
   
