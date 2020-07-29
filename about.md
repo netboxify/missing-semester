@@ -14,7 +14,7 @@ Ukoliko ovo zvuči kao da je za vas, evo nekih konkretnih primjera o čemu će s
 
 ## Komandna linija
 
-Kako da automatizujete česte zadatke koji se ponavljaju sa alijasima, skriptama, i gradnjom sistema. Nema više copy-paste komandi iz tekst dokumenta. Nema više "zaboravili ste da pokrenete ovu stvar" ili "zaboravili ste da proslijedite ovaj argument".
+Kako da automatizujete česte zadatke koji se ponavljaju sa alijasima, skriptama, i gradnjom sistema. Nema više copy-paste komandi iz tekst dokumenta. Nema više "pokrenite ovih 15 komandi jednu za drugom". Nema više "zaboravili ste da pokrenete ovu stvar" ili "zaboravili ste da proslijedite ovaj argument".
 
 Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U primjeru ispod pokazećemo nekoliko trikova koji se odnose na kretanje kroz shell istoriju za `convert` komande. 
 
@@ -22,7 +22,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
 
 ## Kontrola verzije
   
- Kako da _ispravno_ koristite kontrolu verzije, i iskoristite njenu prednost da bi izbjegli katastrofu, sarađivali sa drugima, i brzo pronašli i izolovali problematične promjene. Nema više `rm -rf`; `git clone`. Nema više konflikata pri spajanju (ili ih makar ima manje). Nema više velikih blokova koda sa komentarima. Nema više muke oko toga da pronađete grešku u kodu. Nema više "O ne, da li smo izbrisali kod koji radi?!". Čak ćemo vas naučiti kako da doprinesete projektima drugih ljudi sa `pull requests`!
+ Kako da _ispravno_ koristite kontrolu verzije, i iskoristite njenu prednost da bi izbjegli katastrofu, sarađivali sa drugima, i brzo pronašli i izolovali problematične promjene. Nema više `rm -rf; git clone`. Nema više konflikata pri spajanju (ili ih makar ima manje). Nema više velikih blokova koda sa komentarima. Nema više muke oko toga da pronađete grešku u kodu. Nema više "O ne, da li smo izbrisali kod koji radi?!". Čak ćemo vas naučiti kako da doprinesete projektima drugih ljudi sa pull requests!
  
  U primjeru ispod mi koristimo `git bisect` da saznamo koji commit je probio test jedinice i zatim to popravljamo koristeći `git revert`. 
  
