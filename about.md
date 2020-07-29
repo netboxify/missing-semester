@@ -1,6 +1,6 @@
 # Zašto predajemo ove lekcije
 
-Tokom tradicionalne nastave računarskih nauka, šanse su da ćete imati puno lekicja koje će vas učiti o naprednim temama CS-a, sve od operativnih sistema preko programskih jezika do machine learning-a.  Ali u mnogim institucijama postoji jedna ključna tema koja se rijetko obrađuje, i umjesto toga se prepušta studentima da sami uče o njoj: pismenost u računarskom ekosistemu.
+Tokom tradicionalne nastave računarskih nauka, šanse su da ćete imati puno lekicja koje će vas učiti o naprednim temama CS-a, sve od operativnih sistema preko programskih jezika do machine learning-a. Ali u mnogim institucijama postoji jedna ključna tema koja se rijetko obrađuje, i umjesto toga se prepušta studentima da sami uče o njoj: pismenost u računarskom ekosistemu.
 
 Tokom godina, pomagali smo u predavanjima nekoliko predmeta na MIT-u, i iznova smo vidjeli da studenti imaju ograničeno znanje kada su u pitanju alati koji su im dostupni. Računari su napravljeni da bi automatizovali zadatke koji su se obavljali ručno, ipak studenti često ručno izvršavaju zadatke koji se ponavljaju ili ne uspijevaju da iskoriste puni potencijal moćnih alata kao što su kontrola verzije i editori teksta. U najboljem slučaju, ovo ima za rezultat neefektivnost i gubljenje vremena; u najgorem slučaju, ovo ima za rezultat probleme kao što je gubljenje podataka ili nemogućnost da se završi određeni zadatak.
 
@@ -8,7 +8,7 @@ Ove teme se ne uče kao dio univerzitetskog nastavnog plana i programa: studenti
 
 ## CS semestar vašeg obrazovanja koji vam nedostaje
 
-Da bi se ovo riješilo, mi vodimo lekcije koje pokrivaju sve teme za koje smatramo da su ključne da bi bili efikasan softverski inženjer i programer. Lekcije su pragmatične i pružaju praktičan uvod alatima i tehnikama koje možete odmah primijeniti u širokom spektru situacija na koje ćete naići. Nastava se vodi tokom MIT-ovog "Nezavisnog Perioda Aktivnosti" u Januaru 2020 - jednomjesečni semestar koji se sadrži od kraćih lekcija koje predavaju studenti. Dok su same lekcije samo dostupne MIT studentima, pružićemo sve materijale lekcija zajedno sa video zapisima lekcija javnosti.
+Da bi se ovo riješilo, mi vodimo lekcije koje pokrivaju sve teme za koje smatramo da su ključne da bi bili efikasan softverski inženjer i programer. Lekcije su pragmatične i pružaju praktičan uvod u alate i tehnike koje možete odmah primijeniti u širokom spektru situacija na koje ćete naići. Nastava se vodi tokom MIT-ovog "Nezavisnog Perioda Aktivnosti" u Januaru 2020 - jednomjesečni semestar koji se sadrži od kraćih lekcija koje predavaju studenti. Dok su same lekcije samo dostupne MIT studentima, pružićemo sve materijale lekcija zajedno sa video zapisima lekcija javnosti.
 
 Ukoliko ovo zvuči kao da je za vas, evo nekih konkretnih primjera o čemu će se predavati u ovim lekcijama: 
 
@@ -22,7 +22,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
 
 ## Kontrola verzije
   
- Kako da _ispravno_ koristite kontrolu verzije, i iskoristite njenu prednost da bi izbjegli katastrofu, sarađivali sa drugima, i brzo pronašli i izolovali problematične promjene. Nema više `rm -rf`; `git clone`. Nema više konflikata pri spajanju (ili ih makar ima manje. Nema više velikih blokova koda sa komentarima. Nema više muke oko toga da pronađete grešku u kodu. Nema više "O ne, da li smo izbrisali kod koji radi?!". Čak ćemo vas naučiti kako da doprinesete projektima drugih ljudi sa `pull requests`!
+ Kako da _ispravno_ koristite kontrolu verzije, i iskoristite njenu prednost da bi izbjegli katastrofu, sarađivali sa drugima, i brzo pronašli i izolovali problematične promjene. Nema više `rm -rf`; `git clone`. Nema više konflikata pri spajanju (ili ih makar ima manje). Nema više velikih blokova koda sa komentarima. Nema više muke oko toga da pronađete grešku u kodu. Nema više "O ne, da li smo izbrisali kod koji radi?!". Čak ćemo vas naučiti kako da doprinesete projektima drugih ljudi sa `pull requests`!
  
  U primjeru ispod mi koristimo `git bisect` da saznamo koji commit je probio test jedinice i zatim to popravljamo koristeći `git revert`. 
  
@@ -40,7 +40,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
  
  Kako da ostanete prisebni kada radite sa udaljenim mašinama koristeći SSH ključeve i multiplexere terminala. Nema više držanja velikog broja terminala otvorenih samo da bi pokrenuli dvije komande u isto vrijeme. Nema više kucanja vaše lozinke svaki put kada se konektujete. Nema više gubljenja svega samo zato što se internet diskonektovao ili ste morati da uradite reboot laptopa.
  
- U primjeru ispod mi koristimo `tmux` da održimo živim sesije u udaljenim serverima i `mosh` da podržimo network roaming i diskonekciju.
+ U primjeru ispod mi koristimo `tmux` da održimo živim sesije na udaljenim serverima i `mosh` da podržimo network roaming i diskonekciju.
  
  **Video**
  
@@ -62,7 +62,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
  
  ## Bezbjednost
  
- Kako da budete na internetu a da odmah ne otkrijete sve vaše tajne svijetu. Nema više izmišljanja lozinki koje zadovoljavaju sulude kriterijume. Nema više nesigurnih, otvorenih WiFi networka. Nema više ne-enkriptovanih poruka.
+ Kako da budete na internetu a da odmah ne otkrijete sve vaše tajne svijetu. Nema više izmišljanja lozinki koje zadovoljavaju sulude kriterijume. Nema više nesigurnih, otvorenih WiFi network-a. Nema više ne-enkriptovanih poruka.
  
  # Zaključak
  
@@ -71,4 +71,5 @@ Ovo i još puno toga, će biti pokriveno kroz 12 lekcija, a svaka od njih uklju�
 Nadamo se da se vidimo u Januaru, bilo virtuelno ili uživo.
 
 Happy hacking, 
+
 Anish, Jose, i Jon
