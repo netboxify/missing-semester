@@ -6,7 +6,7 @@ Naučićemo Vas kako da savladate komandnu liniju, koristite moćne text editore
 
 Studenti provode stotine sati koristeći ove alate tokom svog školovanja (i hiljade sati u toku njihove karijere), tako da ima smisla da steknete što bolje znanje. Savladavanje ovih alata Vam neće samo omogućiti da trošite manje vremena na podešavanje alata u skladu sa Vašim potrebama, već će i pružiti mogućnost da riješite probleme koji su ranije izgledali nemoguće kompleksni.
 
-Procitajte još o [motivaciji vezanoj za ove lekcije](https://missing.csail.mit.edu/about/)
+Procitajte još o [motivaciji vezanoj za ove lekcije](https://github.com/netboxify/missing-semester/blob/master/about.md)
 
 # Raspored
 
