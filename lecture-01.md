@@ -10,7 +10,7 @@ Kao inženjeri računarskih nauka, znamo da su računari odlična pomoć u zadac
 
 Cilj ovih predavanja jeste da navedeni problem riješi.
 
-Želimo da Vas naučimo kako da najbolje iskoristite alate koje znate, upoznamo Vas sa novim alatima, i nadamo se da postaknemo uzbuđenje kod vas za samostalno istraživanje (a možda i izradu više alata). To je ono za šta vjerujemo da je nedostajući semestar u većini nastavnih planova CS-a.
+Želimo da Vas naučimo kako da najbolje iskoristite alate koje znate, upoznamo Vas sa novim alatima, i nadamo se da postaknemo uzbuđenje kod vas za samostalno istraživanje (a možda i izradu više alata). To je ono za šta vjerujemo da je semestar koji nedostaje u većini nastavnih planova CS-a.
 
 # Struktura predavanja
 
