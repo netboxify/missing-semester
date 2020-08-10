@@ -1,9 +1,3 @@
-# Pregled kursa + shell
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=Z56Jmr9Z34Q
-" target="_blank"><img src="" 
-alt="Lecture 1: Course Overview + The Shell (2020)" width="240" height="180" border="10" /></a>
-
 ## Motivacija
 
 Kao inženjeri računarskih nauka, znamo da su računari odlična pomoć u zadacima koji se ponavljaju. Ipak, veoma često, zaboravljamo da se to jednako odnosi na našu upotrebu računara koliko i na radnje koje želimo da naši računari obave. Na raspolaganju nam je širok spektar alata koji nam pružaju mogućnost da budemo produktivniji i riješimo složenije probleme tokom rada na bilo kom problemu koji se tiče računara. Ipak, mnogi od nas koriste samo mali dio tih alata, znamo samo kako da se izborimo sa manjim problemima, i da ubacimo copy-paste komande sa interneta kada 'zaglavimo'.
