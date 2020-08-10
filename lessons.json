@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Pregled kursa + shell",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=Z56Jmr9Z34Q",
+    "path": "/pregled-kursa-shell",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-01.md",
+    "nextLesson": "/shell-alati-i-scripting",
+    "number": "1/13",
+    "readingTime": "11 min"
+  },
+  {
+    "name": "Shell alati i scripting",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=kgII-YWo3Zw",
+    "path": "/shell-alati-i-scripting",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-02.md",
+    "nextLesson": "/editori-vim",
+    "number": "1/14",
+    "readingTime": "16 min"
+  },
+  {
+    "name": "Editori (VIM)",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=a6Q8Na575qc",
+    "path": "/editori-vim",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-03.md",
+    "nextLesson": "/upravljanje-podacima",
+    "number": "1/15",
+    "readingTime": "12 min"
+  },
+  {
+    "name": "Upravljanje podacima",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=sz_dsktIjt4",
+    "path": "/upravljanje-podacima",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-04.md",
+    "nextLesson": "/komandna-linija",
+    "number": "1/21",
+    "readingTime": "13 min"
+  },
+  {
+    "name": "Komandna linija",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=e8BO_dYxk5c",
+    "path": "/komandna-linija",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-05.md",
+    "nextLesson": "/kontrola-verzije-git",
+    "number": "1/22",
+    "readingTime": "18 min"
+  },
+  {
+    "name": "Kontrola verzije (Git)",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=2sjqTHE0zok",
+    "path": "/kontrola-verzije-git",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-06.md",
+    "nextLesson": "/debugovanje-i-profilisanje",
+    "number": "1/23",
+    "readingTime": "11 min"
+  },
+  {
+    "name": "Debugovanje i profilisanje",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=l812pUnKxME",
+    "path": "/debugovanje-i-profilisanje",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-07.md",
+    "nextLesson": "/metaprogramiranje",
+    "number": "1/27",
+    "readingTime": "24 min"
+  },
+  {
+    "name": "Metaprogramiranje",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=_Ms1Z4xfqv4",
+    "path": "/metaprogramiranje",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-08.md",
+    "nextLesson": "/bezbjednost-i-kriptografija",
+    "number": "1/28",
+    "readingTime": "10 min"
+  },
+  {
+    "name": "Bezbjednost i Kriptografija",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=tjwobAmnKTo",
+    "path": "/bezbjednost-i-kriptografija",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-09.md",
+    "nextLesson": "/potpuri",
+    "number": "1/29",
+    "readingTime": "10 min"
+  },
+  {
+    "name": "Potpuri",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=JZDt-PRq0uo",
+    "path": "/potpuri",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-10.md",
+    "nextLesson": "/pitanja",
+    "number": "1/30",
+    "readingTime": "15 min"
+  },
+  {
+    "name": "Q & A",
+    "videoURL": "https://www.youtube.com/watch?feature=player_embedded&v=Wz50FvGG6xU",
+    "path": "/pitanja",
+    "content": "https://raw.githubusercontent.com/netboxify/missing-semester/master/lecture-11.md",
+    "nextLesson": "",
+    "number": "1/31",
+    "readingTime": "16 min"
+  }
+]
