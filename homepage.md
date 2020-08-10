@@ -8,7 +8,7 @@ Studenti provode stotine sati koristeći ove alate tokom svog školovanja (i hil
 
 Procitajte još o [motivaciji vezanoj za ove lekcije](https://github.com/netboxify/missing-semester/blob/master/about.md)
 
-# Raspored
+## Raspored
 
 - **1/13:** [Pregled kursa + shell](https://github.com/netboxify/missing-semester/blob/master/lecture-01.md)
 - **1/14:** [Shell alati i skripting](https://github.com/netboxify/missing-semester/blob/master/lecture-02.md)
@@ -24,11 +24,11 @@ Procitajte još o [motivaciji vezanoj za ove lekcije](https://github.com/netboxi
 
 Video snimci ovih lekcija su dostupni [na Youtube.](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
-# O lekcijama
+## O lekcijama
 
 Predavači: Ove lekcije predaju: [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/) i [Jose](https://josejg.com/). **Pitanja**: Pošaljite e-mail na adresu: missing-semester@mit.edu
 
-# Izvan MIT-a
+## Izvan MIT-a
 
 Podijelili smo ove lekcije izvan MIT-a u nadi da će i drugi imati koristi od ovih resursa. Možete pronaći postove i rasprave na: 
 
@@ -39,7 +39,7 @@ Podijelili smo ove lekcije izvan MIT-a u nadi da će i drugi imati koristi od ov
 - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
 - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
-# Prevodi
+## Prevodi
 
 - [Kineski(Pojednostavljen)](https://missing-semester-cn.github.io/)
 - [Kineski(Tradicionalni)](https://missing-semester-zh-hant.github.io/)
@@ -51,6 +51,6 @@ Napomena: Ovo su eksterni linkovi prevoda od strane zajednice. Ne garantujemo za
 
 Da li ste kreirali prevod zabilješki iz ove lekcije? Zatražite [pull request](https://github.com/missing-semester/missing-semester/pulls) tako da možemo da ga dodamo na listu!
 
-# Priznanja
+## Priznanja
 
 Zahvaljujemo se Elaine Mello, Jim Cain, i [MIT Open Learning](https://openlearning.mit.edu/) što su nam omogućili da snimimo lekcije: Anthony Zolnik i [MIT AeroAstro](https://aeroastro.mit.edu/) za A/V opremu; i Brandi Adams i [MIT EECS](https://www.eecs.mit.edu/) za podršku ovim lekcijama.
