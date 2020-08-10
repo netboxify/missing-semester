@@ -1,9 +1,3 @@
-# Q&A
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=Wz50FvGG6xU
-" target="_blank"><img src="" 
-alt="Lecture 11: Q&A (2020)" width="240" height="180" border="10" /></a>
-
 U poslednjoj lekciji, odgovorili smo na pitanja koja su studenti postavili:
 
 - [Da li imate neke preporuke za učenje tema koje se tiču operativnih sistema kao što su procesi, virtuelna memorija, prekidi, menadzment memorije i slično ?](#)
