@@ -64,7 +64,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
  
  Kako da budete na internetu a da odmah ne otkrijete sve vaše tajne svijetu. Nema više izmišljanja lozinki koje zadovoljavaju sulude kriterijume. Nema više nesigurnih, otvorenih WiFi network-a. Nema više ne-enkriptovanih poruka.
  
- # Zaključak
+ ## Zaključak
  
 Ovo i još puno toga, će biti pokriveno kroz 12 lekcija, a svaka od njih uključuje vježbu za vas da bi se bolje upoznali sa alatima koje koristite. Ukoliko ne možete da čekate Januar, možete takođe pogledati lekicje iz [Hacker Tools](https://hacker-tools.github.io/lectures/), koje smo predavali tokom "Nezavisnog Perioda Aktivnosti" iz prošle godine. To je preteča ovih predavanja, i pokriva mnogo istih tema.
 
