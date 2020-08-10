@@ -1,9 +1,3 @@
-# Metaprogramiranje
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=_Ms1Z4xfqv4
-" target="_blank"><img src="" 
-alt="Lecture 8: Metaprogramming (2020)" width="240" height="180" border="10" /></a>
-
 Šta mislimo kada kažemo "metaprogramiranje"? Pa, to je bio najbolji kolektivni termin koji smo mogli smisliti za skup stvari koje su više vezane za __procese__  nego za pisanje koda ili efikasniji rad. U ovoj lekciji ćemo pogledati sisteme za izgradnju i testiranje vašeg koda, i upravljenje zavisnostima. Ovo se može činiti da ima ograničenu važnost u vašim redovnim danima kao studentima, ali u trenutku kada imate interakciju sa većom bazom koda kroz stručnu praksu ili jednom kada uđete u "pravi svijet", na ovo ćete svuda naići. Trebali bi da imamo u vidu da "metaprogramiranje" takođe može značiti [programi koji upravljaju programima](https://en.wikipedia.org/wiki/Metaprogramming), ipak ovo nije baš definicija koju koristimo za svrhu ove lekcije. 
 
 ## Sistem građenja
