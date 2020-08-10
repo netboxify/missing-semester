@@ -1,9 +1,3 @@
-# Bezbjednost i Kriptografija
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=tjwobAmnKTo
-" target="_blank"><img src="" 
-alt="Lecture 9: Security and Cryptography (2020)" width="240" height="180" border="10" /></a>
-
 Prošlogodišnja [lekcija o bezbjednosti i privatnosti](https://missing.csail.mit.edu/2019/security/) se fokusirala na to kako možete biti bezbjedniji kao _korisnik_ računara. Ove godine, fokusiraćemo se na bezbjednost i koncepte kriptografije koji su relevantni u razumijevanju alata koji su pokriveni u ranijim lekcijama, kao što su hash funkcije u Git-u, ili funkcija za izvoženje ključeva i simetrični/asimetrični kriptosistemi u SSH.
 
 Ova lekcija nije zamjena za rigoroznije i kompletnije kurseve zaštite računarskih sistema ([6858](https://css.csail.mit.edu/6.858/2020/)) ili kriptografije ([6857](https://courses.csail.mit.edu/6.857/2020/) i 6875). Nemojte se baviti bezbjednosnim poslom bez formalne obuke o bezbjednosti. Osim ako ste ekspert, nemojte [roll your own crypto](https://www.schneier.com/blog/archives/2015/05/amateurs_produc.html). Isti principi važe za bezbjednost sistema.
