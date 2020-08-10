@@ -1,9 +1,3 @@
-# Upravljanje podacima
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=sz_dsktIjt4
-" target="_blank"><img src="" 
-alt="Lecture 4: Data Wrangling (2020)" width="240" height="180" border="10" /></a>
-
 Da li ste ikada željeli da uzmete podatke u jednom formatu i pretvorite ih u drugi format? Naravno da jeste! To je, generalno gledano, tema ove lekcije. Tačnije, upravljanje podacima, bilo u tekstualnom ili binarnom formatu, sve dok ne dođete do onoga što želite.
 
 Već smo vidjeli neke osnove upravljanja podacima u prethodnim lekcijama. Manje-više kada god koristite `|` operator, izvodite neku vrstu upravljanja podacima. Razmotrite komandu kao što je `journalctl | grep -i intel`. Pronalazi sve system log unose koji pominju Intel (nije osjetljivo na velika slova). Možda to ne posmatrate kao upravljanje podacima, ali kada idete iz jednog formata (vaš čitav system log) do formata koji je mnogo korisniji za vas (samo intel log unosi). Većina stvari koje se tiču upravljanja podacima se odnosi na to da znate koje alate imate na raspolaganju, i kako da ih kombinujete. 
