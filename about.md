@@ -64,7 +64,7 @@ Na primer, brzo pretraživanje kroz istoriju može sačuvati puno vremena. U pri
  
  ## Zaključak
  
-Ovo i još puno toga, će biti pokriveno kroz 12 lekcija, a svaka od njih uključuje vježbu za vas da bi se bolje upoznali sa alatima koje koristite. Ukoliko ne možete da čekate Januar, možete takođe pogledati lekicje iz [Hacker Tools](https://hacker-tools.github.io/lectures/), koje smo predavali tokom "Nezavisnog Perioda Aktivnosti" iz prošle godine. To je preteča ovih predavanja, i pokriva mnogo istih tema.
+Ovo i još puno toga, će biti pokriveno kroz 12 lekcija, a svaka od njih uključuje vježbu za vas da bi se bolje upoznali sa alatima koje koristite. Ukoliko ne možete da čekate Januar, možete takođe pogledati lekcije iz [Hacker Tools](https://hacker-tools.github.io/lectures/), koje smo predavali tokom "Nezavisnog Perioda Aktivnosti" iz prošle godine. To je preteča ovih predavanja, i pokriva mnogo istih tema.
 
 Nadamo se da se vidimo u Januaru, bilo virtuelno ili uživo.
 
