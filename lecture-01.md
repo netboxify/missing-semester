@@ -4,7 +4,7 @@
 " target="_blank"><img src="" 
 alt="Lecture 1: Course Overview + The Shell (2020)" width="240" height="180" border="10" /></a>
 
-# Motivacija
+## Motivacija
 
 Kao inženjeri računarskih nauka, znamo da su računari odlična pomoć u zadacima koji se ponavljaju. Ipak, veoma često, zaboravljamo da se to jednako odnosi na našu upotrebu računara koliko i na radnje koje želimo da naši računari obave. Na raspolaganju nam je širok spektar alata koji nam pružaju mogućnost da budemo produktivniji i riješimo složenije probleme tokom rada na bilo kom problemu koji se tiče računara. Ipak, mnogi od nas koriste samo mali dio tih alata, znamo samo kako da se izborimo sa manjim problemima, i da ubacimo copy-paste komande sa interneta kada 'zaglavimo'.
 
@@ -12,7 +12,7 @@ Cilj ovih predavanja jeste da navedeni problem riješi.
 
 Želimo da Vas naučimo kako da najbolje iskoristite alate koje znate, upoznamo Vas sa novim alatima, i nadamo se da postaknemo uzbuđenje kod vas za samostalno istraživanje (a možda i izradu više alata). To je ono za šta vjerujemo da je semestar koji nedostaje u većini nastavnih planova CS-a.
 
-# Struktura predavanja
+## Struktura predavanja
 
 Predavanje se sastoji od 11 lekcija koje traju 1 sat, a svaka se tiče [određene teme](https://missing.csail.mit.edu/2020/). Lekcije su u velikoj mjeri nezavisne, a kako se semestar odvija, pretpostavićemo da ste upoznati sa sadržajem iz ranijih predavanja. Imamo zabilješke online, ali će biti dosta sadržaja koji će biti pokriven u lekcijama (npr. u formi demo-a) koji možda neće biti u zabilješkama. Lekcije ćemo snimati, i postaviti ih online. 
 
@@ -20,7 +20,7 @@ Pokušaćemo da pokrijemo dosta toga tokom predavanja koje se sadrži od samo 11
 
 Uzimajući u obzir vrijeme kojim smo ograničeni, nećemo biti u mogućnosti da pređemo sve alate na istom nivou detalja kao što bio slučaj sa punim časovima. Gdje god je to moguće, pokušaćemo da Vas usmjerimo ka resursima sa dodatnim informacijama vezanim za alat ili temu, ali ukoliko Vam nešto posebno zapadne za oko, ne oklijevajte da nas kontaktirate i pitate za smjernice.
 
-# Tema 1: Shell
+## Tema 1: Shell
 
 ## Šta je shell?
 
