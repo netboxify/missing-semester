@@ -1,5 +1,3 @@
-# Zašto predajemo ove lekcije
-
 Tokom tradicionalne nastave računarskih nauka, šanse su da ćete imati puno lekicja koje će vas učiti o naprednim temama CS-a, sve od operativnih sistema preko programskih jezika do machine learning-a. Ali u mnogim institucijama postoji jedna ključna tema koja se rijetko obrađuje, i umjesto toga se prepušta studentima da sami uče o njoj: pismenost u računarskom ekosistemu.
 
 Tokom godina, pomagali smo u predavanjima nekoliko predmeta na MIT-u, i iznova smo vidjeli da studenti imaju ograničeno znanje kada su u pitanju alati koji su im dostupni. Računari su napravljeni da bi automatizovali zadatke koji su se obavljali ručno, ipak studenti često ručno izvršavaju zadatke koji se ponavljaju ili ne uspijevaju da iskoriste puni potencijal moćnih alata kao što su kontrola verzije i editori teksta. U najboljem slučaju, ovo ima za rezultat neefektivnost i gubljenje vremena; u najgorem slučaju, ovo ima za rezultat probleme kao što je gubljenje podataka ili nemogućnost da se završi određeni zadatak.
