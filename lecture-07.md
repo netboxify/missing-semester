@@ -1,9 +1,3 @@
-# Uklanjanje grešaka i profilisanje
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=l812pUnKxME
-" target="_blank"><img src="" 
-alt="Lecture 7: Debugging and Profiling (2020)" width="240" height="180" border="10" /></a>
-
 Zlatno pravilo u programiranju jeste da kod ne radi ono što očekujete od njega, već ono što mu kažete da uradi. Premostiti taj problem ponekad može biti veoma krupan korak. U ovoj lekciji ćemo preći korisne tehnike za nošenje sa kodom koji ima bagove i kojem fale resursi: uklanjanje grešaka i profilisanje. 
 
 ## Uklanjanje grešaka
