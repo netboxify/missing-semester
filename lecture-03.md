@@ -1,9 +1,3 @@
-# Editori (Vim)
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=a6Q8Na575qc
-" target="_blank"><img src="" 
-alt="Lecture 3: Editors(Vim) (2020)" width="240" height="180" border="10" /></a>
-
 Pisanje riječi na engleskom i pisanje koda su dvije potpuno različite stvari. Dok programirate, provodite više vremena mijenjajući datoteke, čitajući, krećući se i uređujući kod u poređenju sa pisanjem teksta. Ima smisla da postoje različite vrste programa za pisanje Engleskih riječi u odnosu na kod (npr. Microsoft Word vs. Visual Studio Code).
 
 Kao programeri, koristimo najveći dio našeg vremena uređujući kod, tako da je isplativo uložiti vaše vrijeme da bi postali dobri u korišćenju editora koji zadovoljava vaše potrebe. Evo kako se uči novi editor: 
