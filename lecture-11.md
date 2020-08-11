@@ -1,6 +1,6 @@
 U poslednjoj lekciji, odgovorili smo na pitanja koja su studenti postavili:
 
-- [Da li imate neke preporuke za učenje tema koje se tiču operativnih sistema kao što su procesi, virtuelna memorija, prekidi, menadzment memorije i slično ?](#Prvo)
+- [Da li imate neke preporuke za učenje tema koje se tiču operativnih sistema kao što su procesi, virtuelna memorija, prekidi, menadzment memorije i slično ?](#)
 - [Koji su alati za koje mislite da bi trebali da imaju prioritet u učenju?](#)
 - [Kada koristim Python u odnosu na Bash skripte ili neke druge jezike?](#)
 - [Koja je razlika između `source script.sh` i `./script.sh` ?](#)
@@ -16,8 +16,6 @@ U poslednjoj lekciji, odgovorili smo na pitanja koja su studenti postavili:
 - [Još neki Vim trik?](#)
 - [Šta je 2FA i zašto bih trebao da je koristim?](#)
 - [Neki komentar na razlike između veb pretraživača?](#)
-
-## Prvo
 
 ## Da li imate neke preporuke za učenje tema koje se tiču operativnih sistema kao što su procesi, virtuelna memorija, prekidi, menadzment memorije i sl. ?
 
